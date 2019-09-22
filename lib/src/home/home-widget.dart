@@ -16,9 +16,15 @@ class _HomeWidgetState extends State<HomeWidget> {
     double appWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      drawer: Drawer(),
       appBar: AppBar(
         actions: <Widget>[
+          IconTheme(
+            child: Icon(FontAwesomeIcons.exclamationCircle),
+            data: IconThemeData(color: Colors.redAccent),
+          ),
+          SizedBox(
+            width: 15,
+          ),
           Padding(
             padding: EdgeInsets.only(right: 10),
             child: IconTheme(
@@ -39,7 +45,7 @@ class _HomeWidgetState extends State<HomeWidget> {
           child: Column(
             children: <Widget>[
               SizedBox(
-                height: appWidth * .16,
+                height: appWidth * .1,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -79,7 +85,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                 ],
               ),
               SizedBox(
-                height: appWidth * 0.15,
+                height: appWidth * 0.1,
               ),
               Text(
                 "últimas notícias".toUpperCase(),
@@ -135,25 +141,30 @@ class _HomeWidgetState extends State<HomeWidget> {
                   child: Row(
                     children: <Widget>[
                       Image.asset("assets/img/test.png", fit: BoxFit.contain),
-                      Padding(
-                        padding: EdgeInsets.all(10),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Text(
-                              "semana da arte".toUpperCase(),
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 12),
-                            ),
-                            Text(
-                              "Idealizado e coordenado pela \ndireção da Escola de Artes. \nFoi um evento muito bacana!",
-                              style: TextStyle(
-                                  fontSize: 10, color: Colors.black45),
-                              maxLines: 4,
-                              overflow: TextOverflow.fade,
-                            ),
-                            // )
-                          ],
+                      Expanded(
+                        child: Container(
+                          padding: EdgeInsets.all(10),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Text(
+                                "semana da arte".toUpperCase(),
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 12),
+                              ),
+                              SizedBox(
+                                height: appWidth * .02,
+                              ),
+                              Text(
+                                "Idealizado e coordenado pela direção da Escola de Artes. Foi um evento muito bacana!",
+                                softWrap: true,
+                                textAlign: TextAlign.start,
+                                style: TextStyle(
+                                    fontSize: 11, color: Colors.black45),
+                              ),
+                              // )
+                            ],
+                          ),
                         ),
                       )
                     ],
