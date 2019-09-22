@@ -8,7 +8,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(fontFamily: 'Flexo'),
+      theme: ThemeData(
+          fontFamily: 'Flexo',
+          secondaryHeaderColor: Color(0xFFFF4C00),
+          primaryColor: Color(0xFF1C2D50)),
       debugShowCheckedModeBanner: false,
       title: 'UNASP-HT',
       home: LoginWidget(),

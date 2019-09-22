@@ -1,0 +1,235 @@
+import 'package:carousel_slider/carousel_slider.dart';
+import 'package:fancy_bottom_navigation/fancy_bottom_navigation.dart';
+import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+class HomeWidget extends StatefulWidget {
+  @override
+  _HomeWidgetState createState() => _HomeWidgetState();
+}
+
+class _HomeWidgetState extends State<HomeWidget> {
+  @override
+  Widget build(BuildContext context) {
+    Color orange = Theme.of(context).secondaryHeaderColor;
+    Color blue = Theme.of(context).primaryColor;
+    double appWidth = MediaQuery.of(context).size.width;
+
+    return Scaffold(
+      drawer: Drawer(),
+      appBar: AppBar(
+        actions: <Widget>[
+          Padding(
+            padding: EdgeInsets.only(right: 10),
+            child: IconTheme(
+              child: Icon(FontAwesomeIcons.solidBell),
+              data: IconThemeData(color: Color(0xFFF3BB36)),
+            ),
+          )
+        ],
+        centerTitle: true,
+        title: Image.asset(
+          "assets/img/isolado_branco.png",
+          width: 80,
+        ),
+        backgroundColor: blue,
+      ),
+      body: SingleChildScrollView(
+        child: Center(
+          child: Column(
+            children: <Widget>[
+              SizedBox(
+                height: appWidth * .16,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  _squareButton("saídas", Color(0xFF6FBFCC),
+                      FontAwesomeIcons.signOutAlt, context),
+                  _squareButton("cardápio", Color(0xFF9A735C),
+                      FontAwesomeIcons.utensils, context),
+                  _squareButton("saídas", Color(0xFF34495E),
+                      FontAwesomeIcons.tshirt, context)
+                ],
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  _squareButton("portais", Color(0xFF818CD3),
+                      FontAwesomeIcons.userGraduate, context),
+                  _squareButton("mapa", Color(0xFF7DB760),
+                      FontAwesomeIcons.mapMarkedAlt, context),
+                  _squareButton("notícias", Color(0xFF95A5A6),
+                      FontAwesomeIcons.bullhorn, context)
+                ],
+              ),
+              SizedBox(
+                height: appWidth * 0.1,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  _rectangularButton("calendário", Color(0xFFC0CA33),
+                      FontAwesomeIcons.calendarAlt, context),
+                  _rectangularButton("ramais", Color(0xFFFFAB91),
+                      FontAwesomeIcons.phoneAlt, context),
+                ],
+              ),
+              SizedBox(
+                height: appWidth * 0.15,
+              ),
+              Text(
+                "últimas notícias".toUpperCase(),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              _news(context)
+            ],
+          ),
+        ),
+      ),
+      bottomNavigationBar: FancyBottomNavigation(
+        initialSelection: 1,
+        tabs: [
+          TabData(iconData: FontAwesomeIcons.userAlt, title: "PERFIL"),
+          TabData(iconData: FontAwesomeIcons.home, title: "HOME"),
+          TabData(iconData: FontAwesomeIcons.cog, title: "AJUSTES")
+        ],
+        circleColor: orange,
+        inactiveIconColor: orange,
+        onTabChangedListener: (position) {
+          setState(() {});
+        },
+      ),
+    );
+  }
+
+  Widget _news(BuildContext context) {
+    double appWidth = MediaQuery.of(context).size.width;
+
+    return CarouselSlider(
+      enableInfiniteScroll: false,
+      height: appWidth * .3,
+      items: [1, 2, 3, 4, 5].map((i) {
+        return Builder(
+          builder: (BuildContext context) {
+            return Padding(
+              padding: EdgeInsets.only(top: 10, bottom: 10),
+              child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  margin: EdgeInsets.symmetric(horizontal: 5.0),
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(10),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black12,
+                          blurRadius:
+                              5.0, // has the effect of softening the shadow
+                        )
+                      ]),
+                  child: Row(
+                    children: <Widget>[
+                      Image.asset("assets/img/test.png", fit: BoxFit.contain),
+                      Padding(
+                        padding: EdgeInsets.all(10),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              "semana da arte".toUpperCase(),
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 12),
+                            ),
+                            Text(
+                              "Idealizado e coordenado pela \ndireção da Escola de Artes. \nFoi um evento muito bacana!",
+                              style: TextStyle(
+                                  fontSize: 10, color: Colors.black45),
+                              maxLines: 4,
+                              overflow: TextOverflow.fade,
+                            ),
+                            // )
+                          ],
+                        ),
+                      )
+                    ],
+                  )),
+            );
+          },
+        );
+      }).toList(),
+    );
+  }
+
+  Widget _rectangularButton(
+      String text, Color color, IconData icon, BuildContext context) {
+    double appWidth = MediaQuery.of(context).size.width;
+
+    return Container(
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          color: Colors.white,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black12,
+              blurRadius: 5.0, // has the effect of softening the shadow
+            )
+          ]),
+      width: appWidth * .4,
+      height: appWidth * .17,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Padding(
+            padding: EdgeInsets.only(right: 10),
+            child: IconTheme(
+              data: IconThemeData(color: color),
+              child: Icon(icon),
+            ),
+          ),
+          Text(
+            text.toUpperCase(),
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget _squareButton(
+      String text, Color color, IconData icon, BuildContext context) {
+    double appWidth = MediaQuery.of(context).size.width;
+
+    return Container(
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          color: Colors.white,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black12,
+              blurRadius: 5.0, // has the effect of softening the shadow
+            )
+          ]),
+      width: appWidth * .25,
+      height: appWidth * .25,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          IconTheme(
+            data: IconThemeData(color: color),
+            child: Icon(icon),
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          Text(
+            text.toUpperCase(),
+          )
+        ],
+      ),
+    );
+  }
+}
