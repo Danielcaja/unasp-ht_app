@@ -17,11 +17,12 @@ class _HomeWidgetState extends State<HomeWidget> {
 
     return Scaffold(
       appBar: AppBar(
-        actions: <Widget>[
-          IconTheme(
-            child: Icon(FontAwesomeIcons.exclamationCircle),
+        leading:  IconTheme(
+            child: Icon(FontAwesomeIcons.exclamationTriangle),
             data: IconThemeData(color: Colors.redAccent),
           ),
+        actions: <Widget>[
+         
           SizedBox(
             width: 15,
           ),
@@ -54,7 +55,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                       FontAwesomeIcons.signOutAlt, context),
                   _squareButton("cardápio", Color(0xFF9A735C),
                       FontAwesomeIcons.utensils, context),
-                  _squareButton("saídas", Color(0xFF34495E),
+                  _squareButton("lavanderia", Color(0xFF34495E),
                       FontAwesomeIcons.tshirt, context)
                 ],
               ),
