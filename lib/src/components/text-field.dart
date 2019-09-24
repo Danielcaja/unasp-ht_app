@@ -5,8 +5,10 @@ class CustomTextField extends StatelessWidget {
   final IconData icon;
   final bool isPassword;
   final bool isBlue;
+  final TextInputType inputType;
 
-  CustomTextField({this.hintText, this.icon, this.isPassword, this.isBlue});
+  CustomTextField(
+      {this.hintText, this.icon, this.isPassword, this.isBlue, this.inputType});
 
   @override
   Widget build(BuildContext context) {
@@ -16,19 +18,18 @@ class CustomTextField extends StatelessWidget {
           color: isBlue ? Color(0xFF374562) : Colors.grey[350],
           borderRadius: BorderRadius.all(Radius.circular(10))),
       child: TextField(
-        keyboardType:
-            isPassword ? TextInputType.text : TextInputType.emailAddress,
+        keyboardType: inputType,
         obscureText: isPassword,
         style: TextStyle(
-            fontSize: 14, color: isBlue ? Color(0xFFC2C2C2) : Colors.grey[800]),
+            fontSize: 14, color: isBlue ? Color(0xFFC2C2C2) : Colors.grey[700]),
         decoration: InputDecoration(
             hintStyle: TextStyle(
-                color: isBlue ? Color(0xFFC2C2C2) : Colors.grey[800],
+                color: isBlue ? Color(0xFFC2C2C2) : Colors.grey[700],
                 fontSize: 14),
             hintText: hintText.toUpperCase(),
             icon: IconTheme(
               data: IconThemeData(
-                  color: isBlue ? Color(0xFFC2C2C2) : Colors.grey[800]),
+                  color: isBlue ? Color(0xFFC2C2C2) : Colors.grey[700]),
               child: Icon(icon),
             ),
             border: InputBorder.none),

@@ -61,6 +61,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                   icon: FontAwesomeIcons.solidEnvelope,
                   isPassword: false,
                   isBlue: true,
+                  inputType: TextInputType.emailAddress,
                 ),
                 SizedBox(
                   height: 20,
@@ -70,6 +71,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                   icon: FontAwesomeIcons.lock,
                   isPassword: true,
                   isBlue: true,
+                  inputType: TextInputType.text
                 ),
                 SizedBox(
                   height: 30,

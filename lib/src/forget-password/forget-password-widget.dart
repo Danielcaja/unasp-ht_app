@@ -20,11 +20,11 @@ class _ForgetPasswordWidgetState extends State<ForgetPasswordWidget> {
         child: Column(
           children: <Widget>[
             CustomTextField(
-              hintText: "Email",
-              icon: FontAwesomeIcons.solidEnvelope,
-              isPassword: false,
-              isBlue: false,
-            ),
+                hintText: "Email",
+                icon: FontAwesomeIcons.solidEnvelope,
+                isPassword: false,
+                isBlue: false,
+                inputType: TextInputType.emailAddress),
             SizedBox(height: 10),
             Button(
                 context: context, color: orange, text: "enviar", onTap: () {})
