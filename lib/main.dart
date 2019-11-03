@@ -1,20 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:unasp_ht/src/login/login-widget.dart';
+import 'package:unasp_ht/app/app_module.dart';
 
-void main() => runApp(MyApp());
-
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-          fontFamily: 'Flexo',
-          secondaryHeaderColor: Color(0xFFFF4C00),
-          primaryColor: Color(0xFF1C2D50)),
-      debugShowCheckedModeBanner: false,
-      title: 'UNASP-HT',
-      home: LoginWidget(),
-    );
-  }
-}
+void main() => runApp(AppModule());

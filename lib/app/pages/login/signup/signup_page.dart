@@ -1,14 +1,16 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:unasp_ht/src/components/button.dart';
-import 'package:unasp_ht/src/components/text-field.dart';
+import 'package:unasp_ht/app/pages/home/home_module.dart';
+import 'package:unasp_ht/app/shared/components/button.dart';
+import 'package:unasp_ht/app/shared/components/text-field.dart';
 
-class SignupWidget extends StatefulWidget {
+class SignupPage extends StatefulWidget {
   @override
-  _SignupWidgetState createState() => _SignupWidgetState();
+  _SignupPageState createState() => _SignupPageState();
 }
 
-class _SignupWidgetState extends State<SignupWidget> {
+class _SignupPageState extends State<SignupPage> {
   @override
   Widget build(BuildContext context) {
     Color orange = Theme.of(context).secondaryHeaderColor;
@@ -55,7 +57,13 @@ class _SignupWidgetState extends State<SignupWidget> {
                 inputType: TextInputType.text,
               ),
               SizedBox(height: 20),
-              Button(color: orange, onTap: (){}, context: context, text: "Continuar"),
+              Button(
+                  color: orange,
+                  onTap: () {
+                    CupertinoPageRoute(builder: (context) => HomeModule());
+                  },
+                  context: context,
+                  text: "Continuar"),
             ],
           ),
         ),

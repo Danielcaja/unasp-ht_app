@@ -1,17 +1,19 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:unasp_ht/src/components/button.dart';
-import 'package:unasp_ht/src/components/text-field.dart';
-import 'package:unasp_ht/src/forget-password/forget-password-widget.dart';
-import 'package:unasp_ht/src/home/home-widget.dart';
-import 'package:unasp_ht/src/signup/signup-widget.dart';
+import 'package:unasp_ht/app/pages/home/home_module.dart';
+import 'package:unasp_ht/app/pages/login/recover_pass/recover_pass_page.dart';
+import 'package:unasp_ht/app/pages/login/signup/signup_page.dart';
+import 'package:unasp_ht/app/shared/components/button.dart';
+import 'package:unasp_ht/app/shared/components/text-field.dart';
+import 'package:unasp_ht/app/shared/constants.dart';
 
-class LoginWidget extends StatefulWidget {
+class SigninPage extends StatefulWidget {
   @override
-  _LoginWidgetState createState() => _LoginWidgetState();
+  _SigninPageState createState() => _SigninPageState();
 }
 
-class _LoginWidgetState extends State<LoginWidget>
+class _SigninPageState extends State<SigninPage>
     with SingleTickerProviderStateMixin {
   AnimationController _animationController;
   Animation animTransformEmail;
@@ -51,9 +53,10 @@ class _LoginWidgetState extends State<LoginWidget>
             parent: _animationController,
             curve: Interval(0.5, 1, curve: Curves.easeOutExpo)));
 
-    animOpacityForgetPass = Tween<double>(begin: 1, end: 0).animate(CurvedAnimation(
-        parent: _animationController,
-        curve: Interval(0, 0.2, curve: Curves.easeIn)));
+    animOpacityForgetPass = Tween<double>(begin: 1, end: 0).animate(
+        CurvedAnimation(
+            parent: _animationController,
+            curve: Interval(0, 0.2, curve: Curves.easeIn)));
 
     animButtonWidth =
         Tween<double>(begin: MediaQuery.of(context).size.width, end: 50)
@@ -64,14 +67,11 @@ class _LoginWidgetState extends State<LoginWidget>
 
   @override
   Widget build(BuildContext context) {
-    Color orange = Theme.of(context).secondaryHeaderColor;
-    Color blue = Theme.of(context).primaryColor;
     double appWidth = MediaQuery.of(context).size.width;
-    bool isLoading = false;
 
     _signIn() {
       Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => HomeWidget()));
+          MaterialPageRoute(builder: (context) => HomeModule()));
     }
 
     _onTap() async {
@@ -85,17 +85,17 @@ class _LoginWidgetState extends State<LoginWidget>
     }
 
     _forgetPass() {
-      Navigator.of(context).push(
-          MaterialPageRoute(builder: (context) => ForgetPasswordWidget()));
+      Navigator.of(context)
+          .push(CupertinoPageRoute(builder: (context) => RecoverPassPage()));
     }
 
     _signUp() {
       Navigator.of(context)
-          .push(MaterialPageRoute(builder: (context) => SignupWidget()));
+          .push(CupertinoPageRoute(builder: (context) => SignupPage()));
     }
 
     return Scaffold(
-      backgroundColor: blue,
+      backgroundColor: BLUE,
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.only(left: appWidth * .1, right: appWidth * .1),
@@ -155,7 +155,7 @@ class _LoginWidgetState extends State<LoginWidget>
                     return Transform.translate(
                       child: Button(
                           context: context,
-                          color: orange,
+                          color: ORANGE,
                           text: "entrar",
                           onTap: _onTap,
                           width: animButtonWidth.value,

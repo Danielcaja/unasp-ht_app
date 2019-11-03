@@ -2,13 +2,15 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:fancy_bottom_navigation/fancy_bottom_navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:unasp_ht/app/shared/components/rectangular_home_button.dart';
+import 'package:unasp_ht/app/shared/components/square_home_button.dart';
 
-class HomeWidget extends StatefulWidget {
+class HomePage extends StatefulWidget {
   @override
-  _HomeWidgetState createState() => _HomeWidgetState();
+  _HomePageState createState() => _HomePageState();
 }
 
-class _HomeWidgetState extends State<HomeWidget> {
+class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     Color orange = Theme.of(context).secondaryHeaderColor;
@@ -17,12 +19,11 @@ class _HomeWidgetState extends State<HomeWidget> {
 
     return Scaffold(
       appBar: AppBar(
-        leading:  IconTheme(
-            child: Icon(FontAwesomeIcons.exclamationTriangle),
-            data: IconThemeData(color: Colors.redAccent),
-          ),
+        leading: IconTheme(
+          child: Icon(FontAwesomeIcons.exclamationTriangle),
+          data: IconThemeData(color: Colors.redAccent),
+        ),
         actions: <Widget>[
-         
           SizedBox(
             width: 15,
           ),
@@ -51,11 +52,11 @@ class _HomeWidgetState extends State<HomeWidget> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-                  _squareButton("saídas", Color(0xFF6FBFCC),
+                  SquareHomeButton("saídas", Color(0xFF6FBFCC),
                       FontAwesomeIcons.signOutAlt, context),
-                  _squareButton("cardápio", Color(0xFF9A735C),
+                  SquareHomeButton("cardápio", Color(0xFF9A735C),
                       FontAwesomeIcons.utensils, context),
-                  _squareButton("lavanderia", Color(0xFF34495E),
+                  SquareHomeButton("lavanderia", Color(0xFF34495E),
                       FontAwesomeIcons.tshirt, context)
                 ],
               ),
@@ -65,11 +66,11 @@ class _HomeWidgetState extends State<HomeWidget> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-                  _squareButton("portais", Color(0xFF818CD3),
+                  SquareHomeButton("portais", Color(0xFF818CD3),
                       FontAwesomeIcons.userGraduate, context),
-                  _squareButton("mapa", Color(0xFF7DB760),
+                  SquareHomeButton("mapa", Color(0xFF7DB760),
                       FontAwesomeIcons.mapMarkedAlt, context),
-                  _squareButton("notícias", Color(0xFF95A5A6),
+                  SquareHomeButton("notícias", Color(0xFF95A5A6),
                       FontAwesomeIcons.bullhorn, context)
                 ],
               ),
@@ -79,9 +80,9 @@ class _HomeWidgetState extends State<HomeWidget> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-                  _rectangularButton("calendário", Color(0xFFC0CA33),
+                  RectangularHomeButton("calendário", Color(0xFFC0CA33),
                       FontAwesomeIcons.calendarAlt, context),
-                  _rectangularButton("ramais", Color(0xFFFFAB91),
+                  RectangularHomeButton("ramais", Color(0xFFFFAB91),
                       FontAwesomeIcons.phoneAlt, context),
                 ],
               ),
@@ -94,7 +95,10 @@ class _HomeWidgetState extends State<HomeWidget> {
               SizedBox(
                 height: 20,
               ),
-              _news(context)
+              _news(context),
+              SizedBox(
+                height: 50,
+              ),
             ],
           ),
         ),
@@ -157,7 +161,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                 height: appWidth * .02,
                               ),
                               Text(
-                                "Idealizado e coordenado pela direção da Escola de Artes. Foi um evento muito bacana!",
+                                "Idealizado e coordenado pela direção da Escola de Artes. Foi um evento top!",
                                 softWrap: true,
                                 textAlign: TextAlign.start,
                                 style: TextStyle(
@@ -174,74 +178,6 @@ class _HomeWidgetState extends State<HomeWidget> {
           },
         );
       }).toList(),
-    );
-  }
-
-  Widget _rectangularButton(
-      String text, Color color, IconData icon, BuildContext context) {
-    double appWidth = MediaQuery.of(context).size.width;
-
-    return Container(
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          color: Colors.white,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black12,
-              blurRadius: 5.0, // has the effect of softening the shadow
-            )
-          ]),
-      width: appWidth * .4,
-      height: appWidth * .17,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Padding(
-            padding: EdgeInsets.only(right: 10),
-            child: IconTheme(
-              data: IconThemeData(color: color),
-              child: Icon(icon),
-            ),
-          ),
-          Text(
-            text.toUpperCase(),
-          )
-        ],
-      ),
-    );
-  }
-
-  Widget _squareButton(
-      String text, Color color, IconData icon, BuildContext context) {
-    double appWidth = MediaQuery.of(context).size.width;
-
-    return Container(
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          color: Colors.white,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black12,
-              blurRadius: 5.0, // has the effect of softening the shadow
-            )
-          ]),
-      width: appWidth * .25,
-      height: appWidth * .25,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          IconTheme(
-            data: IconThemeData(color: color),
-            child: Icon(icon),
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          Text(
-            text.toUpperCase(),
-          )
-        ],
-      ),
     );
   }
 }

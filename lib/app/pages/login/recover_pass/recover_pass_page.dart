@@ -1,14 +1,16 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:unasp_ht/src/components/button.dart';
-import 'package:unasp_ht/src/components/text-field.dart';
+import 'package:unasp_ht/app/pages/home/home_module.dart';
+import 'package:unasp_ht/app/shared/components/button.dart';
+import 'package:unasp_ht/app/shared/components/text-field.dart';
 
-class ForgetPasswordWidget extends StatefulWidget {
+class RecoverPassPage extends StatefulWidget {
   @override
-  _ForgetPasswordWidgetState createState() => _ForgetPasswordWidgetState();
+  _RecoverPassPageState createState() => _RecoverPassPageState();
 }
 
-class _ForgetPasswordWidgetState extends State<ForgetPasswordWidget> {
+class _RecoverPassPageState extends State<RecoverPassPage> {
   @override
   Widget build(BuildContext context) {
     Color orange = Theme.of(context).secondaryHeaderColor;
@@ -27,7 +29,9 @@ class _ForgetPasswordWidgetState extends State<ForgetPasswordWidget> {
                 inputType: TextInputType.emailAddress),
             SizedBox(height: 10),
             Button(
-                context: context, color: orange, text: "enviar", onTap: () {})
+                context: context, color: orange, text: "enviar", onTap: () {
+                  CupertinoPageRoute(builder: (context) => HomeModule());
+                })
           ],
         ),
       ),
