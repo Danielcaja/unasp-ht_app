@@ -2,8 +2,9 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:fancy_bottom_navigation/fancy_bottom_navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:unasp_ht/app/shared/components/rectangular_home_button.dart';
-import 'package:unasp_ht/app/shared/components/square_home_button.dart';
+
+import 'components/rectangular_home_button.dart';
+import 'components/square_home_button.dart';
 
 class HomePage extends StatefulWidget {
   @override
