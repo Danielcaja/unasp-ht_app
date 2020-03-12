@@ -8,16 +8,17 @@ class Button extends StatefulWidget {
   final String text;
   final double circular;
   final double width;
+  final bool enabled;
 
-  Button({
-    this.context,
-    this.onTap,
-    this.color,
-    this.text,
-    this.width,
-    this.circular = 10,
-    this.isLoading = false
-  });
+  Button(
+      {@required this.context,
+      @required this.onTap,
+      @required this.color,
+      @required this.text,
+      this.enabled = true,
+      this.width,
+      this.circular = 10,
+      this.isLoading = false});
 
   @override
   _ButtonState createState() => _ButtonState();
@@ -34,7 +35,7 @@ class _ButtonState extends State<Button> {
 
     _text() {
       return Padding(
-        padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
+        padding: EdgeInsets.symmetric(horizontal: 15),
         child: Text(
           widget.text?.toUpperCase(),
           textAlign: TextAlign.center,
@@ -44,13 +45,12 @@ class _ButtonState extends State<Button> {
     }
 
     return GestureDetector(
-      onTap:
-        widget.onTap,
+      onTap: widget.enabled ? widget.onTap : null,
       child: Container(
-        height: 50,
+        height: 45,
         width: widget.width,
         decoration: BoxDecoration(
-            color: widget.color,
+            color: widget.enabled ? widget.color : Colors.grey,
             borderRadius: BorderRadius.all(Radius.circular(widget.circular))),
         child: Center(
           child: widget.isLoading ? _loading() : _text(),

@@ -6,20 +6,30 @@ class CustomTextField extends StatelessWidget {
   final bool isPassword;
   final bool isBlue;
   final TextInputType inputType;
+  final TextEditingController controller;
+  final Function(String) onChanged;
 
   CustomTextField(
-      {this.hintText, this.icon, this.isPassword, this.isBlue, this.inputType});
+      {@required this.hintText,
+      @required this.icon,
+      @required this.isPassword,
+      @required this.isBlue,
+      @required this.controller,
+      @required this.inputType,
+      this.onChanged});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.fromLTRB(20, 5, 20, 5),
+      padding: EdgeInsets.symmetric(horizontal: 15),
       decoration: BoxDecoration(
           color: isBlue ? Color(0xFF374562) : Colors.grey[200],
           borderRadius: BorderRadius.all(Radius.circular(10))),
       child: TextField(
         keyboardType: inputType,
         obscureText: isPassword,
+        controller: controller,
+        onChanged: onChanged,
         style: TextStyle(
             fontSize: 14, color: isBlue ? Color(0xFFC2C2C2) : Colors.grey[500]),
         decoration: InputDecoration(
@@ -30,7 +40,10 @@ class CustomTextField extends StatelessWidget {
             icon: IconTheme(
               data: IconThemeData(
                   color: isBlue ? Color(0xFFC2C2C2) : Colors.grey[500]),
-              child: Icon(icon),
+              child: Icon(
+                icon,
+                size: 15,
+              ),
             ),
             border: InputBorder.none),
       ),
