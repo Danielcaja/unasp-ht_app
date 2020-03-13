@@ -25,7 +25,7 @@ class _BasicInfoStepState extends State<BasicInfoStep> {
             CustomTextField(
               controller: signupBloc.nameController,
               isBlue: false,
-              onChanged: signupBloc.isValidForm(),
+              onChanged: signupBloc.isValidBasicForm,
               icon: FontAwesomeIcons.userAlt,
               hintText: "nome",
               isPassword: false,
@@ -37,13 +37,13 @@ class _BasicInfoStepState extends State<BasicInfoStep> {
               isBlue: false,
               icon: FontAwesomeIcons.solidEnvelope,
               hintText: "email",
-              onChanged: signupBloc.isValidForm(),
+              onChanged: signupBloc.isValidBasicForm,
               isPassword: false,
               inputType: TextInputType.emailAddress,
             ),
             SizedBox(height: 10),
             CustomTextField(
-              onChanged: signupBloc.isValidForm(),
+              onChanged: signupBloc.isValidBasicForm,
               controller: signupBloc.passController,
               isBlue: false,
               icon: FontAwesomeIcons.lock,
@@ -55,7 +55,7 @@ class _BasicInfoStepState extends State<BasicInfoStep> {
             CustomTextField(
               controller: signupBloc.passconfirmController,
               isBlue: false,
-              onChanged: signupBloc.isValidForm(),
+              onChanged: signupBloc.isValidBasicForm,
               icon: FontAwesomeIcons.lock,
               hintText: "confirmação de senha",
               isPassword: true,

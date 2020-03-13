@@ -7,7 +7,7 @@ class CustomTextField extends StatelessWidget {
   final bool isBlue;
   final TextInputType inputType;
   final TextEditingController controller;
-  final Function(String) onChanged;
+  final Function() onChanged;
 
   CustomTextField(
       {@required this.hintText,
@@ -29,7 +29,7 @@ class CustomTextField extends StatelessWidget {
         keyboardType: inputType,
         obscureText: isPassword,
         controller: controller,
-        onChanged: onChanged,
+        onEditingComplete: onChanged,
         style: TextStyle(
             fontSize: 14, color: isBlue ? Color(0xFFC2C2C2) : Colors.grey[500]),
         decoration: InputDecoration(

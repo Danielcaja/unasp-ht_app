@@ -17,6 +17,10 @@ class _GenderStepState extends State<GenderStep> {
     Color orange = Theme.of(context).secondaryHeaderColor;
     SignupBloc signupBloc = LoginModule.to.getBloc<SignupBloc>();
 
+    selectGender(String g) {
+      signupBloc.genderController.add(g);
+    }
+
     return SingleChildScrollView(
       child: Container(
         padding: EdgeInsets.all(30),
@@ -28,21 +32,44 @@ class _GenderStepState extends State<GenderStep> {
             SizedBox(
               height: 20,
             ),
-            Row(
-              children: <Widget>[
-                CardGender(icon: FontAwesomeIcons.male, title: "Masculino"),
-                SizedBox(width: 10),
-                CardGender(icon: FontAwesomeIcons.female, title: "Feminino"),
-              ],
-            ),
+            StreamBuilder<String>(
+                stream: signupBloc.genderController,
+                builder: (context, snapshot) {
+                  return Row(
+                    children: <Widget>[
+                      GestureDetector(
+                        onTap: () => selectGender("m"),
+                        child: CardGender(
+                          icon: FontAwesomeIcons.male,
+                          title: "Masculino",
+                          isSelected: snapshot.hasData && snapshot.data == "m",
+                        ),
+                      ),
+                      SizedBox(width: 10),
+                      GestureDetector(
+                        onTap: () => selectGender("f"),
+                        child: CardGender(
+                          icon: FontAwesomeIcons.female,
+                          title: "Feminino",
+                          isSelected: snapshot.hasData && snapshot.data == "f",
+                        ),
+                      ),
+                    ],
+                  );
+                }),
             SizedBox(height: 20),
-            Button(
-                color: orange,
-                onTap: () => signupBloc.pageController.nextPage(
-                    duration: Duration(milliseconds: 100),
-                    curve: Curves.easeIn),
-                context: context,
-                text: "Continuar")
+            StreamBuilder<bool>(
+                stream: signupBloc.isValidGenderController,
+                builder: (context, snapshot) {
+                  return Button(
+                      enabled: snapshot.hasData && snapshot.data,
+                      color: orange,
+                      onTap: () => signupBloc.pageController.nextPage(
+                          duration: Duration(milliseconds: 100),
+                          curve: Curves.easeIn),
+                      context: context,
+                      text: "Continuar");
+                })
           ],
         ),
       ),

@@ -1,3 +1,4 @@
+import 'package:unasp_ht/app/pages/login/login_repository.dart';
 import 'package:unasp_ht/app/pages/login/signin/signin_bloc.dart';
 import 'package:unasp_ht/app/pages/login/recover_pass/recover_pass_bloc.dart';
 import 'package:unasp_ht/app/pages/login/signin/signin_page.dart';
@@ -10,11 +11,11 @@ class LoginModule extends ModuleWidget {
   List<Bloc> get blocs => [
         Bloc((i) => SigninBloc()),
         Bloc((i) => RecoverPassBloc()),
-        Bloc((i) => SignupBloc()),
+        Bloc((i) => SignupBloc(i.getDependency<LoginRepository>())),
       ];
 
   @override
-  List<Dependency> get dependencies => [];
+  List<Dependency> get dependencies => [Dependency((i) => LoginRepository())];
 
   @override
   Widget get view => SigninPage();
