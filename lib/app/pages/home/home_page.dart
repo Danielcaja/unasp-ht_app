@@ -20,21 +20,26 @@ class _HomePageState extends State<HomePage> {
 
     return Scaffold(
       appBar: AppBar(
-        leading: IconTheme(
-          child: Icon(FontAwesomeIcons.exclamationTriangle),
-          data: IconThemeData(color: Colors.redAccent),
-        ),
+        leading:
+            IconButton(icon: Icon(FontAwesomeIcons.powerOff), onPressed: () {}),
         actions: <Widget>[
           SizedBox(
             width: 15,
           ),
           Padding(
             padding: EdgeInsets.only(right: 10),
-            child: IconTheme(
-              child: Icon(FontAwesomeIcons.solidBell),
-              data: IconThemeData(color: Color(0xFFF3BB36)),
+            child: Icon(
+              FontAwesomeIcons.exclamationTriangle,
+              color: Colors.redAccent,
             ),
-          )
+          ),
+          Padding(
+            padding: EdgeInsets.only(right: 10),
+            child: Icon(
+              FontAwesomeIcons.solidBell,
+              color: Color(0xFFF3BB36),
+            ),
+          ),
         ],
         centerTitle: true,
         title: Image.asset(

@@ -26,7 +26,8 @@ class UserModel {
     data['email'] = this.email;
     data['genre'] = this.genre;
     data['mainCategory'] = this.mainCategory.index;
-    data['secondaryCategory'] = this.secondaryCategory.index;
+    data['secondaryCategory'] =
+        this.secondaryCategory != null ? this.secondaryCategory.index : null;
     data['ra'] = this.ra;
     return data;
   }

@@ -90,7 +90,7 @@ class _CategoryStepState extends State<CategoryStep> {
                             SizedBox(height: 20),
                             StreamBuilder<CategoryEnum>(
                                 stream: signupBloc.secondaryCategoryController,
-                                builder: (context, snapshot) {
+                                builder: (_, snapshot) {
                                   return Row(
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     children: <Widget>[
@@ -126,11 +126,11 @@ class _CategoryStepState extends State<CategoryStep> {
                   SizedBox(height: 20),
                   StreamBuilder<bool>(
                       stream: signupBloc.isValidCategoryController,
-                      builder: (context, snapshot) {
+                      builder: (_, snapshot) {
                         return Button(
                             enabled: snapshot.hasData && snapshot.data,
                             color: orange,
-                            onTap: () => signupBloc.sendData(),
+                            onTap: () => signupBloc.onTap(context),
                             context: context,
                             text: "Continuar");
                       })

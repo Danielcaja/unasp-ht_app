@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:unasp_ht/app/pages/home/home_page.dart';
 import 'package:unasp_ht/app/pages/login/login_module.dart';
 import 'package:unasp_ht/app/pages/login/signup/signup_bloc.dart';
 import 'package:unasp_ht/app/shared/components/button.dart';
@@ -31,11 +32,19 @@ class _RAStepState extends State<RAStep> {
               inputType: TextInputType.number,
               hintText: "RA",
               isBlue: false,
+              controller: signupBloc.raController,
             ),
             SizedBox(height: 20),
             Button(
                 color: orange,
-                onTap: () => Navigator.of(context).pop(),
+                onTap: () async {
+                  bool res = await signupBloc.onTap(context);
+
+                  if (res) {
+                    Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(builder: (context) => HomePage()));
+                  }
+                },
                 context: context,
                 text: "Continuar")
           ],

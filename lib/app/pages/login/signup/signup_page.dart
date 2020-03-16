@@ -17,32 +17,44 @@ class _SignupPageState extends State<SignupPage> {
   Widget build(BuildContext context) {
     SignupBloc signupBloc = LoginModule.to.getBloc<SignupBloc>();
 
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text("Cadastro".toUpperCase()),
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () {
-            if (signupBloc.pageController.page == 0) {
-              Navigator.of(context).pop();
-            } else {
-              signupBloc.pageController.previousPage(
-                  duration: Duration(milliseconds: 100), curve: Curves.easeIn);
-            }
-          },
-        ),
-      ),
-      body: PageView(
-        controller: signupBloc.pageController,
-        physics: NeverScrollableScrollPhysics(),
-        children: <Widget>[
-          BasicInfoStep(),
-          GenderStep(),
-          CategoryStep(),
-          RAStep()
-        ],
-      ),
-    );
+    return StreamBuilder<bool>(
+        stream: signupBloc.isLoadingController,
+        builder: (context, snapshot) {
+          return Scaffold(
+            key: signupBloc.key,
+            appBar: AppBar(
+              centerTitle: true,
+              title: Text("Cadastro".toUpperCase()),
+              leading: snapshot.hasData && snapshot.data
+                  ? Container()
+                  : IconButton(
+                      icon: Icon(Icons.arrow_back),
+                      onPressed: () {
+                        if (signupBloc.pageController.page == 0) {
+                          Navigator.of(context).pop();
+                        } else {
+                          signupBloc.pageController.previousPage(
+                              duration: Duration(milliseconds: 100),
+                              curve: Curves.easeIn);
+                        }
+                      },
+                    ),
+            ),
+            body: (snapshot.hasData && snapshot.data)
+                ? Center(
+                    child: CircularProgressIndicator(),
+                  )
+                : PageView(
+                    controller: signupBloc.pageController,
+                    physics: NeverScrollableScrollPhysics(),
+                    children: <Widget>[
+                      BasicInfoStep(),
+                      GenderStep(),
+                      CategoryStep(),
+                      RAStep()
+                    ],
+                  ),
+          );
+        });
   }
 }

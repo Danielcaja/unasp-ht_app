@@ -27,7 +27,7 @@ class _BasicInfoStepState extends State<BasicInfoStep> {
               isBlue: false,
               onChanged: signupBloc.isValidBasicForm,
               icon: FontAwesomeIcons.userAlt,
-              hintText: "nome",
+              hintText: "nome e sobrenome",
               isPassword: false,
               inputType: TextInputType.text,
             ),

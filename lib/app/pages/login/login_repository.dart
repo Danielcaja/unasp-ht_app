@@ -15,9 +15,9 @@ class LoginRepository {
           .collection("users")
           .document(firebaseUser.uid)
           .setData(model.toJson());
-      return true;
+      return null;
     } catch (e) {
-      return false;
+      return e?.message ?? "erro";
     }
   }
 }
