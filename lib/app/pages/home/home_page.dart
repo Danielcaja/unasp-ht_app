@@ -2,8 +2,6 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:fancy_bottom_navigation/fancy_bottom_navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:unasp_ht/app/pages/login/login_module.dart';
-import 'package:unasp_ht/app/pages/login/signup/signup_bloc.dart';
 
 import 'components/rectangular_home_button.dart';
 import 'components/square_home_button.dart';
@@ -19,13 +17,11 @@ class _HomePageState extends State<HomePage> {
     Color orange = Theme.of(context).secondaryHeaderColor;
     Color blue = Theme.of(context).primaryColor;
     double appWidth = MediaQuery.of(context).size.width;
-    SignupBloc signupBloc = LoginModule.to.getBloc<SignupBloc>();
 
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-            icon: Icon(FontAwesomeIcons.powerOff),
-            onPressed: () => signupBloc.signOut(context)),
+        leading:
+            IconButton(icon: Icon(FontAwesomeIcons.powerOff), onPressed: () {}),
         actions: <Widget>[
           SizedBox(
             width: 15,
