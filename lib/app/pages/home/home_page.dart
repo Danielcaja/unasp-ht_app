@@ -27,7 +27,7 @@ class _HomePageState extends State<HomePage> {
             width: 15,
           ),
           Padding(
-            padding: EdgeInsets.only(right: 10),
+            padding: EdgeInsets.only(right: 20),
             child: Icon(
               FontAwesomeIcons.exclamationTriangle,
               color: Colors.redAccent,
@@ -58,28 +58,30 @@ class _HomePageState extends State<HomePage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
+                   SquareHomeButton("Aluno", Color(0xFF34495E),
+                      FontAwesomeIcons.userGraduate, context),
                   SquareHomeButton("saídas", Color(0xFF6FBFCC),
                       FontAwesomeIcons.signOutAlt, context),
                   SquareHomeButton("cardápio", Color(0xFF9A735C),
-                      FontAwesomeIcons.utensils, context),
-                  SquareHomeButton("lavanderia", Color(0xFF34495E),
-                      FontAwesomeIcons.tshirt, context)
+                      FontAwesomeIcons.utensils, context)
+                  
                 ],
               ),
               SizedBox(
-                height: 20,
+                height: 15,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
                   SquareHomeButton("portais", Color(0xFF818CD3),
-                      FontAwesomeIcons.userGraduate, context),
+                      FontAwesomeIcons.link, context),
                   SquareHomeButton("mapa", Color(0xFF7DB760),
                       FontAwesomeIcons.mapMarkedAlt, context),
-                  SquareHomeButton("notícias", Color(0xFF95A5A6),
-                      FontAwesomeIcons.bullhorn, context)
+                  SquareHomeButton("ramais", Color(0xFFFFAB91),
+                      FontAwesomeIcons.phoneAlt, context),
                 ],
               ),
+
               SizedBox(
                 height: appWidth * 0.1,
               ),
@@ -88,8 +90,8 @@ class _HomePageState extends State<HomePage> {
                 children: <Widget>[
                   RectangularHomeButton("calendário", Color(0xFFC0CA33),
                       FontAwesomeIcons.calendarAlt, context),
-                  RectangularHomeButton("ramais", Color(0xFFFFAB91),
-                      FontAwesomeIcons.phoneAlt, context),
+                  RectangularHomeButton("Notícias", Color(0xFF95A5A6),
+                      FontAwesomeIcons.bullhorn, context),
                 ],
               ),
               SizedBox(
