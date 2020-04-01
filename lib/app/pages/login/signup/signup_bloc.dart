@@ -5,6 +5,7 @@ import 'package:rxdart/rxdart.dart';
 import 'package:unasp_ht/app/pages/home/home_page.dart';
 import 'package:unasp_ht/app/pages/login/login_repository.dart';
 import 'package:unasp_ht/app/pages/login/models/user_model.dart';
+import 'package:unasp_ht/app/pages/login/signin/signin_page.dart';
 import 'package:unasp_ht/app/pages/login/signup/enums/category_enum.dart';
 
 class SignupBloc extends BlocBase {
@@ -95,6 +96,11 @@ class SignupBloc extends BlocBase {
       pageController.nextPage(
           duration: Duration(milliseconds: 100), curve: Curves.easeIn);
     }
+  }
+
+  signOut(BuildContext context) {
+    Navigator.of(context).pushReplacement(
+        CupertinoPageRoute(builder: (context) => SigninPage()));
   }
 
   @override
