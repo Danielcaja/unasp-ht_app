@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 class LoginModule extends ModuleWidget {
   @override
   List<Bloc> get blocs => [
-        Bloc((i) => SigninBloc()),
+        Bloc((i) => SigninBloc(i.getDependency<LoginRepository>())),
         Bloc((i) => RecoverPassBloc(i.getDependency<LoginRepository>())),
         Bloc((i) => SignupBloc(i.getDependency<LoginRepository>())),
       ];

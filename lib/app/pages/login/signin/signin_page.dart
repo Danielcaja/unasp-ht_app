@@ -2,7 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:unasp_ht/app/pages/home/home_module.dart';
+import 'package:unasp_ht/app/pages/home/home_page.dart';
+import 'package:unasp_ht/app/pages/login/login_module.dart';
 import 'package:unasp_ht/app/pages/login/recover_pass/recover_pass_page.dart';
+import 'package:unasp_ht/app/pages/login/signin/signin_bloc.dart';
 import 'package:unasp_ht/app/pages/login/signup/signup_page.dart';
 import 'package:unasp_ht/app/shared/components/button.dart';
 import 'package:unasp_ht/app/shared/components/text-field.dart';
@@ -15,18 +18,18 @@ class SigninPage extends StatefulWidget {
 
 class _SigninPageState extends State<SigninPage>
     with SingleTickerProviderStateMixin {
-  AnimationController _animationController;
   Animation animTransformEmail;
   Animation animTransformPassword;
   Animation animButtonSigninCircular;
   Animation animButtonTransform;
   Animation animButtonWidth;
   Animation animOpacityForgetPass;
+  SigninBloc _bloc = LoginModule.to.getBloc();
 
   @override
   void initState() {
     super.initState();
-    _animationController = AnimationController(
+    _bloc.animationController = AnimationController(
         duration: Duration(milliseconds: 1000), vsync: this);
   }
 
@@ -35,54 +38,39 @@ class _SigninPageState extends State<SigninPage>
     super.didChangeDependencies();
     animTransformEmail = Tween<double>(begin: 0, end: 380).animate(
         CurvedAnimation(
-            parent: _animationController,
+            parent: _bloc.animationController,
             curve: Interval(0, 0.5, curve: Curves.easeIn)));
 
     animTransformPassword = Tween<double>(begin: 0, end: -380).animate(
         CurvedAnimation(
-            parent: _animationController,
+            parent: _bloc.animationController,
             curve: Interval(0, 0.5, curve: Curves.easeIn)));
 
     animButtonSigninCircular = Tween<double>(begin: 10, end: 50).animate(
         CurvedAnimation(
-            parent: _animationController,
+            parent: _bloc.animationController,
             curve: Interval(0, 0.5, curve: Curves.easeIn)));
 
     animButtonTransform = Tween<double>(begin: 0, end: -100).animate(
         CurvedAnimation(
-            parent: _animationController,
+            parent: _bloc.animationController,
             curve: Interval(0.5, 1, curve: Curves.easeOutExpo)));
 
     animOpacityForgetPass = Tween<double>(begin: 1, end: 0).animate(
         CurvedAnimation(
-            parent: _animationController,
+            parent: _bloc.animationController,
             curve: Interval(0, 0.2, curve: Curves.easeIn)));
 
     animButtonWidth =
         Tween<double>(begin: MediaQuery.of(context).size.width, end: 50)
             .animate(CurvedAnimation(
-                parent: _animationController,
+                parent: _bloc.animationController,
                 curve: Interval(0, 0.5, curve: Curves.easeIn)));
   }
 
   @override
   Widget build(BuildContext context) {
     double appWidth = MediaQuery.of(context).size.width;
-
-    _signIn() {
-      Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => HomeModule()));
-    }
-
-    _onTap() async {
-      if (_animationController.value > 0) {
-        _animationController.reverse();
-        await Future.delayed(Duration(seconds: 3)).then((onValue) => _signIn());
-      } else {
-        _animationController.forward();
-        await Future.delayed(Duration(seconds: 3)).then((onValue) => _signIn());
-      }
-    }
 
     _forgetPass() {
       Navigator.of(context)
@@ -115,6 +103,7 @@ class _SigninPageState extends State<SigninPage>
                 AnimatedBuilder(
                   animation: animTransformEmail,
                   child: CustomTextField(
+                    controller: _bloc.emailController,
                     hintText: "Email",
                     icon: FontAwesomeIcons.solidEnvelope,
                     isPassword: false,
@@ -134,6 +123,7 @@ class _SigninPageState extends State<SigninPage>
                 AnimatedBuilder(
                   animation: animTransformPassword,
                   child: CustomTextField(
+                      controller: _bloc.passwordController,
                       hintText: "Senha",
                       icon: FontAwesomeIcons.lock,
                       isPassword: true,
@@ -150,17 +140,40 @@ class _SigninPageState extends State<SigninPage>
                   height: 30,
                 ),
                 AnimatedBuilder(
-                  animation: _animationController,
+                  animation: _bloc.animationController,
                   builder: (BuildContext context, Widget child) {
                     return Transform.translate(
-                      child: Button(
-                          context: context,
-                          color: ORANGE,
-                          text: "entrar",
-                          onTap: _onTap,
-                          width: animButtonWidth.value,
-                          circular: animButtonSigninCircular.value,
-                          isLoading: animButtonTransform.value < 0),
+                      child: StreamBuilder<bool>(
+                          stream: _bloc.isValidForm,
+                          builder: (context, snapshot) {
+                            return Button(
+                                enabled: snapshot.hasData && snapshot.data,
+                                context: context,
+                                color: ORANGE,
+                                text: "entrar",
+                                onTap: () async {
+                                  FocusScope.of(context)
+                                      .requestFocus(new FocusNode());
+
+                                  String res = await _bloc.login();
+                                  _bloc.animationController.reverse();
+                                  if (res != null) {
+                                    Scaffold.of(context).showSnackBar(SnackBar(
+                                      content: Text(res ?? "Erro"),
+                                      backgroundColor: Colors.red,
+                                    ));
+                                  } else {
+                                    _bloc.emailController.clear();
+                                    _bloc.passwordController.clear();
+                                    Navigator.of(context).pushReplacement(
+                                        CupertinoPageRoute(
+                                            builder: (context) => HomePage()));
+                                  }
+                                },
+                                width: animButtonWidth.value,
+                                circular: animButtonSigninCircular.value,
+                                isLoading: animButtonTransform.value < 0);
+                          }),
                       offset: Offset(0, animButtonTransform.value),
                     );
                   },

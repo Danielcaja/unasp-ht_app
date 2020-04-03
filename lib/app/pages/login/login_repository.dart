@@ -54,4 +54,14 @@ class LoginRepository {
       return message ?? "erro";
     }
   }
+
+  login(String email, String password) async {
+    try {
+      AuthResult result = await _auth.signInWithEmailAndPassword(
+          email: email, password: password);
+      return null;
+    } catch (e) {
+      return "Usuário e/ou senha incorretos";
+    }
+  }
 }
