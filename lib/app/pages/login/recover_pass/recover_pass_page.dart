@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:unasp_ht/app/pages/home/home_module.dart';
+import 'package:tuple/tuple.dart';
+import 'package:unasp_ht/app/pages/login/login_module.dart';
+import 'package:unasp_ht/app/pages/login/recover_pass/recover_pass_bloc.dart';
 import 'package:unasp_ht/app/shared/components/button.dart';
 import 'package:unasp_ht/app/shared/components/text-field.dart';
 
@@ -11,30 +13,82 @@ class RecoverPassPage extends StatefulWidget {
 }
 
 class _RecoverPassPageState extends State<RecoverPassPage> {
+  RecoverPassBloc _bloc = LoginModule.to.getBloc();
+  GlobalKey<ScaffoldState> key = GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
     Color orange = Theme.of(context).secondaryHeaderColor;
-    return Scaffold(
-      appBar: AppBar(
-          centerTitle: true, title: Text("Esqueci minha senha".toUpperCase())),
-      body: Padding(
-        padding: EdgeInsets.only(left: 30, right: 30, top: 30),
-        child: Column(
-          children: <Widget>[
-            CustomTextField(
-                hintText: "Email",
-                icon: FontAwesomeIcons.solidEnvelope,
-                isPassword: false,
-                isBlue: false,
-                inputType: TextInputType.emailAddress),
-            SizedBox(height: 10),
-            Button(
-                context: context, color: orange, text: "enviar", onTap: () {
-                  CupertinoPageRoute(builder: (context) => HomeModule());
-                })
-          ],
-        ),
-      ),
-    );
+    return StreamBuilder<Tuple2<bool, bool>>(
+        stream: _bloc.stream,
+        builder: (c, snapshot) {
+          return Scaffold(
+            key: key,
+            appBar: AppBar(
+                centerTitle: true,
+                leading: snapshot.hasData && snapshot.data.item1
+                    ? Container()
+                    : null,
+                title: Text("Esqueci minha senha".toUpperCase())),
+            body: Padding(
+              padding: EdgeInsets.only(left: 30, right: 30, top: 30),
+              child: Column(
+                mainAxisAlignment: snapshot.hasData && snapshot.data.item1
+                    ? MainAxisAlignment.center
+                    : MainAxisAlignment.start,
+                children: <Widget>[
+                  Visibility(
+                    visible: snapshot.hasData && snapshot.data.item1,
+                    child: Center(
+                      child: CircularProgressIndicator(
+                        valueColor: AlwaysStoppedAnimation<Color>(
+                            Theme.of(context).secondaryHeaderColor),
+                      ),
+                    ),
+                  ),
+                  Visibility(
+                    visible: !(snapshot.hasData && snapshot.data.item1),
+                    child: Column(
+                      children: <Widget>[
+                        CustomTextField(
+                          hintText: "Email",
+                          icon: FontAwesomeIcons.solidEnvelope,
+                          isPassword: false,
+                          isBlue: false,
+                          inputType: TextInputType.emailAddress,
+                          controller: _bloc.emailController,
+                        ),
+                        SizedBox(height: 10),
+                        Button(
+                          enabled: snapshot.hasData && snapshot.data.item2,
+                          context: context,
+                          color: orange,
+                          text: "enviar",
+                          onTap: () async {
+                            String res = await _bloc.send();
+                            _bloc.isLoadingController.add(false);
+
+                            if (res == null) {
+                              key.currentState.showSnackBar(SnackBar(
+                                content:
+                                    Text("Feito, agora só olhar no seu email!"),
+                                backgroundColor: Colors.green,
+                              ));
+                            } else {
+                              key.currentState.showSnackBar(SnackBar(
+                                content: Text(res),
+                                backgroundColor: Colors.red,
+                              ));
+                            }
+                          },
+                        )
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            ),
+          );
+        });
   }
 }

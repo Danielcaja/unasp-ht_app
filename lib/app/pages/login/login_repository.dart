@@ -17,7 +17,41 @@ class LoginRepository {
           .setData(model.toJson());
       return null;
     } catch (e) {
-      return e?.message ?? "erro";
+      String message;
+      switch (e.code) {
+        case "ERROR_WEAK_PASSWORD":
+          message = "Ooops, senha precisa ser com + de 6 caracteres";
+          break;
+        case "ERROR_INVALID_EMAIL":
+          message = "Ooops, o email está inválido!";
+          break;
+        case "ERROR_EMAIL_ALREADY_IN_USE":
+          message = "Oops, já tem gente usando esse email aí!";
+          break;
+        default:
+          message = e.message ?? "Oops!";
+      }
+      return message ?? "erro";
+    }
+  }
+
+  recoverPassword(String email) async {
+    try {
+      await _auth.sendPasswordResetEmail(email: email);
+      return null;
+    } catch (e) {
+      String message;
+      switch (e.code) {
+        case "ERROR_INVALID_EMAIL":
+          message = "Ooops, o email está inválido!";
+          break;
+        case "ERROR_USER_NOT_FOUND":
+          message = "Não conseguimos te encontrar aqui na base, desculpa!";
+          break;
+        default:
+          message = e.message ?? "Oops!";
+      }
+      return message ?? "erro";
     }
   }
 }

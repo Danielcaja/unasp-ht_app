@@ -10,7 +10,7 @@ class LoginModule extends ModuleWidget {
   @override
   List<Bloc> get blocs => [
         Bloc((i) => SigninBloc()),
-        Bloc((i) => RecoverPassBloc()),
+        Bloc((i) => RecoverPassBloc(i.getDependency<LoginRepository>())),
         Bloc((i) => SignupBloc(i.getDependency<LoginRepository>())),
       ];
 
