@@ -8,8 +8,9 @@ environment:
 
 dependencies:
   fancy_bottom_navigation: ^0.3.2
-  cloud_firestore: ^0.12.9
-  firebase_auth: ^0.11.1+12
+  firebase_core: ^0.4.4+3
+  firebase_auth: ^0.15.5+3
+  cloud_firestore: ^0.13.4+2
   dio: ^3.0.4
   rxdart: ^0.23.1
   bloc_pattern: ^2.4.4

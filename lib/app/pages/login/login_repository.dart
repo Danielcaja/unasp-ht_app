@@ -4,7 +4,7 @@ import 'package:unasp_ht/app/pages/login/models/user_model.dart';
 
 class LoginRepository {
   FirebaseAuth _auth = FirebaseAuth.instance;
-  FirebaseUser firebaseUser;
+  AuthResult firebaseUser;
 
   signUp(UserModel model) async {
     try {
@@ -13,7 +13,7 @@ class LoginRepository {
 
       await Firestore.instance
           .collection("users")
-          .document(firebaseUser.uid)
+          .document(firebaseUser.user.uid)
           .setData(model.toJson());
       return null;
     } catch (e) {
