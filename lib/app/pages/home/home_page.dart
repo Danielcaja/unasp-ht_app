@@ -1,4 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:fancy_bottom_navigation/fancy_bottom_navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -16,6 +17,22 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
+    List<Widget> t = [
+      Container(
+        padding: EdgeInsets.all(10),
+        child: Icon(
+          FontAwesomeIcons.userAlt,
+          size: 20,
+          color: Colors.white,
+        ),
+      ),
+      Container(
+          padding: EdgeInsets.all(10),
+          child: Icon(FontAwesomeIcons.home, size: 20, color: Colors.white)),
+      Container(
+          padding: EdgeInsets.all(10),
+          child: Icon(FontAwesomeIcons.cog, size: 20, color: Colors.white)),
+    ];
     Color orange = Theme.of(context).secondaryHeaderColor;
     Color blue = Theme.of(context).primaryColor;
     double appWidth = MediaQuery.of(context).size.width;
@@ -62,13 +79,12 @@ class _HomePageState extends State<HomePage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-                   SquareHomeButton("Aluno", Color(0xFF34495E),
+                  SquareHomeButton("Aluno", Color(0xFF34495E),
                       FontAwesomeIcons.userGraduate, context),
                   SquareHomeButton("saídas", Color(0xFF6FBFCC),
                       FontAwesomeIcons.signOutAlt, context),
                   SquareHomeButton("cardápio", Color(0xFF9A735C),
                       FontAwesomeIcons.utensils, context)
-                  
                 ],
               ),
               SizedBox(
@@ -85,7 +101,6 @@ class _HomePageState extends State<HomePage> {
                       FontAwesomeIcons.phoneAlt, context),
                 ],
               ),
-
               SizedBox(
                 height: appWidth * 0.1,
               ),
@@ -115,17 +130,19 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
       ),
-      bottomNavigationBar: FancyBottomNavigation(
-        initialSelection: 1,
-        tabs: [
-          TabData(iconData: FontAwesomeIcons.userAlt, title: "PERFIL"),
-          TabData(iconData: FontAwesomeIcons.home, title: "HOME"),
-          TabData(iconData: FontAwesomeIcons.cog, title: "AJUSTES")
-        ],
-        circleColor: orange,
-        inactiveIconColor: orange,
-        onTabChangedListener: (position) {
-          setState(() {});
+      bottomNavigationBar: CurvedNavigationBar(
+        backgroundColor: Colors.white12,
+        buttonBackgroundColor: orange,
+        color: blue,
+        items: t,
+        onTap: (index) {
+          setState(() {
+            t[index] = Icon(
+              Icons.add,
+              size: 30,
+              color: Colors.white,
+            );
+          });
         },
       ),
     );

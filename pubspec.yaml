@@ -7,6 +7,7 @@ environment:
   sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
+  curved_navigation_bar: ^0.3.2
   fancy_bottom_navigation: ^0.3.2
   firebase_core: ^0.4.4+3
   firebase_auth: ^0.15.5+3
