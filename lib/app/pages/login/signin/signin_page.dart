@@ -34,6 +34,12 @@ class _SigninPageState extends State<SigninPage>
   }
 
   @override
+  void dispose() {
+    _bloc.animationController.dispose();
+    super.dispose();
+  }
+
+  @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     animTransformEmail = Tween<double>(begin: 0, end: 380).animate(
@@ -167,7 +173,8 @@ class _SigninPageState extends State<SigninPage>
                                     _bloc.passwordController.clear();
                                     Navigator.of(context).pushReplacement(
                                         CupertinoPageRoute(
-                                            builder: (context) => HomePage()));
+                                            builder: (context) =>
+                                                HomeModule()));
                                   }
                                 },
                                 width: animButtonWidth.value,

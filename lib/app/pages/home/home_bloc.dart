@@ -1,7 +1,14 @@
 import 'package:bloc_pattern/bloc_pattern.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:unasp_ht/app/pages/login/login_module.dart';
 
 class HomeBloc extends BlocBase {
-  //dispose will be called automatically by closing its streams
+  signOut(BuildContext context) {
+    Navigator.of(context).pushReplacement(
+        CupertinoPageRoute(builder: (context) => LoginModule()));
+  }
+
   @override
   void dispose() {
     super.dispose();

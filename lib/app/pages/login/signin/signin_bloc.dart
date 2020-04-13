@@ -29,7 +29,6 @@ class SigninBloc extends BlocBase {
 
   @override
   void dispose() {
-    animationController.dispose();
     isValidForm.close();
     super.dispose();
   }

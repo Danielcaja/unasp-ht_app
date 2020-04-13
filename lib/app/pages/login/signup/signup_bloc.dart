@@ -98,11 +98,6 @@ class SignupBloc extends BlocBase {
     }
   }
 
-  signOut(BuildContext context) {
-    Navigator.of(context).pushReplacement(
-        CupertinoPageRoute(builder: (context) => SigninPage()));
-  }
-
   @override
   void dispose() {
     isLoadingController.close();

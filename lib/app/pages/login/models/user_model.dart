@@ -5,6 +5,7 @@ class UserModel {
   String email;
   String password;
   String genre;
+  String imagePath;
   CategoryEnum mainCategory;
   CategoryEnum secondaryCategory;
   double ra;
@@ -15,8 +16,9 @@ class UserModel {
     name = json['name'];
     email = json['email'];
     genre = json['genre'];
-    mainCategory = json['mainCategory'];
-    secondaryCategory = json['secondaryCategory'];
+    imagePath = json['imagePath'];
+    mainCategory = CategoryEnum.values[json['mainCategory']];
+    secondaryCategory = CategoryEnum.values[json['secondaryCategory']];
     ra = json['ra'];
   }
 
@@ -25,6 +27,7 @@ class UserModel {
     data['name'] = this.name;
     data['email'] = this.email;
     data['genre'] = this.genre;
+    data['imagePath'] = this.imagePath;
     data['mainCategory'] = this.mainCategory.index;
     data['secondaryCategory'] =
         this.secondaryCategory != null ? this.secondaryCategory.index : null;

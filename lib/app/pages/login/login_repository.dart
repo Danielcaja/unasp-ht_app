@@ -1,10 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:unasp_ht/app/app_bloc.dart';
+import 'package:unasp_ht/app/app_module.dart';
 import 'package:unasp_ht/app/pages/login/models/user_model.dart';
 
 class LoginRepository {
   FirebaseAuth _auth = FirebaseAuth.instance;
+  Firestore firestore = Firestore.instance;
   AuthResult firebaseUser;
+  AppBloc bloc = AppModule.to.getBloc();
 
   signUp(UserModel model) async {
     try {
@@ -59,6 +63,11 @@ class LoginRepository {
     try {
       AuthResult result = await _auth.signInWithEmailAndPassword(
           email: email, password: password);
+      if (result.user != null) {
+        DocumentSnapshot teste =
+            await firestore.collection("users").document(result.user.uid).get();
+        bloc.currentUser.add(UserModel.fromJson(teste.data));
+      }
       return null;
     } catch (e) {
       return "Usuário e/ou senha incorretos";
