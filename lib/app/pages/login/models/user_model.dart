@@ -9,6 +9,7 @@ class UserModel {
   CategoryEnum mainCategory;
   CategoryEnum secondaryCategory;
   double ra;
+  String uid;
 
   UserModel();
 
@@ -20,6 +21,7 @@ class UserModel {
     mainCategory = CategoryEnum.values[json['mainCategory']];
     secondaryCategory = CategoryEnum.values[json['secondaryCategory']];
     ra = json['ra'];
+    uid = json['uid'];
   }
 
   Map<String, dynamic> toJson() {
@@ -27,6 +29,7 @@ class UserModel {
     data['name'] = this.name;
     data['email'] = this.email;
     data['genre'] = this.genre;
+    data['uid'] = this.uid;
     data['imagePath'] = this.imagePath;
     data['mainCategory'] = this.mainCategory.index;
     data['secondaryCategory'] =

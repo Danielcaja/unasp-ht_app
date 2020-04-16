@@ -18,7 +18,7 @@ class _HomePageState extends State<HomePage> {
       Container(
         padding: EdgeInsets.all(10),
         child: Icon(
-          FontAwesomeIcons.userAlt,
+          FontAwesomeIcons.home,
           size: 20,
           color: Colors.white,
         ),
@@ -26,7 +26,7 @@ class _HomePageState extends State<HomePage> {
       Container(
         padding: EdgeInsets.all(10),
         child: Icon(
-          FontAwesomeIcons.home,
+          FontAwesomeIcons.userAlt,
           size: 20,
           color: Colors.white,
         ),
@@ -35,7 +35,7 @@ class _HomePageState extends State<HomePage> {
     Color orange = Theme.of(context).secondaryHeaderColor;
     Color blue = Theme.of(context).primaryColor;
     HomeBloc bloc = HomeModule.to.getBloc<HomeBloc>();
-    PageController pageController = PageController(initialPage: 1);
+    PageController pageController = PageController();
 
     return Scaffold(
       appBar: AppBar(
@@ -71,11 +71,10 @@ class _HomePageState extends State<HomePage> {
       body: PageView(
         controller: pageController,
         physics: NeverScrollableScrollPhysics(),
-        children: <Widget>[Profile(), Home()],
+        children: <Widget>[Home(), Profile()],
       ),
       bottomNavigationBar: CurvedNavigationBar(
         backgroundColor: Colors.white12,
-        index: 1,
         buttonBackgroundColor: orange,
         color: blue,
         items: t,

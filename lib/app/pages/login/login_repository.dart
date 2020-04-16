@@ -5,10 +5,13 @@ import 'package:unasp_ht/app/app_module.dart';
 import 'package:unasp_ht/app/pages/login/models/user_model.dart';
 
 class LoginRepository {
-  FirebaseAuth _auth = FirebaseAuth.instance;
-  Firestore firestore = Firestore.instance;
+  final FirebaseAuth _auth;
+  final Firestore _firestore;
+
   AuthResult firebaseUser;
   AppBloc bloc = AppModule.to.getBloc();
+
+  LoginRepository(this._auth, this._firestore);
 
   signUp(UserModel model) async {
     try {
@@ -64,9 +67,13 @@ class LoginRepository {
       AuthResult result = await _auth.signInWithEmailAndPassword(
           email: email, password: password);
       if (result.user != null) {
-        DocumentSnapshot teste =
-            await firestore.collection("users").document(result.user.uid).get();
-        bloc.currentUser.add(UserModel.fromJson(teste.data));
+        DocumentSnapshot snapshot = await _firestore
+            .collection("users")
+            .document(result.user.uid)
+            .get();
+        Map<String, dynamic> data = snapshot.data;
+        data["uid"] = result.user.uid;
+        bloc.currentUser.add(UserModel.fromJson(data));
       }
       return null;
     } catch (e) {

@@ -1,6 +1,8 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:unasp_ht/app/pages/departures/departures_module.dart';
 import 'package:unasp_ht/app/pages/home/components/rectangular_home_button.dart';
 import 'package:unasp_ht/app/pages/home/components/square_home_button.dart';
 
@@ -23,12 +25,20 @@ class _HomeState extends State<Home> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                SquareHomeButton("Aluno", Color(0xFF34495E),
-                    FontAwesomeIcons.userGraduate, context),
-                SquareHomeButton("saídas", Color(0xFF6FBFCC),
-                    FontAwesomeIcons.signOutAlt, context),
+                SquareHomeButton(
+                  "Aluno",
+                  Color(0xFF34495E),
+                  FontAwesomeIcons.userGraduate,
+                  () {},
+                ),
+                SquareHomeButton(
+                    "saídas",
+                    Color(0xFF6FBFCC),
+                    FontAwesomeIcons.signOutAlt,
+                    () => Navigator.of(context).push(CupertinoPageRoute(
+                        builder: (context) => DeparturesModule()))),
                 SquareHomeButton("cardápio", Color(0xFF9A735C),
-                    FontAwesomeIcons.utensils, context)
+                    FontAwesomeIcons.utensils, () {})
               ],
             ),
             SizedBox(
@@ -37,12 +47,12 @@ class _HomeState extends State<Home> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                SquareHomeButton("portais", Color(0xFF818CD3),
-                    FontAwesomeIcons.link, context),
+                SquareHomeButton(
+                    "portais", Color(0xFF818CD3), FontAwesomeIcons.link, () {}),
                 SquareHomeButton("mapa", Color(0xFF7DB760),
-                    FontAwesomeIcons.mapMarkedAlt, context),
+                    FontAwesomeIcons.mapMarkedAlt, () {}),
                 SquareHomeButton("ramais", Color(0xFFFFAB91),
-                    FontAwesomeIcons.phoneAlt, context),
+                    FontAwesomeIcons.phoneAlt, () {}),
               ],
             ),
             SizedBox(
@@ -52,9 +62,9 @@ class _HomeState extends State<Home> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 RectangularHomeButton("calendário", Color(0xFFC0CA33),
-                    FontAwesomeIcons.calendarAlt, context),
+                    FontAwesomeIcons.calendarAlt, () {}),
                 RectangularHomeButton("Notícias", Color(0xFF95A5A6),
-                    FontAwesomeIcons.bullhorn, context),
+                    FontAwesomeIcons.bullhorn, () {}),
               ],
             ),
             SizedBox(

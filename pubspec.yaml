@@ -7,6 +7,7 @@ environment:
   sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
+  json_serializable: ^3.3.0
   cached_network_image: ^2.1.0+1
   build_runner: ^1.8.1
   hive_generator: ^0.7.0+2
