@@ -5,8 +5,6 @@ import 'package:unasp_ht/app/pages/home/home_bloc.dart';
 import 'package:unasp_ht/app/pages/home/home_module.dart';
 import 'package:unasp_ht/app/pages/home/pages/home/home.dart';
 import 'package:unasp_ht/app/pages/home/pages/profile/profile.dart';
-import 'package:unasp_ht/app/pages/login/login_module.dart';
-import 'package:unasp_ht/app/pages/login/signup/signup_bloc.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -26,11 +24,13 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
       Container(
-          padding: EdgeInsets.all(10),
-          child: Icon(FontAwesomeIcons.home, size: 20, color: Colors.white)),
-      Container(
-          padding: EdgeInsets.all(10),
-          child: Icon(FontAwesomeIcons.cog, size: 20, color: Colors.white)),
+        padding: EdgeInsets.all(10),
+        child: Icon(
+          FontAwesomeIcons.home,
+          size: 20,
+          color: Colors.white,
+        ),
+      ),
     ];
     Color orange = Theme.of(context).secondaryHeaderColor;
     Color blue = Theme.of(context).primaryColor;
@@ -71,13 +71,7 @@ class _HomePageState extends State<HomePage> {
       body: PageView(
         controller: pageController,
         physics: NeverScrollableScrollPhysics(),
-        children: <Widget>[
-          Profile(),
-          Home(),
-          Container(
-            color: Colors.green,
-          )
-        ],
+        children: <Widget>[Profile(), Home()],
       ),
       bottomNavigationBar: CurvedNavigationBar(
         backgroundColor: Colors.white12,

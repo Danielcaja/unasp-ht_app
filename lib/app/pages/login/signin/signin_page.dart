@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:unasp_ht/app/pages/home/home_module.dart';
-import 'package:unasp_ht/app/pages/home/home_page.dart';
 import 'package:unasp_ht/app/pages/login/login_module.dart';
 import 'package:unasp_ht/app/pages/login/recover_pass/recover_pass_page.dart';
 import 'package:unasp_ht/app/pages/login/signin/signin_bloc.dart';
