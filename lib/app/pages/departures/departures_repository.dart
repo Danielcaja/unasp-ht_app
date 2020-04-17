@@ -20,9 +20,7 @@ class DeparturesRepository {
       if (snapshot == null || snapshot.documents == null) {
         return null;
       }
-
-      List<Departure> departures =
-          snapshot.documents.map((f) => Departure.fromJson(f.data)).toList();
+      return snapshot.documents.map((f) => Departure.fromJson(f.data)).toList();
     } catch (e) {
       return null;
     }
