@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tuple/tuple.dart';
 import 'package:unasp_ht/app/pages/login/login_module.dart';
 import 'package:unasp_ht/app/pages/login/recover_pass/recover_pass_bloc.dart';
+import 'package:unasp_ht/app/pages/login/signup/components/loading_widget.dart';
 import 'package:unasp_ht/app/shared/components/button.dart';
 import 'package:unasp_ht/app/shared/components/text-field.dart';
 
@@ -40,10 +41,7 @@ class _RecoverPassPageState extends State<RecoverPassPage> {
                   Visibility(
                     visible: snapshot.hasData && snapshot.data.item1,
                     child: Center(
-                      child: CircularProgressIndicator(
-                        valueColor: AlwaysStoppedAnimation<Color>(
-                            Theme.of(context).secondaryHeaderColor),
-                      ),
+                      child: LoadingWidget(),
                     ),
                   ),
                   Visibility(

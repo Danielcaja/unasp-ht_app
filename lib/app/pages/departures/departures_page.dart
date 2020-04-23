@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:intl/intl.dart';
 import 'package:unasp_ht/app/pages/departures/components/departure_card.dart';
 import 'package:unasp_ht/app/pages/departures/departures_bloc.dart';
 import 'package:unasp_ht/app/pages/departures/departures_module.dart';
 import 'package:unasp_ht/app/pages/departures/models/departure_model.dart';
+import 'package:unasp_ht/app/pages/login/signup/components/loading_widget.dart';
 
 class DeparturesPage extends StatefulWidget {
   @override
@@ -30,22 +30,24 @@ class _DeparturesPageState extends State<DeparturesPage> {
               builder: (c, s) {
                 if (!s.hasData) {
                   return Center(
-                    child: CircularProgressIndicator(),
+                    child: LoadingWidget(),
                   );
                 }
 
                 return ListView.builder(
                   shrinkWrap: true,
-                  itemBuilder: (c, i) {
-                    Departure departure = s.data[i];
-                    return DepartureCard(departure: departure);
-                  },
+                  itemBuilder: (c, i) => DepartureCard(departure: s.data[i]),
                   itemCount: s.data.length,
                 );
               },
             )
           ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Theme.of(context).secondaryHeaderColor,
+        child: Icon(FontAwesomeIcons.plus),
+        onPressed: () {},
       ),
     );
   }

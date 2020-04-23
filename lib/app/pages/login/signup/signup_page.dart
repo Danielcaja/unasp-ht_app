@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:unasp_ht/app/pages/login/login_module.dart';
+import 'package:unasp_ht/app/pages/login/signup/components/loading_widget.dart';
 import 'package:unasp_ht/app/pages/login/signup/signup_bloc.dart';
 import 'package:unasp_ht/app/pages/login/signup/steps/basic_info_step.dart';
 import 'package:unasp_ht/app/pages/login/signup/steps/category_step.dart';
@@ -42,7 +43,7 @@ class _SignupPageState extends State<SignupPage> {
             ),
             body: (snapshot.hasData && snapshot.data)
                 ? Center(
-                    child: CircularProgressIndicator(),
+                    child: LoadingWidget(),
                   )
                 : PageView(
                     controller: signupBloc.pageController,
