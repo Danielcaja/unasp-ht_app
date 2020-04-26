@@ -29,10 +29,8 @@ dependencies:
     sdk: flutter
 
 dev_dependencies:
-  mockito: ^4.1.1
+  pedantic: ^1.9.0
   flutter_launcher_icons: 0.7.3
-  flutter_test:
-    sdk: flutter
 
 flutter_icons:
   android: "launcher_icon"
