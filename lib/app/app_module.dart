@@ -8,7 +8,7 @@ import 'package:unasp_ht/app/app_widget.dart';
 class AppModule extends ModuleWidget {
   @override
   List<Bloc> get blocs => [
-        Bloc((i) => AppBloc()),
+        Bloc<AppBloc>((i) => AppBloc()),
       ];
 
   @override
@@ -20,5 +20,5 @@ class AppModule extends ModuleWidget {
   @override
   Widget get view => AppWidget();
 
-  static Inject get to => Inject<AppModule>.of();
+  static Inject<Widget> get to => Inject<AppModule>.of();
 }

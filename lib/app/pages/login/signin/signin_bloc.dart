@@ -6,8 +6,8 @@ import 'package:unasp_ht/app/shared/utils/string_extensions.dart';
 
 class SigninBloc extends BlocBase {
   final LoginRepository repo;
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
   AnimationController animationController;
 
   SigninBloc(this.repo) {
@@ -15,14 +15,14 @@ class SigninBloc extends BlocBase {
     passwordController.addListener(validator);
   }
 
-  BehaviorSubject<bool> isValidForm = BehaviorSubject<bool>();
+  final BehaviorSubject<bool> isValidForm = BehaviorSubject<bool>();
 
-  validator() => isValidForm.add(!emailController.text.isNullOrEmpty &&
+  void validator() => isValidForm.add(!emailController.text.isNullOrEmpty &&
       !passwordController.text.isNullOrEmpty &&
       RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
           .hasMatch(emailController.text));
 
-  login() async {
+  Future<String> login() async {
     animationController.forward();
     return await repo.login(emailController.text, passwordController.text);
   }

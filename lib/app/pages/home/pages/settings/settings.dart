@@ -17,7 +17,7 @@ class _SettingsState extends State<Settings> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Text(
-                "atalhos iniciais".toUpperCase(),
+                'atalhos iniciais'.toUpperCase(),
                 style: TextStyle(
                   color: Theme.of(context).primaryColor,
                   fontSize: 18,
@@ -26,7 +26,7 @@ class _SettingsState extends State<Settings> {
               SizedBox(
                 height: 40,
               ),
-              Text("äsd")
+              Text('äsd')
             ],
           )),
     );

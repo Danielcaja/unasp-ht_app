@@ -17,13 +17,13 @@ class SigninPage extends StatefulWidget {
 
 class _SigninPageState extends State<SigninPage>
     with SingleTickerProviderStateMixin {
-  Animation animTransformEmail;
-  Animation animTransformPassword;
-  Animation animButtonSigninCircular;
-  Animation animButtonTransform;
-  Animation animButtonWidth;
-  Animation animOpacityForgetPass;
-  SigninBloc _bloc = LoginModule.to.getBloc();
+  Animation<double> animTransformEmail;
+  Animation<double> animTransformPassword;
+  Animation<double> animButtonSigninCircular;
+  Animation<double> animButtonTransform;
+  Animation<double> animButtonWidth;
+  Animation<double> animOpacityForgetPass;
+  final SigninBloc _bloc = LoginModule.to.getBloc();
 
   @override
   void initState() {
@@ -51,7 +51,7 @@ class _SigninPageState extends State<SigninPage>
             parent: _bloc.animationController,
             curve: Interval(0, 0.5, curve: Curves.easeIn)));
 
-    animButtonSigninCircular = Tween<double>(begin: 10, end: 50).animate(
+    animButtonSigninCircular = Tween<double>(begin: 10, end: 100).animate(
         CurvedAnimation(
             parent: _bloc.animationController,
             curve: Interval(0, 0.5, curve: Curves.easeIn)));
@@ -77,14 +77,14 @@ class _SigninPageState extends State<SigninPage>
   Widget build(BuildContext context) {
     double appWidth = MediaQuery.of(context).size.width;
 
-    _forgetPass() {
-      Navigator.of(context)
-          .push(CupertinoPageRoute(builder: (context) => RecoverPassPage()));
+    void _forgetPass() {
+      Navigator.of(context).push<CupertinoPageRoute>(
+          CupertinoPageRoute(builder: (context) => RecoverPassPage()));
     }
 
-    _signUp() {
-      Navigator.of(context)
-          .push(CupertinoPageRoute(builder: (context) => SignupPage()));
+    void _signUp() {
+      Navigator.of(context).push<CupertinoPageRoute>(
+          CupertinoPageRoute(builder: (context) => SignupPage()));
     }
 
     return Scaffold(
@@ -99,7 +99,7 @@ class _SigninPageState extends State<SigninPage>
                   height: appWidth * .3,
                 ),
                 Image.asset(
-                  "assets/img/logo_branco.png",
+                  'assets/img/logo_branco.png',
                   width: 180,
                 ),
                 SizedBox(
@@ -109,7 +109,7 @@ class _SigninPageState extends State<SigninPage>
                   animation: animTransformEmail,
                   child: CustomTextField(
                     controller: _bloc.emailController,
-                    hintText: "Email",
+                    hintText: 'Email',
                     icon: FontAwesomeIcons.solidEnvelope,
                     isPassword: false,
                     isBlue: true,
@@ -129,7 +129,7 @@ class _SigninPageState extends State<SigninPage>
                   animation: animTransformPassword,
                   child: CustomTextField(
                       controller: _bloc.passwordController,
-                      hintText: "Senha",
+                      hintText: 'Senha',
                       icon: FontAwesomeIcons.lock,
                       isPassword: true,
                       isBlue: true,
@@ -155,22 +155,24 @@ class _SigninPageState extends State<SigninPage>
                                 enabled: snapshot.hasData && snapshot.data,
                                 context: context,
                                 color: ORANGE,
-                                text: "entrar",
+                                text: 'entrar',
                                 onTap: () async {
                                   FocusScope.of(context)
-                                      .requestFocus(new FocusNode());
+                                      .requestFocus(FocusNode());
 
                                   String res = await _bloc.login();
                                   _bloc.animationController.reverse();
                                   if (res != null) {
                                     Scaffold.of(context).showSnackBar(SnackBar(
-                                      content: Text(res ?? "Erro"),
+                                      content: Text(res ?? 'Erro'),
                                       backgroundColor: Colors.red,
                                     ));
                                   } else {
                                     _bloc.emailController.clear();
                                     _bloc.passwordController.clear();
-                                    Navigator.of(context).pushReplacement(
+                                    await Navigator.of(context).pushReplacement<
+                                            CupertinoPageRoute,
+                                            CupertinoPageRoute>(
                                         CupertinoPageRoute(
                                             builder: (context) =>
                                                 HomeModule()));
@@ -195,17 +197,17 @@ class _SigninPageState extends State<SigninPage>
                         GestureDetector(
                           onTap: _signUp,
                           child: Text(
-                            "Cadastre-se".toUpperCase(),
+                            'Cadastre-se'.toUpperCase(),
                             style: TextStyle(fontSize: 14, color: Colors.white),
                           ),
                         ),
-                        Text("   |   ",
+                        Text('   |   ',
                             style:
                                 TextStyle(fontSize: 14, color: Colors.white)),
                         GestureDetector(
                           onTap: _forgetPass,
                           child: Text(
-                            "Esqueci minha senha".toUpperCase(),
+                            'Esqueci minha senha'.toUpperCase(),
                             style: TextStyle(fontSize: 14, color: Colors.white),
                           ),
                         )

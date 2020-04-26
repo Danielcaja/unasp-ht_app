@@ -26,18 +26,22 @@ class _HomeState extends State<Home> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 SquareHomeButton(
-                  "Aluno",
+                  'Aluno',
                   Color(0xFF34495E),
                   FontAwesomeIcons.userGraduate,
                   () {},
                 ),
                 SquareHomeButton(
-                    "saídas",
-                    Color(0xFF6FBFCC),
-                    FontAwesomeIcons.signOutAlt,
-                    () => Navigator.of(context).push(CupertinoPageRoute(
-                        builder: (context) => DeparturesModule()))),
-                SquareHomeButton("cardápio", Color(0xFF9A735C),
+                  'saídas',
+                  Color(0xFF6FBFCC),
+                  FontAwesomeIcons.signOutAlt,
+                  () => Navigator.of(context).push<CupertinoPageRoute>(
+                    CupertinoPageRoute(
+                      builder: (context) => DeparturesModule(),
+                    ),
+                  ),
+                ),
+                SquareHomeButton('cardápio', Color(0xFF9A735C),
                     FontAwesomeIcons.utensils, () {})
               ],
             ),
@@ -48,10 +52,10 @@ class _HomeState extends State<Home> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 SquareHomeButton(
-                    "portais", Color(0xFF818CD3), FontAwesomeIcons.link, () {}),
-                SquareHomeButton("mapa", Color(0xFF7DB760),
+                    'portais', Color(0xFF818CD3), FontAwesomeIcons.link, () {}),
+                SquareHomeButton('mapa', Color(0xFF7DB760),
                     FontAwesomeIcons.mapMarkedAlt, () {}),
-                SquareHomeButton("ramais", Color(0xFFFFAB91),
+                SquareHomeButton('ramais', Color(0xFFFFAB91),
                     FontAwesomeIcons.phoneAlt, () {}),
               ],
             ),
@@ -61,9 +65,9 @@ class _HomeState extends State<Home> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                RectangularHomeButton("calendário", Color(0xFFC0CA33),
+                RectangularHomeButton('calendário', Color(0xFFC0CA33),
                     FontAwesomeIcons.calendarAlt, () {}),
-                RectangularHomeButton("Notícias", Color(0xFF95A5A6),
+                RectangularHomeButton('Notícias', Color(0xFF95A5A6),
                     FontAwesomeIcons.bullhorn, () {}),
               ],
             ),
@@ -71,7 +75,7 @@ class _HomeState extends State<Home> {
               height: appWidth * 0.1,
             ),
             Text(
-              "últimas notícias".toUpperCase(),
+              'últimas notícias'.toUpperCase(),
             ),
             SizedBox(
               height: 20,
@@ -113,7 +117,7 @@ Widget _news(BuildContext context) {
                     ]),
                 child: Row(
                   children: <Widget>[
-                    Image.asset("assets/img/test.png", fit: BoxFit.contain),
+                    Image.asset('assets/img/test.png', fit: BoxFit.contain),
                     Expanded(
                       child: Container(
                         padding: EdgeInsets.all(10),
@@ -121,7 +125,7 @@ Widget _news(BuildContext context) {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Text(
-                              "semana da arte".toUpperCase(),
+                              'semana da arte'.toUpperCase(),
                               style: TextStyle(
                                   fontWeight: FontWeight.bold, fontSize: 12),
                             ),
@@ -129,7 +133,7 @@ Widget _news(BuildContext context) {
                               height: appWidth * .02,
                             ),
                             Text(
-                              "Idealizado e coordenado pela direção da Escola de Artes. Foi um evento top!",
+                              'Idealizado e coordenado pela direção da Escola de Artes. Foi um evento top!',
                               softWrap: true,
                               textAlign: TextAlign.start,
                               style: TextStyle(

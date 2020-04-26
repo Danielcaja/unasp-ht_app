@@ -17,7 +17,7 @@ class _GenderStepState extends State<GenderStep> {
     Color orange = Theme.of(context).secondaryHeaderColor;
     SignupBloc signupBloc = LoginModule.to.getBloc<SignupBloc>();
 
-    selectGender(String g) {
+    void selectGender(String g) {
       signupBloc.genderController.add(g);
     }
 
@@ -27,7 +27,7 @@ class _GenderStepState extends State<GenderStep> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            Text("Informe seu gênero".toUpperCase(),
+            Text('Informe seu gênero'.toUpperCase(),
                 style: TextStyle(color: Theme.of(context).primaryColor)),
             SizedBox(
               height: 20,
@@ -38,20 +38,20 @@ class _GenderStepState extends State<GenderStep> {
                   return Row(
                     children: <Widget>[
                       GestureDetector(
-                        onTap: () => selectGender("m"),
+                        onTap: () => selectGender('m'),
                         child: CardGender(
                           icon: FontAwesomeIcons.male,
-                          title: "Masculino",
-                          isSelected: snapshot.hasData && snapshot.data == "m",
+                          title: 'Masculino',
+                          isSelected: snapshot.hasData && snapshot.data == 'm',
                         ),
                       ),
                       SizedBox(width: 10),
                       GestureDetector(
-                        onTap: () => selectGender("f"),
+                        onTap: () => selectGender('f'),
                         child: CardGender(
                           icon: FontAwesomeIcons.female,
-                          title: "Feminino",
-                          isSelected: snapshot.hasData && snapshot.data == "f",
+                          title: 'Feminino',
+                          isSelected: snapshot.hasData && snapshot.data == 'f',
                         ),
                       ),
                     ],
@@ -68,7 +68,7 @@ class _GenderStepState extends State<GenderStep> {
                           duration: Duration(milliseconds: 100),
                           curve: Curves.easeIn),
                       context: context,
-                      text: "Continuar");
+                      text: 'Continuar');
                 })
           ],
         ),

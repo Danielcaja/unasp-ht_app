@@ -18,7 +18,7 @@ class _DeparturesPageState extends State<DeparturesPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Saídas".toUpperCase()),
+        title: Text('Saídas'.toUpperCase()),
         centerTitle: true,
       ),
       body: Container(

@@ -14,7 +14,7 @@ class RecoverPassPage extends StatefulWidget {
 }
 
 class _RecoverPassPageState extends State<RecoverPassPage> {
-  RecoverPassBloc _bloc = LoginModule.to.getBloc();
+  final RecoverPassBloc _bloc = LoginModule.to.getBloc();
   GlobalKey<ScaffoldState> key = GlobalKey<ScaffoldState>();
 
   @override
@@ -26,11 +26,13 @@ class _RecoverPassPageState extends State<RecoverPassPage> {
           return Scaffold(
             key: key,
             appBar: AppBar(
-                centerTitle: true,
-                leading: snapshot.hasData && snapshot.data.item1
-                    ? Container()
-                    : null,
-                title: Text("Esqueci minha senha".toUpperCase())),
+              centerTitle: true,
+              leading:
+                  snapshot.hasData && snapshot.data.item1 ? Container() : null,
+              title: Text(
+                'Esqueci minha senha'.toUpperCase(),
+              ),
+            ),
             body: Padding(
               padding: EdgeInsets.only(left: 30, right: 30, top: 30),
               child: Column(
@@ -49,19 +51,19 @@ class _RecoverPassPageState extends State<RecoverPassPage> {
                     child: Column(
                       children: <Widget>[
                         CustomTextField(
-                          hintText: "Email",
+                          hintText: 'Email',
                           icon: FontAwesomeIcons.solidEnvelope,
                           isPassword: false,
                           isBlue: false,
                           inputType: TextInputType.emailAddress,
                           controller: _bloc.emailController,
                         ),
-                        SizedBox(height: 10),
+                        const SizedBox(height: 10),
                         Button(
                           enabled: snapshot.hasData && snapshot.data.item2,
                           context: context,
                           color: orange,
-                          text: "enviar",
+                          text: 'enviar',
                           onTap: () async {
                             String res = await _bloc.send();
                             _bloc.isLoadingController.add(false);
@@ -69,7 +71,7 @@ class _RecoverPassPageState extends State<RecoverPassPage> {
                             if (res == null) {
                               key.currentState.showSnackBar(SnackBar(
                                 content:
-                                    Text("Feito, agora só olhar no seu email!"),
+                                    Text('Feito, agora só olhar no seu email!'),
                                 backgroundColor: Colors.green,
                               ));
                             } else {

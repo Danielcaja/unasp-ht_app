@@ -8,24 +8,26 @@ import 'package:unasp_ht/app/shared/utils/string_extensions.dart';
 
 class RecoverPassBloc extends BlocBase {
   final LoginRepository loginRepository;
-  TextEditingController emailController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
 
-  BehaviorSubject<bool> isLoadingController =
+  final BehaviorSubject<bool> isLoadingController =
       BehaviorSubject<bool>.seeded(false);
-  BehaviorSubject<bool> isValidForm = BehaviorSubject<bool>.seeded(false);
+  final BehaviorSubject<bool> isValidForm = BehaviorSubject<bool>.seeded(false);
 
   RecoverPassBloc(this.loginRepository) {
     emailController.addListener(validator);
   }
 
-  validator() => isValidForm.add(!emailController.text.isNullOrEmpty &&
+  void validator() => isValidForm.add(!emailController.text.isNullOrEmpty &&
       RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
           .hasMatch(emailController.text));
 
   Stream<Tuple2<bool, bool>> get stream => Rx.combineLatest2(
-      isLoadingController, isValidForm, (a, b) => Tuple2<bool, bool>(a, b));
+      isLoadingController,
+      isValidForm,
+      (bool a, bool b) => Tuple2<bool, bool>(a, b));
 
-  send() async {
+  Future<String> send() async {
     isLoadingController.add(true);
     return await loginRepository.recoverPassword(emailController.text);
   }

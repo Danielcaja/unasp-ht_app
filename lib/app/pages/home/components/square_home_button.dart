@@ -13,12 +13,12 @@ class SquareHomeButton extends StatelessWidget {
     double appWidth = MediaQuery.of(context).size.width;
 
     return GestureDetector(
-      onTap: onTap,
+      onTap: () => onTap,
       child: Container(
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
             color: Colors.white,
-            boxShadow: [
+            boxShadow: <BoxShadow>[
               BoxShadow(
                 color: Colors.black12,
                 blurRadius: 5.0, // has the effect of softening the shadow

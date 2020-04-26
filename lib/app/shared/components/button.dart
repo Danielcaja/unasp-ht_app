@@ -25,16 +25,11 @@ class Button extends StatefulWidget {
 }
 
 class _ButtonState extends State<Button> {
-  @override
-  Widget build(BuildContext context) {
-    _loading() {
-      return CircularProgressIndicator(
-        valueColor: AlwaysStoppedAnimation(Colors.white),
+  Widget _loading() => CircularProgressIndicator(
+        valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
       );
-    }
 
-    _text() {
-      return Padding(
+  Widget _text() => Padding(
         padding: EdgeInsets.symmetric(horizontal: 15),
         child: Text(
           widget.text?.toUpperCase(),
@@ -42,20 +37,19 @@ class _ButtonState extends State<Button> {
           style: TextStyle(fontSize: 14, color: Colors.white),
         ),
       );
-    }
 
-    return GestureDetector(
-      onTap: widget.enabled ? widget.onTap : null,
-      child: Container(
-        height: 45,
-        width: widget.width,
-        decoration: BoxDecoration(
-            color: widget.enabled ? widget.color : Colors.grey,
-            borderRadius: BorderRadius.all(Radius.circular(widget.circular))),
-        child: Center(
-          child: widget.isLoading ? _loading() : _text(),
+  @override
+  Widget build(BuildContext context) => GestureDetector(
+        onTap: widget.enabled ? widget.onTap : null,
+        child: Container(
+          height: 45,
+          width: widget.width,
+          decoration: BoxDecoration(
+              color: widget.enabled ? widget.color : Colors.grey,
+              borderRadius: BorderRadius.all(Radius.circular(widget.circular))),
+          child: Center(
+            child: widget.isLoading ? _loading() : _text(),
+          ),
         ),
-      ),
-    );
-  }
+      );
 }

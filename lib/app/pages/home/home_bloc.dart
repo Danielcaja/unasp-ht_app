@@ -4,9 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:unasp_ht/app/pages/login/login_module.dart';
 
 class HomeBloc extends BlocBase {
-  signOut(BuildContext context) {
-    Navigator.of(context).pushReplacement(
-        CupertinoPageRoute(builder: (context) => LoginModule()));
+  void signOut(BuildContext context) {
+    Navigator.of(context)
+        .pushReplacement<CupertinoPageRoute, CupertinoPageRoute>(
+            CupertinoPageRoute(builder: (context) => LoginModule()));
   }
 
   @override

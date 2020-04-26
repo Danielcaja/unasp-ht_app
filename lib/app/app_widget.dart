@@ -4,16 +4,14 @@ import 'package:unasp_ht/app/shared/constants.dart';
 
 class AppWidget extends StatelessWidget {
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'UNASP HT',
-      theme: ThemeData(
-        fontFamily: 'Flexo',
-        secondaryHeaderColor: ORANGE,
-        primaryColor: BLUE,
-      ),
-      debugShowCheckedModeBanner: false,
-      home: LoginModule(),
-    );
-  }
+  Widget build(BuildContext context) => MaterialApp(
+        title: 'UNASP HT',
+        theme: ThemeData(
+          fontFamily: FONT_FAMILY,
+          secondaryHeaderColor: ORANGE,
+          primaryColor: BLUE,
+        ),
+        debugShowCheckedModeBanner: false,
+        home: LoginModule(),
+      );
 }

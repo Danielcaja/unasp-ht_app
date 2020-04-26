@@ -13,8 +13,8 @@ class DeparturesRepository {
   Future<List<Departure>> getDepartures() async {
     try {
       QuerySnapshot snapshot = await _firestore
-          .collection("departures")
-          .where("userId", isEqualTo: appBloc.currentUser.value.uid)
+          .collection('departures')
+          .where('userId', isEqualTo: appBloc.currentUser.value.uid)
           .getDocuments();
 
       if (snapshot == null || snapshot.documents == null) {

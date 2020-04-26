@@ -23,14 +23,14 @@ class _RAStepState extends State<RAStep> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            Text("Informe seu RA".toUpperCase(),
+            Text('Informe seu RA'.toUpperCase(),
                 style: TextStyle(color: Theme.of(context).primaryColor)),
             SizedBox(height: 20),
             CustomTextField(
               icon: FontAwesomeIcons.idCard,
               isPassword: false,
               inputType: TextInputType.number,
-              hintText: "RA",
+              hintText: 'RA',
               isBlue: false,
               controller: signupBloc.raController,
             ),
@@ -41,12 +41,13 @@ class _RAStepState extends State<RAStep> {
                   bool res = await signupBloc.onTap(context);
 
                   if (res) {
-                    Navigator.of(context).pushReplacement(
+                    await Navigator.of(context).pushReplacement<
+                            MaterialPageRoute, MaterialPageRoute>(
                         MaterialPageRoute(builder: (context) => HomePage()));
                   }
                 },
                 context: context,
-                text: "Continuar")
+                text: 'Continuar')
           ],
         ),
       ),

@@ -29,7 +29,7 @@ class DepartureCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => Navigator.of(context).push(
+      onTap: () => Navigator.of(context).push<CupertinoPageRoute>(
         CupertinoPageRoute(
           builder: (context) => DepartureDetailPage(
             departure: departure,
@@ -75,7 +75,7 @@ class DepartureCard extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: <Widget>[
                             Text(
-                              "ida: ".toUpperCase(),
+                              'ida: '.toUpperCase(),
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: Theme.of(context).primaryColor,
@@ -89,7 +89,7 @@ class DepartureCard extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: <Widget>[
                             Text(
-                              "volta: ".toUpperCase(),
+                              'volta: '.toUpperCase(),
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: Theme.of(context).primaryColor,
@@ -116,7 +116,7 @@ class DepartureCard extends StatelessWidget {
                               size: 15,
                             ),
                             SizedBox(width: 10),
-                            Text(departure.location?.toUpperCase() ?? "")
+                            Text(departure.location?.toUpperCase() ?? '')
                           ],
                         ),
                         Row(
@@ -128,7 +128,7 @@ class DepartureCard extends StatelessWidget {
                               size: 15,
                             ),
                             SizedBox(width: 10),
-                            Text(departure.reason?.toUpperCase() ?? "")
+                            Text(departure.reason?.toUpperCase() ?? '')
                           ],
                         ),
                       ],
@@ -149,7 +149,7 @@ class DepartureCard extends StatelessWidget {
                                     departure.status.toString().indexOf('.') +
                                         1)
                                 .toUpperCase() ??
-                            ""),
+                            ''),
                       )),
                 ],
               ),

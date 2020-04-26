@@ -3,7 +3,7 @@ import 'package:rxdart/subjects.dart';
 import 'package:unasp_ht/app/pages/login/models/user_model.dart';
 
 class AppBloc extends BlocBase {
-  BehaviorSubject<UserModel> currentUser = BehaviorSubject<UserModel>();
+  final BehaviorSubject<UserModel> currentUser = BehaviorSubject<UserModel>();
 
   @override
   void dispose() {

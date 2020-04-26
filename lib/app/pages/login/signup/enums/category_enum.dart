@@ -1,26 +1,26 @@
 enum CategoryEnum { None, College, HighSchool, Church, Internship, External }
 
 String stringValue(int index) {
-  String r = "";
+  String r = '';
 
   switch (index) {
     case 0:
-      r = "";
+      r = '';
       break;
     case 1:
-      r = "Ensino Superior";
+      r = 'Ensino Superior';
       break;
     case 2:
-      r = "Ensino Básico";
+      r = 'Ensino Básico';
       break;
     case 3:
-      r = "Comunidade";
+      r = 'Comunidade';
       break;
     case 4:
-      r = "Internato";
+      r = 'Internato';
       break;
     case 5:
-      r = "Externato";
+      r = 'Externato';
       break;
   }
 

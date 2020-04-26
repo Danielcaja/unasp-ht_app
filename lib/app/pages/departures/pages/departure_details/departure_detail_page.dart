@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:unasp_ht/app/pages/departures/models/departure_model.dart';
 import 'package:unasp_ht/app/shared/components/labeled.dart';
@@ -28,29 +27,33 @@ class _DepartureDetailPageState extends State<DepartureDetailPage> {
           child: Column(
             children: <Widget>[
               Labeled(
-                label: "Ida: ",
-                text: DateFormat('dd/MM/yy').format(
-                  widget.departure.going ?? DateTime.now(),
-                ),
+                label: 'Ida: ',
+                text: DateFormat('dd/MM/yy - HH:mm').format(
+                      widget.departure.going ?? DateTime.now(),
+                    ) +
+                    'h',
               ),
-              SizedBox(
-                height: 8,
-              ),
+              const SizedBox(height: 8),
               Labeled(
-                label: "Volta: ",
-                text: DateFormat('dd/MM/yy').format(
-                  widget.departure.turning ?? DateTime.now(),
-                ),
+                label: 'Volta: ',
+                text: DateFormat('dd/MM/yy - HH:mm').format(
+                      widget.departure.turning ?? DateTime.now(),
+                    ) +
+                    'h',
               ),
-              SizedBox(
-                height: 15,
-              ),
+              const SizedBox(height: 8),
               Labeled(
-                icon: FontAwesomeIcons.infoCircle,
-                label: "Detalhes: ",
-                text: DateFormat('dd/MM/yy').format(
-                  widget.departure.turning ?? DateTime.now(),
-                ),
+                label: 'Motivo: ',
+                text: widget.departure.reason,
+              ),
+              const SizedBox(height: 8),
+              Labeled(
+                label: 'Status: ',
+                text: widget.departure.status
+                    .toString()
+                    .substring(
+                        widget.departure.status.toString().indexOf('.') + 1)
+                    .toUpperCase(),
               )
             ],
           ),

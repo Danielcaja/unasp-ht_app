@@ -12,7 +12,7 @@ class DeparturesBloc extends BlocBase {
     });
   }
 
-  BehaviorSubject<List<Departure>> departures =
+  final BehaviorSubject<List<Departure>> departures =
       BehaviorSubject<List<Departure>>();
 
   @override

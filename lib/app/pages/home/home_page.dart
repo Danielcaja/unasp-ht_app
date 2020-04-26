@@ -63,7 +63,7 @@ class _HomePageState extends State<HomePage> {
         ],
         centerTitle: true,
         title: Image.asset(
-          "assets/img/isolado_branco.png",
+          'assets/img/isolado_branco.png',
           width: 80,
         ),
         backgroundColor: blue,

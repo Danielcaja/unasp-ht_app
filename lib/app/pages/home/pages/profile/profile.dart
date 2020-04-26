@@ -17,7 +17,7 @@ class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
     String genre =
-        bloc.currentUser.value.genre == "F" ? "Feminino" : "Masculino";
+        bloc.currentUser.value.genre == 'F' ? 'Feminino' : 'Masculino';
     return SingleChildScrollView(
       child: Container(
         child: Center(
@@ -43,7 +43,7 @@ class _ProfileState extends State<Profile> {
                   child: Column(
                     children: <Widget>[
                       Labeled(
-                        label: "nome",
+                        label: 'nome',
                         text: bloc.currentUser.value.name,
                         icon: FontAwesomeIcons.userAlt,
                         inline: false,
@@ -52,7 +52,7 @@ class _ProfileState extends State<Profile> {
                         height: 25,
                       ),
                       Labeled(
-                        label: "email",
+                        label: 'email',
                         text: bloc.currentUser.value.email,
                         icon: FontAwesomeIcons.solidEnvelope,
                         inline: false,
@@ -61,7 +61,7 @@ class _ProfileState extends State<Profile> {
                         height: 25,
                       ),
                       Labeled(
-                        label: "gênero",
+                        label: 'gênero',
                         text: genre,
                         icon: FontAwesomeIcons.venusMars,
                         inline: false,
@@ -70,9 +70,9 @@ class _ProfileState extends State<Profile> {
                         height: 25,
                       ),
                       Labeled(
-                        label: "categorias",
+                        label: 'categorias',
                         text:
-                            "${stringValue(bloc.currentUser.value.mainCategory.index)} \n${stringValue(bloc.currentUser.value.secondaryCategory.index)}",
+                            '${stringValue(bloc.currentUser.value.mainCategory.index)} \n${stringValue(bloc.currentUser.value.secondaryCategory.index)}',
                         icon: FontAwesomeIcons.infoCircle,
                         inline: false,
                       )

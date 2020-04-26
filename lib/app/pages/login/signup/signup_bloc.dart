@@ -2,34 +2,35 @@ import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
-import 'package:unasp_ht/app/pages/home/home_page.dart';
+import 'package:unasp_ht/app/pages/home/home_module.dart';
+import 'package:unasp_ht/app/shared/utils/string_extensions.dart';
 import 'package:unasp_ht/app/pages/login/login_repository.dart';
 import 'package:unasp_ht/app/pages/login/models/user_model.dart';
 import 'package:unasp_ht/app/pages/login/signup/enums/category_enum.dart';
 
 class SignupBloc extends BlocBase {
   final LoginRepository loginRepository;
-  GlobalKey<ScaffoldState> key = GlobalKey<ScaffoldState>();
-  GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
-  PageController pageController = PageController();
-  TextEditingController nameController = TextEditingController();
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passController = TextEditingController();
-  TextEditingController passconfirmController = TextEditingController();
-  TextEditingController raController = TextEditingController();
+  final GlobalKey<ScaffoldState> key = GlobalKey<ScaffoldState>();
+  final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+  final PageController pageController = PageController();
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passController = TextEditingController();
+  final TextEditingController passconfirmController = TextEditingController();
+  final TextEditingController raController = TextEditingController();
 
-  BehaviorSubject<String> genderController = BehaviorSubject<String>();
-  BehaviorSubject<CategoryEnum> mainCategoryController =
+  final BehaviorSubject<String> genderController = BehaviorSubject<String>();
+  final BehaviorSubject<CategoryEnum> mainCategoryController =
       BehaviorSubject<CategoryEnum>();
-  BehaviorSubject<CategoryEnum> secondaryCategoryController =
+  final BehaviorSubject<CategoryEnum> secondaryCategoryController =
       BehaviorSubject<CategoryEnum>();
-  BehaviorSubject<bool> isLoadingController = BehaviorSubject<bool>();
+  final BehaviorSubject<bool> isLoadingController = BehaviorSubject<bool>();
 
-  BehaviorSubject<bool> isValidBasicController =
+  final BehaviorSubject<bool> isValidBasicController =
       BehaviorSubject<bool>.seeded(false);
-  BehaviorSubject<bool> isValidGenderController =
+  final BehaviorSubject<bool> isValidGenderController =
       BehaviorSubject<bool>.seeded(false);
-  BehaviorSubject<bool> isValidCategoryController =
+  final BehaviorSubject<bool> isValidCategoryController =
       BehaviorSubject<bool>.seeded(false);
 
   SignupBloc(this.loginRepository) {
@@ -53,7 +54,7 @@ class SignupBloc extends BlocBase {
     });
   }
 
-  sendData() async => await loginRepository.signUp(UserModel()
+  Future<String> sendData() async => await loginRepository.signUp(UserModel()
     ..name = nameController.text
     ..email = emailController.text
     ..password = passController.text
@@ -61,40 +62,43 @@ class SignupBloc extends BlocBase {
     ..mainCategory = mainCategoryController.value
     ..secondaryCategory = secondaryCategoryController.value);
 
-  isValidBasicForm() => isValidBasicController.add(nameController.text !=
+  void isValidBasicForm() => isValidBasicController.add(nameController.text !=
           null &&
-      nameController.text != "" &&
+      nameController.text != '' &&
       emailController.text != null &&
-      emailController.text != "" &&
+      emailController.text != '' &&
       passController.text != null &&
-      passController.text != "" &&
+      passController.text != '' &&
       passconfirmController.text != null &&
-      passconfirmController.text != "" &&
+      passconfirmController.text != '' &&
       (passController.text == passconfirmController.text) &&
       RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
           .hasMatch(emailController.text));
 
-  onTap(BuildContext context) async {
-    if (mainCategoryController.hasValue &&
-            mainCategoryController.value == CategoryEnum.Church ||
-        raController.text != null) {
+  Future<bool> onTap(BuildContext context) async {
+    if ((mainCategoryController.hasValue &&
+            mainCategoryController.value == CategoryEnum.Church) ||
+        !raController.text.isNullOrEmpty) {
       isLoadingController.add(true);
       String res = await sendData();
       isLoadingController.add(false);
 
       if (res != null) {
         key.currentState.showSnackBar(SnackBar(
-          content: Text(res ?? ""),
+          content: Text(res ?? ''),
           backgroundColor: Colors.red,
         ));
       } else {
-        Navigator.of(key.currentContext).pushReplacement(
-            MaterialPageRoute(builder: (context) => HomePage()));
+        await Navigator.of(key.currentContext)
+            .pushReplacement<MaterialPageRoute, MaterialPageRoute>(
+                MaterialPageRoute(builder: (context) => HomeModule()));
       }
+      return res == null;
     } else {
-      pageController.nextPage(
+      await pageController.nextPage(
           duration: Duration(milliseconds: 100), curve: Curves.easeIn);
     }
+    return false;
   }
 
   @override

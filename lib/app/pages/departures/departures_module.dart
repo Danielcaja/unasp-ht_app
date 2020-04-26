@@ -8,12 +8,14 @@ import 'package:unasp_ht/app/pages/departures/departures_repository.dart';
 
 class DeparturesModule extends ModuleWidget {
   @override
-  List<Bloc> get blocs =>
-      [Bloc((i) => DeparturesBloc(i.getDependency<DeparturesRepository>()))];
+  List<Bloc> get blocs => [
+        Bloc<DeparturesBloc>(
+            (i) => DeparturesBloc(i.getDependency<DeparturesRepository>()))
+      ];
 
   @override
   List<Dependency> get dependencies => [
-        Dependency((i) =>
+        Dependency<DeparturesRepository>((i) =>
             DeparturesRepository(AppModule.to.getDependency<Firestore>()))
       ];
 

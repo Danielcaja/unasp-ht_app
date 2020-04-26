@@ -30,21 +30,20 @@ class Labeled extends StatelessWidget {
                   color: primaryColor,
                   size: 15,
                 ),
-                SizedBox(
-                  width: 5,
-                ),
+                const SizedBox(width: 5),
               ],
             ),
           ),
           Text(
             label.toUpperCase(),
-            style: TextStyle(color: primaryColor, fontWeight: FontWeight.bold),
+            style: TextStyle(
+              color: primaryColor,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ],
       ),
-      SizedBox(
-        height: 5,
-      ),
+      const SizedBox(height: 5),
       Text(
         text.toUpperCase(),
         style: TextStyle(color: Colors.black54),

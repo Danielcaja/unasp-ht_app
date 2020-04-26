@@ -14,27 +14,27 @@ class UserModel {
   UserModel();
 
   UserModel.fromJson(Map<String, dynamic> json) {
-    name = json['name'];
-    email = json['email'];
-    genre = json['genre'];
-    imagePath = json['imagePath'];
-    mainCategory = CategoryEnum.values[json['mainCategory']];
-    secondaryCategory = CategoryEnum.values[json['secondaryCategory']];
-    ra = json['ra'];
-    uid = json['uid'];
+    name = json['name'] as String;
+    email = json['email'] as String;
+    genre = json['genre'] as String;
+    imagePath = json['imagePath'] as String;
+    mainCategory = CategoryEnum.values[json['mainCategory'] as int];
+    secondaryCategory = CategoryEnum.values[json['secondaryCategory'] as int];
+    ra = json['ra'] as double;
+    uid = json['uid'] as String;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['name'] = this.name;
-    data['email'] = this.email;
-    data['genre'] = this.genre;
-    data['uid'] = this.uid;
-    data['imagePath'] = this.imagePath;
-    data['mainCategory'] = this.mainCategory.index;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['name'] = name;
+    data['email'] = email;
+    data['genre'] = genre;
+    data['uid'] = uid;
+    data['imagePath'] = imagePath;
+    data['mainCategory'] = mainCategory.index;
     data['secondaryCategory'] =
-        this.secondaryCategory != null ? this.secondaryCategory.index : null;
-    data['ra'] = this.ra;
+        secondaryCategory != null ? secondaryCategory.index : null;
+    data['ra'] = ra;
     return data;
   }
 }

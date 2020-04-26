@@ -6,7 +6,7 @@ import 'package:unasp_ht/app/pages/home/home_page.dart';
 class HomeModule extends ModuleWidget {
   @override
   List<Bloc> get blocs => [
-        Bloc((i) => HomeBloc()),
+        Bloc<HomeBloc>((i) => HomeBloc()),
       ];
 
   @override

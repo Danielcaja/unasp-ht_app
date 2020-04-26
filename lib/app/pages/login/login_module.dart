@@ -12,14 +12,15 @@ import 'package:flutter/material.dart';
 class LoginModule extends ModuleWidget {
   @override
   List<Bloc> get blocs => [
-        Bloc((i) => SigninBloc(i.getDependency<LoginRepository>())),
-        Bloc((i) => RecoverPassBloc(i.getDependency<LoginRepository>())),
-        Bloc((i) => SignupBloc(i.getDependency<LoginRepository>())),
+        Bloc<SigninBloc>((i) => SigninBloc(i.getDependency<LoginRepository>())),
+        Bloc<RecoverPassBloc>(
+            (i) => RecoverPassBloc(i.getDependency<LoginRepository>())),
+        Bloc<SignupBloc>((i) => SignupBloc(i.getDependency<LoginRepository>())),
       ];
 
   @override
   List<Dependency> get dependencies => [
-        Dependency((i) => LoginRepository(
+        Dependency<LoginRepository>((i) => LoginRepository(
             AppModule.to.getDependency<FirebaseAuth>(),
             AppModule.to.getDependency<Firestore>()))
       ];

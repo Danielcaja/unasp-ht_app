@@ -17,11 +17,11 @@ class _CategoryStepState extends State<CategoryStep> {
     Color orange = Theme.of(context).secondaryHeaderColor;
     SignupBloc signupBloc = LoginModule.to.getBloc<SignupBloc>();
 
-    selectMainCategory(CategoryEnum c) {
+    void selectMainCategory(CategoryEnum c) {
       signupBloc.mainCategoryController.add(c);
     }
 
-    selectSecondaryCategory(CategoryEnum c) {
+    void selectSecondaryCategory(CategoryEnum c) {
       signupBloc.secondaryCategoryController.add(c);
     }
 
@@ -35,7 +35,7 @@ class _CategoryStepState extends State<CategoryStep> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   Text(
-                      "Selecione a categoria principal na qual você se encaixa, lembrando que as informações serão verificadas"
+                      'Selecione a categoria principal na qual você se encaixa, lembrando que as informações serão verificadas'
                           .toUpperCase(),
                       textAlign: TextAlign.center,
                       style: TextStyle(color: Theme.of(context).primaryColor)),
@@ -50,7 +50,7 @@ class _CategoryStepState extends State<CategoryStep> {
                         child: CardGender(
                             horizontal: true,
                             icon: FontAwesomeIcons.church,
-                            title: "Comunidade",
+                            title: 'Comunidade',
                             isSelected:
                                 s.hasData && s.data == CategoryEnum.Church),
                       ),
@@ -61,7 +61,7 @@ class _CategoryStepState extends State<CategoryStep> {
                         child: CardGender(
                           horizontal: true,
                           icon: FontAwesomeIcons.bed,
-                          title: "Internato",
+                          title: 'Internato',
                           isSelected:
                               s.hasData && s.data == CategoryEnum.Internship,
                         ),
@@ -72,7 +72,7 @@ class _CategoryStepState extends State<CategoryStep> {
                         child: CardGender(
                           horizontal: true,
                           icon: FontAwesomeIcons.home,
-                          title: "Externato",
+                          title: 'Externato',
                           isSelected:
                               s.hasData && s.data == CategoryEnum.External,
                         ),
@@ -83,7 +83,7 @@ class _CategoryStepState extends State<CategoryStep> {
                       ? Column(
                           children: <Widget>[
                             SizedBox(height: 30),
-                            Text("Selecione agora a subcategoria".toUpperCase(),
+                            Text('Selecione agora a subcategoria'.toUpperCase(),
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                     color: Theme.of(context).primaryColor)),
@@ -99,7 +99,7 @@ class _CategoryStepState extends State<CategoryStep> {
                                             CategoryEnum.College),
                                         child: CardGender(
                                           icon: FontAwesomeIcons.graduationCap,
-                                          title: "Ensino superior",
+                                          title: 'Ensino superior',
                                           isSelected: snapshot.hasData &&
                                               snapshot.data ==
                                                   CategoryEnum.College,
@@ -111,7 +111,7 @@ class _CategoryStepState extends State<CategoryStep> {
                                             CategoryEnum.HighSchool),
                                         child: CardGender(
                                           icon: FontAwesomeIcons.bookOpen,
-                                          title: "Ensino Básico",
+                                          title: 'Ensino Básico',
                                           isSelected: snapshot.hasData &&
                                               snapshot.data ==
                                                   CategoryEnum.HighSchool,
@@ -132,7 +132,7 @@ class _CategoryStepState extends State<CategoryStep> {
                             color: orange,
                             onTap: () => signupBloc.onTap(context),
                             context: context,
-                            text: "Continuar");
+                            text: 'Continuar');
                       })
                 ],
               );
