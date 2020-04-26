@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>678764687830-8kp5u0u92vc9d5ett0pl3b5dcb6ib7sg.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.678764687830-8kp5u0u92vc9d5ett0pl3b5dcb6ib7sg</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCs9_-o3JQxm6KmbywCCNGcqpndEPigOTA</string>
+	<key>GCM_SENDER_ID</key>
+	<string>678764687830</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.unasphtMobile</string>
+	<key>PROJECT_ID</key>
+	<string>app-unasp-ht</string>
+	<key>STORAGE_BUCKET</key>
+	<string>app-unasp-ht.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:678764687830:ios:749751b8b099155ed03477</string>
+	<key>DATABASE_URL</key>
+	<string>https://app-unasp-ht.firebaseio.com</string>
+</dict>
+</plist>

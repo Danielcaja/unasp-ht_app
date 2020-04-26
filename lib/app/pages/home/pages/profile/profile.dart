@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:unasp_ht/app/app_bloc.dart';
 import 'package:unasp_ht/app/app_module.dart';
 import 'package:unasp_ht/app/pages/login/signup/enums/category_enum.dart';
+import 'package:unasp_ht/app/shared/components/labeled.dart';
 
 class Profile extends StatefulWidget {
   @override
@@ -41,26 +42,40 @@ class _ProfileState extends State<Profile> {
                   padding: EdgeInsets.symmetric(vertical: 25, horizontal: 25),
                   child: Column(
                     children: <Widget>[
-                      textInfo("nome", bloc.currentUser.value.name,
-                          primaryColor, FontAwesomeIcons.userAlt),
+                      Labeled(
+                        label: "nome",
+                        text: bloc.currentUser.value.name,
+                        icon: FontAwesomeIcons.userAlt,
+                        inline: false,
+                      ),
                       SizedBox(
                         height: 25,
                       ),
-                      textInfo("email", bloc.currentUser.value.email,
-                          primaryColor, FontAwesomeIcons.solidEnvelope),
+                      Labeled(
+                        label: "email",
+                        text: bloc.currentUser.value.email,
+                        icon: FontAwesomeIcons.solidEnvelope,
+                        inline: false,
+                      ),
                       SizedBox(
                         height: 25,
                       ),
-                      textInfo("gênero", genre, primaryColor,
-                          FontAwesomeIcons.venusMars),
+                      Labeled(
+                        label: "gênero",
+                        text: genre,
+                        icon: FontAwesomeIcons.venusMars,
+                        inline: false,
+                      ),
                       SizedBox(
                         height: 25,
                       ),
-                      textInfo(
-                          "categorias",
-                          "${stringValue(bloc.currentUser.value.mainCategory.index)} \n${stringValue(bloc.currentUser.value.secondaryCategory.index)}",
-                          primaryColor,
-                          FontAwesomeIcons.infoCircle)
+                      Labeled(
+                        label: "categorias",
+                        text:
+                            "${stringValue(bloc.currentUser.value.mainCategory.index)} \n${stringValue(bloc.currentUser.value.secondaryCategory.index)}",
+                        icon: FontAwesomeIcons.infoCircle,
+                        inline: false,
+                      )
                     ],
                   ),
                 )
@@ -70,40 +85,3 @@ class _ProfileState extends State<Profile> {
     );
   }
 }
-
-Widget textInfo(
-        String title, String subtitle, Color primaryColor, IconData icon) =>
-    Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: <Widget>[
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Row(
-              children: <Widget>[
-                Icon(
-                  icon,
-                  color: primaryColor,
-                  size: 15,
-                ),
-                SizedBox(
-                  width: 5,
-                ),
-                Text(
-                  title.toUpperCase(),
-                  style: TextStyle(
-                      color: primaryColor, fontWeight: FontWeight.bold),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 5,
-            ),
-            Text(
-              subtitle.toUpperCase(),
-              style: TextStyle(color: Colors.black54),
-            )
-          ],
-        )
-      ],
-    );
