@@ -60,6 +60,7 @@ class SignupBloc extends BlocBase {
     ..password = passController.text
     ..genre = genderController.value
     ..mainCategory = mainCategoryController.value
+    ..ra = raController.text
     ..secondaryCategory = secondaryCategoryController.value);
 
   void isValidBasicForm() => isValidBasicController.add(nameController.text !=
@@ -76,9 +77,9 @@ class SignupBloc extends BlocBase {
           .hasMatch(emailController.text));
 
   Future<bool> onTap(BuildContext context) async {
-    if ((mainCategoryController.hasValue &&
-            mainCategoryController.value == CategoryEnum.Church) ||
-        !raController.text.isNullOrEmpty) {
+    if (mainCategoryController.hasValue &&
+        (mainCategoryController.value == CategoryEnum.Church ||
+            !raController.text.isNullOrEmpty)) {
       isLoadingController.add(true);
       String res = await sendData();
       isLoadingController.add(false);

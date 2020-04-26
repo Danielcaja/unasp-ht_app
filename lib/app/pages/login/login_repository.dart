@@ -22,6 +22,9 @@ class LoginRepository {
           .collection('users')
           .document(firebaseUser.user.uid)
           .setData(model.toJson());
+
+      bloc.currentUser.add(model);
+
       return null;
     } catch (e) {
       String message;

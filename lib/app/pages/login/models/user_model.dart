@@ -8,7 +8,7 @@ class UserModel {
   String imagePath;
   CategoryEnum mainCategory;
   CategoryEnum secondaryCategory;
-  double ra;
+  String ra;
   String uid;
 
   UserModel();
@@ -20,7 +20,7 @@ class UserModel {
     imagePath = json['imagePath'] as String;
     mainCategory = CategoryEnum.values[json['mainCategory'] as int];
     secondaryCategory = CategoryEnum.values[json['secondaryCategory'] as int];
-    ra = json['ra'] as double;
+    ra = json['ra'] as String;
     uid = json['uid'] as String;
   }
 
@@ -29,7 +29,6 @@ class UserModel {
     data['name'] = name;
     data['email'] = email;
     data['genre'] = genre;
-    data['uid'] = uid;
     data['imagePath'] = imagePath;
     data['mainCategory'] = mainCategory.index;
     data['secondaryCategory'] =
