@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:unasp_ht/app/pages/departures/models/departure_model.dart';
 import 'package:unasp_ht/app/shared/components/labeled.dart';
@@ -19,6 +20,22 @@ class _DepartureDetailPageState extends State<DepartureDetailPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.departure.location),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(
+              FontAwesomeIcons.pencilAlt,
+              size: 18,
+            ),
+            onPressed: () {},
+          ),
+          IconButton(
+            icon: Icon(
+              FontAwesomeIcons.trashAlt,
+              size: 18,
+            ),
+            onPressed: () {},
+          )
+        ],
         centerTitle: true,
       ),
       body: SingleChildScrollView(

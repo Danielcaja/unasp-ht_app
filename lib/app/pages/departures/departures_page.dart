@@ -1,9 +1,11 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:unasp_ht/app/pages/departures/components/departure_card.dart';
 import 'package:unasp_ht/app/pages/departures/departures_bloc.dart';
 import 'package:unasp_ht/app/pages/departures/departures_module.dart';
 import 'package:unasp_ht/app/pages/departures/models/departure_model.dart';
+import 'package:unasp_ht/app/pages/departures/pages/new_departure/new_departure_page.dart';
 import 'package:unasp_ht/app/pages/login/signup/components/loading_widget.dart';
 
 class DeparturesPage extends StatefulWidget {
@@ -45,9 +47,13 @@ class _DeparturesPageState extends State<DeparturesPage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Theme.of(context).secondaryHeaderColor,
+        backgroundColor: Theme.of(context).accentColor,
         child: Icon(FontAwesomeIcons.plus),
-        onPressed: () {},
+        onPressed: () => Navigator.of(context).push<CupertinoPageRoute>(
+          CupertinoPageRoute(
+            builder: (context) => NewDeparturePage(),
+          ),
+        ),
       ),
     );
   }

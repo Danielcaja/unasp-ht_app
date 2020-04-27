@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 class Button extends StatefulWidget {
-  final BuildContext context;
   final VoidCallback onTap;
   final bool isLoading;
   final Color color;
@@ -11,8 +10,7 @@ class Button extends StatefulWidget {
   final bool enabled;
 
   Button(
-      {@required this.context,
-      @required this.onTap,
+      {@required this.onTap,
       @required this.color,
       @required this.text,
       this.enabled = true,

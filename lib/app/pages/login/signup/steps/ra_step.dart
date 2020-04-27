@@ -14,7 +14,7 @@ class RAStep extends StatefulWidget {
 class _RAStepState extends State<RAStep> {
   @override
   Widget build(BuildContext context) {
-    Color orange = Theme.of(context).secondaryHeaderColor;
+    Color orange = Theme.of(context).accentColor;
     SignupBloc signupBloc = LoginModule.to.getBloc<SignupBloc>();
 
     return SingleChildScrollView(
@@ -46,7 +46,6 @@ class _RAStepState extends State<RAStep> {
                         MaterialPageRoute(builder: (context) => HomePage()));
                   }
                 },
-                context: context,
                 text: 'Continuar')
           ],
         ),

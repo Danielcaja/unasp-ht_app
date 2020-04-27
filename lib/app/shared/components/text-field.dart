@@ -5,6 +5,7 @@ class CustomTextField extends StatelessWidget {
   final IconData icon;
   final bool isPassword;
   final bool isBlue;
+  final bool enabled;
   final TextInputType inputType;
   final TextEditingController controller;
   final Function onChanged;
@@ -12,10 +13,11 @@ class CustomTextField extends StatelessWidget {
   CustomTextField(
       {@required this.hintText,
       @required this.icon,
-      @required this.isPassword,
-      @required this.isBlue,
+      this.isPassword = false,
+      this.isBlue = false,
       @required this.controller,
-      @required this.inputType,
+      this.inputType = TextInputType.text,
+      this.enabled = true,
       this.onChanged});
 
   @override
@@ -28,6 +30,7 @@ class CustomTextField extends StatelessWidget {
           ),
         ),
         child: TextField(
+          enabled: enabled,
           keyboardType: inputType,
           obscureText: isPassword,
           controller: controller,

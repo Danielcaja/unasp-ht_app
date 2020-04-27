@@ -32,7 +32,7 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
     ];
-    Color orange = Theme.of(context).secondaryHeaderColor;
+    Color orange = Theme.of(context).accentColor;
     Color blue = Theme.of(context).primaryColor;
     HomeBloc bloc = HomeModule.to.getBloc<HomeBloc>();
     PageController pageController = PageController();

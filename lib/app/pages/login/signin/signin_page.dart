@@ -153,7 +153,6 @@ class _SigninPageState extends State<SigninPage>
                           builder: (context, snapshot) {
                             return Button(
                                 enabled: snapshot.hasData && snapshot.data,
-                                context: context,
                                 color: ORANGE,
                                 text: 'entrar',
                                 onTap: () async {

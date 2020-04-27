@@ -14,7 +14,7 @@ class CategoryStep extends StatefulWidget {
 class _CategoryStepState extends State<CategoryStep> {
   @override
   Widget build(BuildContext context) {
-    Color orange = Theme.of(context).secondaryHeaderColor;
+    Color orange = Theme.of(context).accentColor;
     SignupBloc signupBloc = LoginModule.to.getBloc<SignupBloc>();
 
     void selectMainCategory(CategoryEnum c) {
@@ -131,7 +131,6 @@ class _CategoryStepState extends State<CategoryStep> {
                             enabled: snapshot.hasData && snapshot.data,
                             color: orange,
                             onTap: () => signupBloc.onTap(context),
-                            context: context,
                             text: 'Continuar');
                       })
                 ],

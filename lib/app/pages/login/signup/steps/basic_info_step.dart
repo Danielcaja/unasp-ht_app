@@ -14,7 +14,7 @@ class BasicInfoStep extends StatefulWidget {
 class _BasicInfoStepState extends State<BasicInfoStep> {
   @override
   Widget build(BuildContext context) {
-    Color orange = Theme.of(context).secondaryHeaderColor;
+    Color orange = Theme.of(context).accentColor;
     SignupBloc signupBloc = LoginModule.to.getBloc<SignupBloc>();
 
     return SingleChildScrollView(
@@ -73,7 +73,6 @@ class _BasicInfoStepState extends State<BasicInfoStep> {
                             curve: Curves.easeIn,
                             duration: Duration(milliseconds: 100));
                       },
-                      context: context,
                       text: 'Continuar');
                 }),
           ],

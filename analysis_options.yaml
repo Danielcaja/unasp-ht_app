@@ -9,4 +9,7 @@ analyzer:
 linter:
     rules:
         omit_local_variable_types: false
+        unnecessary_statements: true
+        close_sinks: true
+        cancel_subscriptions: true
     

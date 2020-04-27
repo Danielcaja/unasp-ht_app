@@ -25,4 +25,17 @@ class DeparturesRepository {
       return null;
     }
   }
+
+  Future<bool> post(Departure model) async {
+    try {
+      await Firestore.instance
+          .collection('departures')
+          .document()
+          .setData(model.toJson());
+
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
 }

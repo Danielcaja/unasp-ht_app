@@ -7,13 +7,15 @@ class DeparturesBloc extends BlocBase {
   final DeparturesRepository _repository;
 
   DeparturesBloc(this._repository) {
-    _repository.getDepartures().then((onValue) {
-      departures.add(onValue);
-    });
+    getDepartures();
   }
 
   final BehaviorSubject<List<Departure>> departures =
       BehaviorSubject<List<Departure>>();
+
+  void getDepartures() => _repository.getDepartures().then((onValue) {
+        departures.add(onValue);
+      });
 
   @override
   void dispose() {

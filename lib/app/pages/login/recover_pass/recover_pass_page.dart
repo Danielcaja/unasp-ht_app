@@ -19,7 +19,7 @@ class _RecoverPassPageState extends State<RecoverPassPage> {
 
   @override
   Widget build(BuildContext context) {
-    Color orange = Theme.of(context).secondaryHeaderColor;
+    Color orange = Theme.of(context).accentColor;
     return StreamBuilder<Tuple2<bool, bool>>(
       stream: _bloc.stream,
       builder: (c, snapshot) {
@@ -61,7 +61,6 @@ class _RecoverPassPageState extends State<RecoverPassPage> {
                       const SizedBox(height: 10),
                       Button(
                         enabled: snapshot.hasData && snapshot.data.item2,
-                        context: context,
                         color: orange,
                         text: 'enviar',
                         onTap: () async {

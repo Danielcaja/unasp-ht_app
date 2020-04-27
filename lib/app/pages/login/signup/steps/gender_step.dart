@@ -14,7 +14,7 @@ class GenderStep extends StatefulWidget {
 class _GenderStepState extends State<GenderStep> {
   @override
   Widget build(BuildContext context) {
-    Color orange = Theme.of(context).secondaryHeaderColor;
+    Color orange = Theme.of(context).accentColor;
     SignupBloc signupBloc = LoginModule.to.getBloc<SignupBloc>();
 
     void selectGender(String g) {
@@ -67,7 +67,6 @@ class _GenderStepState extends State<GenderStep> {
                       onTap: () => signupBloc.pageController.nextPage(
                           duration: Duration(milliseconds: 100),
                           curve: Curves.easeIn),
-                      context: context,
                       text: 'Continuar');
                 })
           ],

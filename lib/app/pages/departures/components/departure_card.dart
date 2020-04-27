@@ -107,29 +107,46 @@ class DepartureCard extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Icon(
-                              FontAwesomeIcons.mapMarkerAlt,
-                              color: Theme.of(context).primaryColor,
-                              size: 15,
-                            ),
-                            SizedBox(width: 10),
-                            Text(departure.location?.toUpperCase() ?? '')
-                          ],
+                        Expanded(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Icon(
+                                FontAwesomeIcons.mapMarkerAlt,
+                                color: Theme.of(context).primaryColor,
+                                size: 15,
+                              ),
+                              SizedBox(width: 10),
+                              Expanded(
+                                child: Text(
+                                  departure.location?.toUpperCase() ?? '',
+                                  softWrap: false,
+                                  overflow: TextOverflow.fade,
+                                ),
+                              )
+                            ],
+                          ),
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Icon(
-                              FontAwesomeIcons.infoCircle,
-                              color: Theme.of(context).primaryColor,
-                              size: 15,
-                            ),
-                            SizedBox(width: 10),
-                            Text(departure.reason?.toUpperCase() ?? '')
-                          ],
+                        const SizedBox(width: 30),
+                        Expanded(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Icon(
+                                FontAwesomeIcons.infoCircle,
+                                color: Theme.of(context).primaryColor,
+                                size: 15,
+                              ),
+                              SizedBox(width: 10),
+                              Expanded(
+                                child: Text(
+                                  departure.reason?.toUpperCase() ?? '',
+                                  softWrap: false,
+                                  overflow: TextOverflow.fade,
+                                ),
+                              )
+                            ],
+                          ),
                         ),
                       ],
                     ),

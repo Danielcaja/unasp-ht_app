@@ -8,7 +8,7 @@ class AppWidget extends StatelessWidget {
         title: 'UNASP HT',
         theme: ThemeData(
           fontFamily: FONT_FAMILY,
-          secondaryHeaderColor: ORANGE,
+          accentColor: ORANGE,
           primaryColor: BLUE,
         ),
         debugShowCheckedModeBanner: false,
