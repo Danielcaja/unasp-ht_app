@@ -17,6 +17,11 @@ class DeparturesBloc extends BlocBase {
         departures.add(onValue);
       });
 
+  Future put(Departure model) async {
+    await _repository.put(model);
+    await getDepartures();
+  }
+
   @override
   void dispose() {
     departures.close();

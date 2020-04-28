@@ -14,15 +14,21 @@ Departure _$DepartureFromJson(Map<String, dynamic> json) {
     json['reason'] as String,
     _$enumDecodeNullable(_$DepartureStatusEnumMap, json['status']),
     json['userId'] as String,
+    json['id'] as String,
+    json['userName'] as String,
+    json['ra'] as String,
   );
 }
 
 Map<String, dynamic> _$DepartureToJson(Departure instance) => <String, dynamic>{
+      'id': instance.id,
+      'status': _$DepartureStatusEnumMap[instance.status],
+      'userName': instance.userName,
+      'ra': instance.ra,
       'going': instance.going?.toIso8601String(),
       'turning': instance.turning?.toIso8601String(),
       'location': instance.location,
       'reason': instance.reason,
-      'status': _$DepartureStatusEnumMap[instance.status],
       'userId': instance.userId,
     };
 

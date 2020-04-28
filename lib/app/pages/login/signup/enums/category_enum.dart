@@ -1,4 +1,12 @@
-enum CategoryEnum { None, College, HighSchool, Church, Internship, External }
+enum CategoryEnum {
+  None,
+  College,
+  HighSchool,
+  Church,
+  Internship,
+  External,
+  Admin
+}
 
 String stringValue(int index) {
   String r = '';
@@ -21,6 +29,9 @@ String stringValue(int index) {
       break;
     case 5:
       r = 'Externato';
+      break;
+    case 6:
+      r = 'Admin';
       break;
   }
 

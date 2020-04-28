@@ -44,6 +44,16 @@ class _DepartureDetailPageState extends State<DepartureDetailPage> {
           child: Column(
             children: <Widget>[
               Labeled(
+                label: 'Nome: ',
+                text: widget.departure.userName,
+              ),
+              const SizedBox(height: 8),
+              Labeled(
+                label: 'ra: ',
+                text: widget.departure.ra,
+              ),
+              const SizedBox(height: 8),
+              Labeled(
                 label: 'Ida: ',
                 text: DateFormat('dd/MM/yy - HH:mm').format(
                       widget.departure.going ?? DateTime.now(),

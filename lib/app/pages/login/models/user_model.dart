@@ -19,7 +19,8 @@ class UserModel {
     genre = json['genre'] as String;
     imagePath = json['imagePath'] as String;
     mainCategory = CategoryEnum.values[json['mainCategory'] as int];
-    secondaryCategory = CategoryEnum.values[json['secondaryCategory'] as int];
+    secondaryCategory =
+        CategoryEnum.values[(json['secondaryCategory'] ?? 0) as int];
     ra = json['ra'] as String;
     uid = json['uid'] as String;
   }

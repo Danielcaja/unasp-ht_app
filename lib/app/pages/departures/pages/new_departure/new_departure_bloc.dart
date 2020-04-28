@@ -27,6 +27,9 @@ class NewDepartureBloc extends BlocBase {
         formBloc.reasonController.text,
         DepartureStatus.solicitado,
         AppModule.to.getBloc<AppBloc>().currentUser.value.uid,
+        '',
+        AppModule.to.getBloc<AppBloc>().currentUser.value.name,
+        AppModule.to.getBloc<AppBloc>().currentUser.value.ra,
       ),
     );
   }
