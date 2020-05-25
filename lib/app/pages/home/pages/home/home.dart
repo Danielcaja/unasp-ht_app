@@ -10,6 +10,7 @@ import 'package:unasp_ht/app/pages/home/home_module.dart';
 import 'package:unasp_ht/app/pages/home/models/news_model.dart';
 import 'package:unasp_ht/app/pages/news/news_details_page.dart';
 import 'package:unasp_ht/app/pages/news/news_page.dart';
+import 'package:unasp_ht/app/pages/phones/phones_page.dart';
 import 'package:unasp_ht/app/shared/components/loading_widget.dart';
 
 class Home extends StatefulWidget {
@@ -61,8 +62,13 @@ class _HomeState extends State<Home> {
                     'portais', Color(0xFF818CD3), FontAwesomeIcons.link, () {}),
                 SquareHomeButton('mapa', Color(0xFF7DB760),
                     FontAwesomeIcons.mapMarkedAlt, () {}),
-                SquareHomeButton('ramais', Color(0xFFFFAB91),
-                    FontAwesomeIcons.phoneAlt, () {}),
+                SquareHomeButton(
+                    'ramais',
+                    Color(0xFFFFAB91),
+                    FontAwesomeIcons.phoneAlt,
+                    () => Navigator.of(context).push<CupertinoPageRoute>(
+                        CupertinoPageRoute(
+                            builder: (context) => PhonesPage()))),
               ],
             ),
             SizedBox(

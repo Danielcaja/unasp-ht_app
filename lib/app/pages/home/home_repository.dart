@@ -14,10 +14,7 @@ class HomeRepository {
       if (snapshot == null || snapshot.documents == null) {
         return null;
       }
-      return snapshot.documents
-          .map((f) => News.fromJson(
-              f.data..addAll(<String, dynamic>{'id': f.documentID})))
-          .toList();
+      return snapshot.documents.map((f) => News.fromJson(f.data)).toList();
     } catch (e) {
       return null;
     }
