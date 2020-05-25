@@ -4,11 +4,15 @@ part 'menu_item_model.g.dart';
 
 @JsonSerializable()
 class MenuItem {
-  final String name;
-  final int likes;
-  final int dislikes;
+  String id;
+  String name;
+  int likes;
+  int dislikes;
 
-  MenuItem(this.name, this.likes, this.dislikes);
+  bool wasLiked;
+  bool wasDisliked;
+
+  MenuItem(this.name, this.likes, this.dislikes, this.id);
 
   factory MenuItem.fromJson(Map<String, dynamic> json) =>
       _$MenuItemFromJson(json);

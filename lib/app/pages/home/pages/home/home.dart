@@ -8,6 +8,7 @@ import 'package:unasp_ht/app/pages/home/components/square_home_button.dart';
 import 'package:unasp_ht/app/pages/home/home_bloc.dart';
 import 'package:unasp_ht/app/pages/home/home_module.dart';
 import 'package:unasp_ht/app/pages/home/models/news_model.dart';
+import 'package:unasp_ht/app/pages/menu/menu_page.dart';
 import 'package:unasp_ht/app/pages/news/news_details_page.dart';
 import 'package:unasp_ht/app/pages/news/news_page.dart';
 import 'package:unasp_ht/app/pages/phones/phones_page.dart';
@@ -48,8 +49,12 @@ class _HomeState extends State<Home> {
                     ),
                   ),
                 ),
-                SquareHomeButton('cardápio', Color(0xFF9A735C),
-                    FontAwesomeIcons.utensils, () {})
+                SquareHomeButton(
+                    'cardápio',
+                    Color(0xFF9A735C),
+                    FontAwesomeIcons.utensils,
+                    () => Navigator.of(context).push<CupertinoPageRoute>(
+                        CupertinoPageRoute(builder: (context) => MenuPage()))),
               ],
             ),
             SizedBox(

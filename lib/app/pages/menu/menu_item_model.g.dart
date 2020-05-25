@@ -11,6 +11,7 @@ MenuItem _$MenuItemFromJson(Map<String, dynamic> json) {
     json['name'] as String,
     json['likes'] as int,
     json['dislikes'] as int,
+    json['id'] as String,
   );
 }
 
