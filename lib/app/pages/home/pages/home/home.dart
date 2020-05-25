@@ -5,6 +5,12 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:unasp_ht/app/pages/departures/departures_module.dart';
 import 'package:unasp_ht/app/pages/home/components/rectangular_home_button.dart';
 import 'package:unasp_ht/app/pages/home/components/square_home_button.dart';
+import 'package:unasp_ht/app/pages/home/home_bloc.dart';
+import 'package:unasp_ht/app/pages/home/home_module.dart';
+import 'package:unasp_ht/app/pages/home/models/news_model.dart';
+import 'package:unasp_ht/app/pages/news/news_details_page.dart';
+import 'package:unasp_ht/app/pages/news/news_page.dart';
+import 'package:unasp_ht/app/shared/components/loading_widget.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -67,8 +73,16 @@ class _HomeState extends State<Home> {
               children: <Widget>[
                 RectangularHomeButton('calendário', Color(0xFFC0CA33),
                     FontAwesomeIcons.calendarAlt, () {}),
-                RectangularHomeButton('Notícias', Color(0xFF95A5A6),
-                    FontAwesomeIcons.bullhorn, () {}),
+                RectangularHomeButton(
+                  'Notícias',
+                  Color(0xFF95A5A6),
+                  FontAwesomeIcons.bullhorn,
+                  () => Navigator.of(context).push<CupertinoPageRoute>(
+                    CupertinoPageRoute(
+                      builder: (context) => NewsPage(),
+                    ),
+                  ),
+                ),
               ],
             ),
             SizedBox(
@@ -93,62 +107,89 @@ class _HomeState extends State<Home> {
 
 Widget _news(BuildContext context) {
   double appWidth = MediaQuery.of(context).size.width;
+  final HomeBloc bloc = HomeModule.to.getBloc<HomeBloc>();
 
-  return CarouselSlider(
-    enableInfiniteScroll: false,
-    height: appWidth * .3,
-    items: [1, 2, 3, 4, 5].map((i) {
-      return Builder(
-        builder: (BuildContext context) {
-          return Padding(
-            padding: EdgeInsets.only(top: 10, bottom: 10),
-            child: Container(
-                width: MediaQuery.of(context).size.width,
-                margin: EdgeInsets.symmetric(horizontal: 5.0),
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(10),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black12,
-                        blurRadius:
-                            5.0, // has the effect of softening the shadow
-                      )
-                    ]),
-                child: Row(
-                  children: <Widget>[
-                    Image.asset('assets/img/test.png', fit: BoxFit.contain),
-                    Expanded(
-                      child: Container(
-                        padding: EdgeInsets.all(10),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+  return StreamBuilder<List<News>>(
+      stream: bloc.newsController,
+      builder: (context, snapshot) {
+        if (!snapshot.hasData) {
+          return LoadingWidget();
+        }
+
+        return CarouselSlider(
+          enableInfiniteScroll: false,
+          height: appWidth * .3,
+          items: snapshot.data.map((i) {
+            return Builder(
+              builder: (BuildContext context) {
+                return Padding(
+                  padding: EdgeInsets.only(top: 10, bottom: 10),
+                  child: GestureDetector(
+                    onTap: () => Navigator.of(context)
+                        .push<CupertinoPageRoute>(CupertinoPageRoute(
+                            builder: (context) => NewsDetailsPage(
+                                  model: i,
+                                ))),
+                    child: Container(
+                        width: MediaQuery.of(context).size.width,
+                        margin: EdgeInsets.symmetric(horizontal: 5.0),
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black12,
+                                blurRadius:
+                                    5.0, // has the effect of softening the shadow
+                              )
+                            ]),
+                        child: Row(
                           children: <Widget>[
-                            Text(
-                              'semana da arte'.toUpperCase(),
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 12),
+                            Hero(
+                              tag: i?.title,
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(8),
+                                  bottomLeft: Radius.circular(8),
+                                ),
+                                child: Image.network(
+                                  i?.image ?? '',
+                                  fit: BoxFit.contain,
+                                ),
+                              ),
                             ),
-                            SizedBox(
-                              height: appWidth * .02,
-                            ),
-                            Text(
-                              'Idealizado e coordenado pela direção da Escola de Artes. Foi um evento top!',
-                              softWrap: true,
-                              textAlign: TextAlign.start,
-                              style: TextStyle(
-                                  fontSize: 11, color: Colors.black45),
-                            ),
-                            // )
+                            Expanded(
+                              child: Container(
+                                padding: EdgeInsets.all(10),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: <Widget>[
+                                    Text(
+                                      i?.title?.toUpperCase() ?? '',
+                                      style: TextStyle(fontSize: 10),
+                                    ),
+                                    Text(
+                                      i?.text ?? '',
+                                      softWrap: true,
+                                      maxLines: 3,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(
+                                          fontSize: 11, color: Colors.black45),
+                                    ),
+                                    // )
+                                  ],
+                                ),
+                              ),
+                            )
                           ],
-                        ),
-                      ),
-                    )
-                  ],
-                )),
-          );
-        },
-      );
-    }).toList(),
-  );
+                        )),
+                  ),
+                );
+              },
+            );
+          }).toList(),
+        );
+      });
 }

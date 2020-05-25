@@ -13,7 +13,7 @@ class RectangularHomeButton extends StatelessWidget {
     final double appWidth = MediaQuery.of(context).size.width;
 
     return GestureDetector(
-      onTap: () => onTap,
+      onTap: () => onTap(),
       child: Container(
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
