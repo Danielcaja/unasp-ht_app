@@ -6,9 +6,9 @@ import 'package:unasp_ht/app/pages/login/models/user_model.dart';
 
 class LoginRepository {
   final FirebaseAuth _auth;
-  final Firestore _firestore;
+  final FirebaseFirestore _firestore;
 
-  AuthResult firebaseUser;
+  UserCredential firebaseUser;
   AppBloc bloc = AppModule.to.getBloc();
 
   LoginRepository(this._auth, this._firestore);
@@ -18,10 +18,10 @@ class LoginRepository {
       firebaseUser = await _auth.createUserWithEmailAndPassword(
           email: model.email, password: model.password);
 
-      await Firestore.instance
+      await FirebaseFirestore.instance
           .collection('users')
-          .document(firebaseUser.user.uid)
-          .setData(model.toJson());
+          .doc(firebaseUser.user.uid)
+          .set(model.toJson());
 
       bloc.currentUser.add(model);
 
@@ -67,14 +67,12 @@ class LoginRepository {
 
   Future<String> login(String email, String password) async {
     try {
-      AuthResult result = await _auth.signInWithEmailAndPassword(
+      UserCredential result = await _auth.signInWithEmailAndPassword(
           email: email, password: password);
       if (result.user != null) {
-        DocumentSnapshot snapshot = await _firestore
-            .collection('users')
-            .document(result.user.uid)
-            .get();
-        Map<String, dynamic> data = snapshot.data;
+        DocumentSnapshot snapshot =
+            await _firestore.collection('users').doc(result.user.uid).get();
+        Map<String, dynamic> data = snapshot.data();
         data['uid'] = result.user.uid;
         bloc.currentUser.add(UserModel.fromJson(data));
       }

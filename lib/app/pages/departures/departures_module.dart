@@ -20,8 +20,8 @@ class DeparturesModule extends ModuleWidget {
 
   @override
   List<Dependency> get dependencies => [
-        Dependency<DeparturesRepository>((i) =>
-            DeparturesRepository(AppModule.to.getDependency<Firestore>()))
+        Dependency<DeparturesRepository>((i) => DeparturesRepository(
+            AppModule.to.getDependency<FirebaseFirestore>()))
       ];
 
   @override

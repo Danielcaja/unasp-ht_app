@@ -14,8 +14,8 @@ class HomeModule extends ModuleWidget {
 
   @override
   List<Dependency> get dependencies => [
-        Dependency<HomeRepository>(
-            (_) => HomeRepository(AppModule.to.getDependency<Firestore>()))
+        Dependency<HomeRepository>((_) =>
+            HomeRepository(AppModule.to.getDependency<FirebaseFirestore>()))
       ];
 
   @override

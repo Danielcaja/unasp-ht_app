@@ -13,7 +13,7 @@ class AppModule extends ModuleWidget {
 
   @override
   List<Dependency> get dependencies => [
-        Dependency<Firestore>((i) => Firestore.instance),
+        Dependency<FirebaseFirestore>((i) => FirebaseFirestore.instance),
         Dependency<FirebaseAuth>((i) => FirebaseAuth.instance)
       ];
 

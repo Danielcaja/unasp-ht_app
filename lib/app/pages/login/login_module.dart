@@ -22,7 +22,7 @@ class LoginModule extends ModuleWidget {
   List<Dependency> get dependencies => [
         Dependency<LoginRepository>((i) => LoginRepository(
             AppModule.to.getDependency<FirebaseAuth>(),
-            AppModule.to.getDependency<Firestore>()))
+            AppModule.to.getDependency<FirebaseFirestore>()))
       ];
 
   @override

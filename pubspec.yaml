@@ -17,10 +17,10 @@ dependencies:
   hive: ^1.4.1+1
   curved_navigation_bar: ^0.3.2
   fancy_bottom_navigation: ^0.3.2
-  firebase_core: ^0.4.4+3
-  firebase_auth: ^0.15.5+3
+  firebase_core: ^0.7.0
+  firebase_auth: ^0.20.1
   tuple: ^1.0.3
-  cloud_firestore: ^0.13.4+2
+  cloud_firestore: ^0.16.0+1
   dio: ^3.0.4
   rxdart: ^0.23.1
   bloc_pattern: ^2.4.4

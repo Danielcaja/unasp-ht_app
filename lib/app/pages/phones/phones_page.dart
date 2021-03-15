@@ -53,12 +53,12 @@ class _PhonesPageState extends State<PhonesPage> {
   Future<List<Phone>> getPhones() async {
     try {
       QuerySnapshot snapshot =
-          await Firestore.instance.collection('phones').getDocuments();
+          await FirebaseFirestore.instance.collection('phones').get();
 
-      if (snapshot == null || snapshot.documents == null) {
+      if (snapshot == null || snapshot.docs == null) {
         return null;
       }
-      return snapshot.documents.map((f) => Phone.fromJson(f.data)).toList();
+      return snapshot.docs.map((f) => Phone.fromJson(f.data())).toList();
     } catch (e) {
       return null;
     }

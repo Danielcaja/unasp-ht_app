@@ -14,14 +14,14 @@ class MenuBloc extends BlocBase {
   Future<List<MenuItem>> getPhones() async {
     try {
       QuerySnapshot snapshot =
-          await Firestore.instance.collection('menu').getDocuments();
+          await FirebaseFirestore.instance.collection('menu').get();
 
-      if (snapshot == null || snapshot.documents == null) {
+      if (snapshot == null || snapshot.docs == null) {
         return null;
       }
-      return snapshot.documents
+      return snapshot.docs
           .map((f) => MenuItem.fromJson(
-              f.data..addAll(<String, dynamic>{'id': f.documentID})))
+              f.data()..addAll(<String, dynamic>{'id': f.id})))
           .toList();
     } catch (e) {
       return null;
@@ -35,10 +35,10 @@ class MenuBloc extends BlocBase {
 
       model.likes = model.likes + 1;
 
-      await Firestore.instance
+      await FirebaseFirestore.instance
           .collection('menu')
-          .document(model?.id)
-          .setData(model.toJson());
+          .doc(model?.id)
+          .set(model.toJson());
 
       model.wasLiked = true;
       model.wasDisliked = false;
@@ -60,10 +60,10 @@ class MenuBloc extends BlocBase {
 
       model.dislikes = model.dislikes + 1;
 
-      await Firestore.instance
+      await FirebaseFirestore.instance
           .collection('menu')
-          .document(model?.id)
-          .setData(model.toJson());
+          .doc(model?.id)
+          .set(model.toJson());
 
       model.wasLiked = false;
       model.wasDisliked = true;
