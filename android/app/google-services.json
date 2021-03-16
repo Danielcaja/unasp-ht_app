@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "678764687830",
+    "firebase_url": "https://app-unasp-ht.firebaseio.com",
+    "project_id": "app-unasp-ht",
+    "storage_bucket": "app-unasp-ht.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:678764687830:android:f8ef526bbcac2a23d03477",
+        "android_client_info": {
+          "package_name": "com.example.unasp_ht"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "678764687830-9npe6suoa31c4joh3tf5u32rbfo6q8nt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD3F6_cL--FNq1V5aJKH1jXvcSRb3EoDCY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "678764687830-9npe6suoa31c4joh3tf5u32rbfo6q8nt.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "678764687830-8kp5u0u92vc9d5ett0pl3b5dcb6ib7sg.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.unasphtMobile"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
