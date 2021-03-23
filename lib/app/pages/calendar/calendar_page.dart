@@ -1,9 +1,7 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:rxdart/subjects.dart';
-import 'package:unasp_ht/app/pages/phones/phone_model.dart';
-import 'package:unasp_ht/app/shared/components/loading_widget.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:syncfusion_flutter_calendar/calendar.dart';
+import 'package:unasp_ht/app/pages/calendar/add_event.dart';
 
 class CalendarPage extends StatefulWidget {
   @override
@@ -11,62 +9,94 @@ class CalendarPage extends StatefulWidget {
 }
 
 class _CalendarPageState extends State<CalendarPage> {
-  final BehaviorSubject<List<Phone>> phonesController =
-      BehaviorSubject<List<Phone>>();
   @override
   Widget build(BuildContext context) {
-    getPhones().then((phones) => phonesController.add(phones));
-
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Calendário'),
-      ),
-      body: StreamBuilder<List<Phone>>(
-          stream: phonesController,
-          builder: (context, snapshot) {
-            if (!snapshot.hasData) {
-              return Center(child: LoadingWidget());
-            }
-
-            return Padding(
-              padding: const EdgeInsets.all(25),
-              child: Column(
-                children: snapshot.data
-                    .map((i) => GestureDetector(
-                          onTap: () async =>
-                              await launch('tel:2118${i?.phone}'),
-                          child: ListTile(
-                              title: Text(i?.name ?? ''),
-                              trailing: Text(
-                                i?.phone ?? '',
-                                style: TextStyle(
-                                    color: Theme.of(context).accentColor),
-                              )),
-                        ))
-                    .toList(),
+        appBar: AppBar(
+          title: Text('Calendário'),
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(
+                Icons.calendar_today_rounded,
+                color: Colors.white,
               ),
-            );
-          }),
-    );
+              onPressed: () => Navigator.of(context).push<CupertinoPageRoute>(
+                  CupertinoPageRoute(builder: (context) => AddEventPage())),
+            )
+          ],
+        ),
+        body: SfCalendar(
+            view: CalendarView.month,
+            showNavigationArrow: true,
+            dataSource: _getCalendarDataSource(),
+            monthViewSettings: MonthViewSettings(
+                showAgenda: true,
+                appointmentDisplayMode:
+                    MonthAppointmentDisplayMode.appointment),
+            appointmentTextStyle: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w500,
+                color: Colors.lime)));
   }
+}
 
-  Future<List<Phone>> getPhones() async {
-    try {
-      QuerySnapshot snapshot =
-          await FirebaseFirestore.instance.collection('phones').get();
+_AppointmentDataSource _getCalendarDataSource() {
+  List<Appointment> appointments = <Appointment>[];
 
-      if (snapshot == null || snapshot.docs == null) {
-        return null;
-      }
-      return snapshot.docs.map((f) => Phone.fromJson(f.data())).toList();
-    } catch (e) {
-      return null;
-    }
-  }
+  appointments.add(Appointment(
+      startTime: DateTime(2021, 03, 8, 23),
+      endTime: DateTime(2021, 03, 8, 00),
+      subject: 'Orientação TCC',
+      color: Colors.blue,
+      recurrenceRule: 'FREQ=DAILY;INTERVAL=7;COUNT=10'));
 
-  @override
-  void dispose() {
-    phonesController.close();
-    super.dispose();
+  appointments.add(Appointment(
+    startTime: DateTime.now().add(Duration(days: 4)),
+    endTime: DateTime.now().add(Duration(minutes: 10)),
+    subject: 'Prova de Matematica',
+    color: Colors.blue,
+    startTimeZone: '',
+    endTimeZone: '',
+  ));
+
+  appointments.add(Appointment(
+    startTime: DateTime.now().add(Duration(days: 4)),
+    endTime: DateTime.now().add(Duration(minutes: 10)),
+    subject: 'Lista de Matematica',
+    color: Colors.green,
+    startTimeZone: '',
+    endTimeZone: '',
+  ));
+
+  appointments.add(Appointment(
+    startTime: DateTime.now().add(Duration(days: 9)),
+    endTime: DateTime.now().add(Duration(days: 5)),
+    subject: 'Lista de Matematica',
+    color: Colors.green,
+    startTimeZone: '',
+    endTimeZone: '',
+  ));
+  appointments.add(Appointment(
+    startTime: DateTime.now().add(Duration(days: 4)),
+    endTime: DateTime.now().add(Duration(minutes: 10)),
+    subject: 'Lista de Matematica',
+    color: Colors.green,
+    startTimeZone: '',
+    endTimeZone: '',
+  ));
+  appointments.add(Appointment(
+    startTime: DateTime.now().add(Duration(days: 2)),
+    endTime: DateTime.now().add(Duration(hours: 1)),
+    subject: 'Atividade de Biologia',
+    color: Colors.pink,
+    startTimeZone: '',
+    endTimeZone: '',
+  ));
+  return _AppointmentDataSource(appointments);
+}
+
+class _AppointmentDataSource extends CalendarDataSource {
+  _AppointmentDataSource(List<Appointment> source) {
+    appointments = source;
   }
 }
