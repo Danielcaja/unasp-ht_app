@@ -12,6 +12,7 @@ import 'package:unasp_ht/app/pages/menu/menu_page.dart';
 import 'package:unasp_ht/app/pages/news/news_details_page.dart';
 import 'package:unasp_ht/app/pages/news/news_page.dart';
 import 'package:unasp_ht/app/pages/phones/phones_page.dart';
+import 'package:unasp_ht/app/pages/calendar/calendar_page.dart';
 import 'package:unasp_ht/app/shared/components/loading_widget.dart';
 
 class Home extends StatefulWidget {
@@ -82,8 +83,13 @@ class _HomeState extends State<Home> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                RectangularHomeButton('calendário', Color(0xFFC0CA33),
-                    FontAwesomeIcons.calendarAlt, () {}),
+                RectangularHomeButton(
+                    'calendário',
+                    Color(0xFFC0CA33),
+                    FontAwesomeIcons.calendarAlt,
+                    () => Navigator.of(context).push<CupertinoPageRoute>(
+                        CupertinoPageRoute(
+                            builder: (context) => CalendarPage()))),
                 RectangularHomeButton(
                   'Notícias',
                   Color(0xFF95A5A6),
