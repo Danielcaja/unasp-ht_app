@@ -19,9 +19,28 @@ class _AddEventPageState extends State<AddEventPage> {
     String dropdownValue = 'Ensino Básico';
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Adicionar evento'),
-      ),
-    );
+        appBar: AppBar(
+          title: Text('Adicionar evento'),
+        ),
+        body: Container(
+          padding: const EdgeInsets.all(25),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              const SizedBox(height: 10),
+              Row(
+                children: <Widget>[
+                  Text(
+                    'Descrição do evento'.toUpperCase(),
+                    style: TextStyle(
+                      color: theme.primaryColor,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ));
   }
 }
