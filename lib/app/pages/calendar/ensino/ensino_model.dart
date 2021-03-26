@@ -4,11 +4,11 @@ part 'ensino_model.g.dart';
 
 @JsonSerializable()
 class Ensino {
-  final Number id;
+  final int id;
   final String name;
 
   Ensino(this.id, this.name);
 
-  factory Ensino.fromJson(Map<Number, String> json) => _$EnsinoFromJson(json);
-  Map<Number, String> toJson() => _$EnsinoToJson(this);
+  factory Ensino.fromJson(Map<String, dynamic> json) => _$EnsinoFromJson(json);
+  Map<String, dynamic> toJson() => _$EnsinoToJson(this);
 }

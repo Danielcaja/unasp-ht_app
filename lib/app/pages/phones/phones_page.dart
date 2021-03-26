@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:rxdart/subjects.dart';
 import 'package:unasp_ht/app/pages/phones/phone_model.dart';
+import 'package:unasp_ht/app/pages/calendar/ensino/ensino_model.dart';
 import 'package:unasp_ht/app/shared/components/loading_widget.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -11,8 +12,8 @@ class PhonesPage extends StatefulWidget {
 }
 
 class _PhonesPageState extends State<PhonesPage> {
-  final BehaviorSubject<List<Phone>> phonesController =
-      BehaviorSubject<List<Phone>>();
+  final BehaviorSubject<List<Ensino>> phonesController =
+      BehaviorSubject<List<Ensino>>();
   @override
   Widget build(BuildContext context) {
     getPhones().then((phones) => phonesController.add(phones));
@@ -21,7 +22,7 @@ class _PhonesPageState extends State<PhonesPage> {
       appBar: AppBar(
         title: Text('Ramais'),
       ),
-      body: StreamBuilder<List<Phone>>(
+      body: StreamBuilder<List<Ensino>>(
           stream: phonesController,
           builder: (context, snapshot) {
             if (!snapshot.hasData) {
@@ -33,12 +34,11 @@ class _PhonesPageState extends State<PhonesPage> {
               child: Column(
                 children: snapshot.data
                     .map((i) => GestureDetector(
-                          onTap: () async =>
-                              await launch('tel:2118${i?.phone}'),
+                          onTap: () async => await launch('tel:2118${i?.name}'),
                           child: ListTile(
                               title: Text(i?.name ?? ''),
                               trailing: Text(
-                                i?.phone ?? '',
+                                i?.name ?? '',
                                 style: TextStyle(
                                     color: Theme.of(context).accentColor),
                               )),
@@ -50,15 +50,15 @@ class _PhonesPageState extends State<PhonesPage> {
     );
   }
 
-  Future<List<Phone>> getPhones() async {
+  Future<List<Ensino>> getPhones() async {
     try {
       QuerySnapshot snapshot =
-          await FirebaseFirestore.instance.collection('phones').get();
+          await FirebaseFirestore.instance.collection('ensino').get();
 
       if (snapshot == null || snapshot.docs == null) {
         return null;
       }
-      return snapshot.docs.map((f) => Phone.fromJson(f.data())).toList();
+      return snapshot.docs.map((f) => Ensino.fromJson(f.data())).toList();
     } catch (e) {
       return null;
     }

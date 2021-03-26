@@ -6,14 +6,14 @@ part of 'ensino_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-Phone _$EnsinoFromJson(Map<Number, String> json) {
+Ensino _$EnsinoFromJson(Map<String, dynamic> json) {
   return Ensino(
-    json['id'] as Number,
+    json['id'] as int,
     json['name'] as String,
   );
 }
 
-Map<Number, String> _$EnsinoToJson(Ensino instance) => <Number, String>{
+Map<String, dynamic> _$EnsinoToJson(Ensino instance) => <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
     };
