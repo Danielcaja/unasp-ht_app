@@ -1,12 +1,12 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:rxdart/subjects.dart';
-import 'package:unasp_ht/app/pages/calendar/ensino/ensino_model.dart';
 import 'package:unasp_ht/app/shared/components/text-field.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:unasp_ht/app/pages/departures/components/date_picker.dart';
 import 'package:unasp_ht/app/pages/departures/components/time_picker.dart';
-import 'package:unasp_ht/app/shared/components/loading_widget.dart';
+import 'package:unasp_ht/app/shared/components/button.dart';
 
 class AddEventPage extends StatefulWidget {
   @override
@@ -14,19 +14,15 @@ class AddEventPage extends StatefulWidget {
 }
 
 class _AddEventPageState extends State<AddEventPage> {
-  final BehaviorSubject<List<Ensino>> ensinosController =
-      BehaviorSubject<List<Ensino>>();
-
-  // ignore: inference_failure_on_uninitialized_variable
-  var selectedCurrency;
+  int _education = 6;
+  int _course;
+  int _semester;
+  String curso = 'Ano';
 
   @override
   Widget build(BuildContext context) {
-    getEnsinos().then((ensinos) => ensinosController.add(ensinos));
-
     double appWidth = MediaQuery.of(context).size.width;
     ThemeData theme = Theme.of(context);
-
     return Scaffold(
         appBar: AppBar(
           title: Text('Adicionar evento'),
@@ -112,70 +108,253 @@ class _AddEventPageState extends State<AddEventPage> {
                               .snapshots(),
                           builder: (context, snapshot) {
                             if (!snapshot.hasData) {
-                              return Text("Carregando...");
+                              return Center(
+                                child: Text('Carregando...'),
+                              );
                             }
-                            List<DropdownMenuItem> ensinoArray = [];
-                            for (int i = 0;
-                                i < snapshot.data.docs.length;
-                                i++) {
-                              DocumentSnapshot snap = snapshot.data.docs[i];
-                              ensinoArray.add(DropdownMenuItem<dynamic>(
-                                child: Text(
-                                  snap.data()['id'].toString(),
-                                  style: TextStyle(color: Colors.grey[500]),
-                                ),
-                                value: "${snap.data()['name']}",
-                              ));
-                            }
-                            SizedBox(height: 15);
-                            return Column(children: <Widget>[
-                              DropdownButton<dynamic>(
-                                  value: selectedCurrency,
-                                  elevation: 16,
-                                  items: ensinoArray.map((item) {
-                                    DropdownMenuItem<dynamic>(
-                                      value: item.child,
-                                      child: Text(item.value.toString()),
-                                    );
-                                  }).toList(),
-                                  onChanged: (dynamic currencyValue) {
-                                    final snackBar = SnackBar(
-                                        content: Text(
-                                      'Selecionado $currencyValue',
-                                    ));
-                                    Scaffold.of(context).showSnackBar(snackBar);
-                                    setState(() {
-                                      selectedCurrency = currencyValue;
-                                    });
-                                  },
-                                  isExpanded: true,
-                                  hint: Text('Selecione o ensino'))
-                            ]);
+                            return Container(
+                              padding: EdgeInsets.only(
+                                bottom: 16.0,
+                              ),
+                              child: Row(
+                                children: <Widget>[
+                                  Expanded(
+                                      flex: 2,
+                                      child: Container(
+                                        child: Text('Ensino'.toUpperCase()),
+                                      )),
+                                  Expanded(
+                                    flex: 5,
+                                    child: InputDecorator(
+                                      decoration: const InputDecoration(
+                                        labelText: 'Selecione',
+                                        // hintText: 'Selecione',
+                                        hintStyle: TextStyle(
+                                          color: Colors.grey,
+                                          fontSize: 16.0,
+                                        ),
+                                      ),
+                                      isEmpty: _education == 0,
+                                      child: DropdownButton<int>(
+                                        iconSize: 24,
+                                        elevation: 16,
+                                        value: _education,
+                                        isDense: true,
+                                        onChanged: (int newValue) {
+                                          setState(() {
+                                            _education = newValue;
+                                          });
+
+                                          switch (_education) {
+                                            case 1:
+                                            case 2:
+                                            case 3:
+                                              curso = 'Ano';
+                                              break;
+                                            case 4:
+                                            case 5:
+                                              curso = 'Curso';
+                                              break;
+                                          }
+                                        },
+                                        items: snapshot.data.docs
+                                            .map((DocumentSnapshot document) {
+                                          return DropdownMenuItem<int>(
+                                              value: int.tryParse(document
+                                                  .data()['id']
+                                                  .toString()),
+                                              child: Container(
+                                                  child: Text(
+                                                document
+                                                    .data()['name']
+                                                    .toString(),
+                                              )));
+                                        }).toList(),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            );
                           }),
+                      SizedBox(
+                        height: 15,
+                      ),
+                      StreamBuilder<QuerySnapshot>(
+                          stream: _education != 6
+                              ? FirebaseFirestore.instance
+                                  .collection('course')
+                                  .where('ensinoId', isEqualTo: _education)
+                                  .snapshots()
+                              : FirebaseFirestore.instance
+                                  .collection('course')
+                                  .snapshots(),
+                          builder: (context, snapshot) {
+                            if (!snapshot.hasData) {
+                              return Center(
+                                child: Text('Carregando...'),
+                              );
+                            } else {
+                              if (snapshot.data.docs.length > 1) {
+                                print(snapshot.data.docs.length);
+                                return Container(
+                                  padding: EdgeInsets.only(
+                                    bottom: 16.0,
+                                  ),
+                                  child: Row(
+                                    children: <Widget>[
+                                      Expanded(child: Text(curso)),
+                                      Expanded(
+                                        flex: 5,
+                                        child: InputDecorator(
+                                          decoration: const InputDecoration(
+                                            labelText: 'Selecione',
+                                            // hintText: 'Selecione',
+                                            hintStyle: TextStyle(
+                                              color: Colors.grey,
+                                              fontSize: 16.0,
+                                            ),
+                                          ),
+                                          isEmpty: _course == 0,
+                                          child: DropdownButton<int>(
+                                              iconSize: 24,
+                                              elevation: 16,
+                                              value: _course,
+                                              isDense: true,
+                                              // hint: Text(_course.toString()),
+                                              onChanged: (int newValue) {
+                                                setState(() {
+                                                  _course = newValue;
+                                                });
+                                              },
+                                              items: snapshot.data.docs.map(
+                                                  (DocumentSnapshot document) {
+                                                return DropdownMenuItem<int>(
+                                                    value: int.tryParse(document
+                                                        .data()['id']
+                                                        .toString()),
+                                                    child: Container(
+                                                        child: Text(
+                                                      document
+                                                          .data()['sigla']
+                                                          .toString(),
+                                                    )));
+                                              }).toList()
+                                              // items: <int>[30, 31, 32, 33]
+                                              //     .map<DropdownMenuItem<int>>(
+                                              //         (int value) {
+                                              //   return DropdownMenuItem<int>(
+                                              //     value: value,
+                                              //     child: Text(value.toString()),
+                                              //   );
+                                              // }).toList(),
+                                              ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              }
+                              return Center(
+                                child: Text('Carregando...'),
+                              );
+                            }
+                          }),
+                      // SizedBox(
+                      //   height: 15,
+                      // ),
+                      // StreamBuilder<QuerySnapshot>(
+                      //     stream: FirebaseFirestore.instance
+                      //         .collection('semester')
+                      //         .snapshots(),
+                      //     builder: (context, snapshot) {
+                      //       if (!snapshot.hasData) {
+                      //         return Center(
+                      //           child: Text('Carregando...'),
+                      //         );
+                      //       }
+                      //       return Container(
+                      //         padding: EdgeInsets.only(
+                      //           bottom: 16.0,
+                      //         ),
+                      //         child: Row(
+                      //           children: <Widget>[
+                      //             Expanded(
+                      //                 flex: 2,
+                      //                 child: Container(
+                      //                   child: Text('Semestre'.toUpperCase()),
+                      //                 )),
+                      //             Expanded(
+                      //               flex: 5,
+                      //               child: InputDecorator(
+                      //                 decoration: const InputDecoration(
+                      //                   labelText: 'Selecione',
+                      //                   // hintText: 'Selecione',
+                      //                   hintStyle: TextStyle(
+                      //                     color: Colors.grey,
+                      //                     fontSize: 16.0,
+                      //                   ),
+                      //                 ),
+                      //                 isEmpty: _semester == null,
+                      //                 child: DropdownButton<int>(
+                      //                   iconSize: 24,
+                      //                   elevation: 16,
+                      //                   value: _semester,
+                      //                   isDense: true,
+                      //                   // hint: Text(_semester.toString()),
+                      //                   onChanged: (int newValue) {
+                      //                     setState(() {
+                      //                       _semester = newValue;
+                      //                     });
+                      //                   },
+                      //                   items: snapshot.data.docs
+                      //                       .map((DocumentSnapshot document) {
+                      //                     return DropdownMenuItem<int>(
+                      //                         value: int.tryParse(document
+                      // .data()['id']
+                      // .toString()),
+                      //                         child: Container(
+                      //                             child: Text(
+                      //                           document
+                      //                               .data()['description']
+                      //                               .toString(),
+                      //                         )));
+                      //                   }).toList(),
+                      //                 ),
+                      //               ),
+                      //             ),
+                      //           ],
+                      //         ),
+                      //       );
+                      //     }),
+                      SizedBox(height: 40),
+                      StreamBuilder<bool>(
+                          // stream: _formBloc.isValidFormController,
+                          builder: (c, snapshot) {
+                        return Button(
+                          enabled: snapshot.hasData && snapshot.data,
+                          onTap: () async {
+                            // bool res = await _bloc.sendDeparture();
+
+                            // if (res) {
+                            //   // _formBloc.clearFields();
+                            //   // _departuresBloc.getDepartures();
+                            //   // _bloc.isLoadingController.add(false);
+                            //   Navigator.of(context).pop();
+                            // } else {
+                            //   Scaffold.of(context).showSnackBar(
+                            //     SnackBar(
+                            //       content: Text('Erro ao enviar! :('),
+                            //       backgroundColor: Colors.red,
+                            //     ),
+                            //   );
+                            //   // _bloc.isLoadingController.add(false);
+                            // }
+                          },
+                          color: theme.accentColor,
+                          text: 'Salvar',
+                        );
+                      })
                     ])))));
-  }
-
-  Future<List<Ensino>> getEnsinos() async {
-    try {
-      QuerySnapshot snapshot =
-          await FirebaseFirestore.instance.collection('ensino').get();
-
-      if (snapshot == null || snapshot.docs == null) {
-        return null;
-      }
-      // return snapshot.docs.map((f) => Ensino.fromJson(f.data())).toList();
-      return snapshot.docs
-          .map((f) =>
-              Ensino.fromJson(f.data()..addAll(<String, dynamic>{'id': f.id})))
-          .toList();
-    } catch (e) {
-      return null;
-    }
-  }
-
-  @override
-  void dispose() {
-    ensinosController.close();
-    super.dispose();
   }
 }

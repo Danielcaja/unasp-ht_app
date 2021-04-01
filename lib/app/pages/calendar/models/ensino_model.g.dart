@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'ensino_model.dart';
+part of 'course_model.g.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
