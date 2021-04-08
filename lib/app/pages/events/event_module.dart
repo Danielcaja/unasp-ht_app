@@ -11,6 +11,8 @@ class EventsModule extends ModuleWidget {
   @override
   List<Bloc> get blocs => [
         Bloc<EventBloc>((i) => EventBloc(i.getDependency<EventRepository>())),
+        Bloc<EventFormBloc>(
+            (i) => EventFormBloc(i.getDependency<EventRepository>())),
       ];
 
   @override

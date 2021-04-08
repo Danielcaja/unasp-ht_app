@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
-import 'package:unasp_ht/app/pages/events/add_event.dart';
+import 'package:unasp_ht/app/pages/events/event_module.dart';
 
 class CalendarPage extends StatefulWidget {
   @override
@@ -21,7 +21,7 @@ class _CalendarPageState extends State<CalendarPage> {
                 color: Colors.white,
               ),
               onPressed: () => Navigator.of(context).push<CupertinoPageRoute>(
-                  CupertinoPageRoute(builder: (context) => AddEventPage())),
+                  CupertinoPageRoute(builder: (context) => EventsModule())),
             )
           ],
         ),
