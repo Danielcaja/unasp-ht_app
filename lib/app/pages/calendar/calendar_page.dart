@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
-import 'package:unasp_ht/app/pages/calendar/add_event.dart';
+import 'package:unasp_ht/app/pages/events/add_event.dart';
 
 class CalendarPage extends StatefulWidget {
   @override

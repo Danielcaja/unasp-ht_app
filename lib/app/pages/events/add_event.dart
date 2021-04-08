@@ -1,12 +1,13 @@
-import 'dart:developer';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:unasp_ht/app/pages/events/add_event_bloc.dart';
+import 'package:unasp_ht/app/pages/events/event_module.dart';
 import 'package:unasp_ht/app/shared/components/text-field.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:unasp_ht/app/pages/departures/components/date_picker.dart';
 import 'package:unasp_ht/app/pages/departures/components/time_picker.dart';
 import 'package:unasp_ht/app/shared/components/button.dart';
+import 'package:unasp_ht/app/pages/events/models/course_model.dart';
 
 class AddEventPage extends StatefulWidget {
   @override
@@ -14,10 +15,43 @@ class AddEventPage extends StatefulWidget {
 }
 
 class _AddEventPageState extends State<AddEventPage> {
+  final EventFormBloc _bloc = EventsModule.to.getBloc<EventFormBloc>();
+  final DateTime today = DateTime.now();
+
   int _education = 6;
   int _course;
   int _semester;
   String curso = 'Ano';
+
+  // List<Course> _dropdownItems = [
+  //   Course(1, "First Value", 1, "FV"),
+  //   Course(2, "Second Item", 2, "ST"),
+  //   Course(3, "Third Item", 3, "TI"),
+  //   Course(4, "Fourth Item", 4, "FI")
+  // ];
+
+  // List<DropdownMenuItem<Course>> _dropdownMenuItems;
+  // Course _selectedItem;
+
+  // void initState() {
+  //   super.initState();
+  //   _dropdownMenuItems = buildDropDownMenuItems(_dropdownItems);
+  //   _selectedItem = _dropdownMenuItems[0].value;
+  // }
+
+  // List<DropdownMenuItem<Course>> buildDropDownMenuItems(
+  //     List<Course> listItems) {
+  //   List<DropdownMenuItem<Course>> items = List();
+  //   for (Course listItem in listItems) {
+  //     items.add(
+  //       DropdownMenuItem(
+  //         child: Text(listItem.description),
+  //         value: listItem,
+  //       ),
+  //     );
+  //   }
+  //   return items;
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -52,17 +86,17 @@ class _AddEventPageState extends State<AddEventPage> {
                       ),
                       SizedBox(height: 15),
                       DatePicker(
-                        // controller: _bloc.turningDateController,
+                        controller: _bloc.startDateController,
                         hintText: 'Data',
                         icon: FontAwesomeIcons.calendarAlt,
-                        // onTap: () async => _bloc.turningDateC.add(
-                        //   await showDatePicker(
-                        //     context: context,
-                        //     initialDate: today,
-                        //     firstDate: today.add(Duration(days: -1)),
-                        //     lastDate: today.add(Duration(hours: 120)),
-                        //   ),
-                        // ),
+                        onTap: () async => _bloc.startDateC.add(
+                          await showDatePicker(
+                            context: context,
+                            initialDate: today,
+                            firstDate: today.add(Duration(days: -1)),
+                            lastDate: today.add(Duration(hours: 120)),
+                          ),
+                        ),
                       ),
                       SizedBox(
                         height: 15,
@@ -180,6 +214,15 @@ class _AddEventPageState extends State<AddEventPage> {
                       SizedBox(
                         height: 15,
                       ),
+
+                      // DropdownButton<Course>(
+                      //     value: _selectedItem,
+                      //     items: _dropdownMenuItems,
+                      //     onChanged: (value) {
+                      //       setState(() {
+                      //         _selectedItem = value;
+                      //       });
+                      //     }),
                       StreamBuilder<QuerySnapshot>(
                           stream: _education != 6
                               ? FirebaseFirestore.instance
@@ -203,7 +246,11 @@ class _AddEventPageState extends State<AddEventPage> {
                                   ),
                                   child: Row(
                                     children: <Widget>[
-                                      Expanded(child: Text(curso)),
+                                      Expanded(
+                                          flex: 2,
+                                          child: Container(
+                                            child: Text(curso),
+                                          )),
                                       Expanded(
                                         flex: 5,
                                         child: InputDecorator(
@@ -239,16 +286,7 @@ class _AddEventPageState extends State<AddEventPage> {
                                                           .data()['sigla']
                                                           .toString(),
                                                     )));
-                                              }).toList()
-                                              // items: <int>[30, 31, 32, 33]
-                                              //     .map<DropdownMenuItem<int>>(
-                                              //         (int value) {
-                                              //   return DropdownMenuItem<int>(
-                                              //     value: value,
-                                              //     child: Text(value.toString()),
-                                              //   );
-                                              // }).toList(),
-                                              ),
+                                              }).toList()),
                                         ),
                                       ),
                                     ],
@@ -260,73 +298,73 @@ class _AddEventPageState extends State<AddEventPage> {
                               );
                             }
                           }),
-                      // SizedBox(
-                      //   height: 15,
-                      // ),
-                      // StreamBuilder<QuerySnapshot>(
-                      //     stream: FirebaseFirestore.instance
-                      //         .collection('semester')
-                      //         .snapshots(),
-                      //     builder: (context, snapshot) {
-                      //       if (!snapshot.hasData) {
-                      //         return Center(
-                      //           child: Text('Carregando...'),
-                      //         );
-                      //       }
-                      //       return Container(
-                      //         padding: EdgeInsets.only(
-                      //           bottom: 16.0,
-                      //         ),
-                      //         child: Row(
-                      //           children: <Widget>[
-                      //             Expanded(
-                      //                 flex: 2,
-                      //                 child: Container(
-                      //                   child: Text('Semestre'.toUpperCase()),
-                      //                 )),
-                      //             Expanded(
-                      //               flex: 5,
-                      //               child: InputDecorator(
-                      //                 decoration: const InputDecoration(
-                      //                   labelText: 'Selecione',
-                      //                   // hintText: 'Selecione',
-                      //                   hintStyle: TextStyle(
-                      //                     color: Colors.grey,
-                      //                     fontSize: 16.0,
-                      //                   ),
-                      //                 ),
-                      //                 isEmpty: _semester == null,
-                      //                 child: DropdownButton<int>(
-                      //                   iconSize: 24,
-                      //                   elevation: 16,
-                      //                   value: _semester,
-                      //                   isDense: true,
-                      //                   // hint: Text(_semester.toString()),
-                      //                   onChanged: (int newValue) {
-                      //                     setState(() {
-                      //                       _semester = newValue;
-                      //                     });
-                      //                   },
-                      //                   items: snapshot.data.docs
-                      //                       .map((DocumentSnapshot document) {
-                      //                     return DropdownMenuItem<int>(
-                      //                         value: int.tryParse(document
-                      // .data()['id']
-                      // .toString()),
-                      //                         child: Container(
-                      //                             child: Text(
-                      //                           document
-                      //                               .data()['description']
-                      //                               .toString(),
-                      //                         )));
-                      //                   }).toList(),
-                      //                 ),
-                      //               ),
-                      //             ),
-                      //           ],
-                      //         ),
-                      //       );
-                      //     }),
+                      SizedBox(
+                        height: 15,
+                      ),
+                      StreamBuilder<QuerySnapshot>(
+                          stream: FirebaseFirestore.instance
+                              .collection('semester')
+                              .snapshots(),
+                          builder: (context, snapshot) {
+                            if (!snapshot.hasData) {
+                              return Center(
+                                child: Text('Carregando...'),
+                              );
+                            }
+                            return Container(
+                              padding: EdgeInsets.only(
+                                bottom: 16.0,
+                              ),
+                              child: Row(
+                                children: <Widget>[
+                                  Expanded(
+                                      flex: 2,
+                                      child: Container(
+                                        child: Text('Semestre'.toUpperCase()),
+                                      )),
+                                  Expanded(
+                                    flex: 5,
+                                    child: InputDecorator(
+                                      decoration: const InputDecoration(
+                                        labelText: 'Selecione',
+                                        // hintText: 'Selecione',
+                                        hintStyle: TextStyle(
+                                          color: Colors.grey,
+                                          fontSize: 16.0,
+                                        ),
+                                      ),
+                                      isEmpty: _semester == null,
+                                      child: DropdownButton<int>(
+                                        iconSize: 24,
+                                        elevation: 16,
+                                        value: _semester,
+                                        isDense: true,
+                                        // hint: Text(_semester.toString()),
+                                        onChanged: (int newValue) {
+                                          setState(() {
+                                            _semester = newValue;
+                                          });
+                                        },
+                                        items: snapshot.data.docs
+                                            .map((DocumentSnapshot document) {
+                                          return DropdownMenuItem<int>(
+                                              value: int.tryParse(document
+                                                  .data()['id']
+                                                  .toString()),
+                                              child: Container(
+                                                  child: Text(
+                                                document
+                                                    .data()['description']
+                                                    .toString(),
+                                              )));
+                                        }).toList(),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            );
+                          }),
                       SizedBox(height: 40),
                       StreamBuilder<bool>(
                           // stream: _formBloc.isValidFormController,
