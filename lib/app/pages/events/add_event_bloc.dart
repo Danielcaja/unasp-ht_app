@@ -5,11 +5,18 @@ import 'package:rxdart/rxdart.dart';
 import 'package:unasp_ht/app/pages/events/event_repository.dart';
 
 class EventFormBloc extends BlocBase {
+  final BehaviorSubject<bool> isLoadingController =
+      BehaviorSubject<bool>.seeded(false);
+
   TextEditingController descriptionController = TextEditingController();
   TextEditingController startDateController = TextEditingController();
   TextEditingController startTimeController = TextEditingController();
   TextEditingController finalDateController = TextEditingController();
   TextEditingController finalTimeController = TextEditingController();
+
+  int ensinoIdController;
+  int courseIdController;
+  int semestreIdController;
 
   BehaviorSubject<DateTime> startDateC = BehaviorSubject<DateTime>();
   BehaviorSubject<DateTime> finalDateC = BehaviorSubject<DateTime>();
@@ -20,6 +27,9 @@ class EventFormBloc extends BlocBase {
     startTimeController.addListener(validate);
     finalDateController.addListener(validate);
     finalTimeController.addListener(validate);
+    // ensinoIdController.addListener(validate);
+    // courseIdController.addListener(validate);
+    // semestreIdController.addListener(validate);
 
     startDateC.listen((onData) {
       if (onData != null) {
@@ -42,6 +52,10 @@ class EventFormBloc extends BlocBase {
     startTimeController.clear();
     finalDateController.clear();
     finalTimeController.clear();
+    // ensinoIdController.add(null);
+    // courseIdController.clear();
+    // semestreIdController.clear();
+
     startDateC.add(null);
     finalDateC.add(null);
   }

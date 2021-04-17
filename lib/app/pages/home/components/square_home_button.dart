@@ -6,7 +6,7 @@ class SquareHomeButton extends StatelessWidget {
   final IconData icon;
   final Function onTap;
 
-  SquareHomeButton(this.text, this.color, this.icon, this.onTap);
+  SquareHomeButton(this.text, this.color, this.icon, this.onTap, {Null Function() onPressed});
 
   @override
   Widget build(BuildContext context) {

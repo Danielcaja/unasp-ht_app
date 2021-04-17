@@ -19,7 +19,7 @@ class EventRepository {
         snapshot = await _firestore.collection('events').get();
       } else {
         snapshot = await _firestore
-            .collection('Events')
+            .collection('events')
             .where('userId', isEqualTo: appBloc.currentUser.value.uid)
             .get();
       }
@@ -52,7 +52,7 @@ class EventRepository {
   Future<bool> put(Events model) async {
     try {
       await FirebaseFirestore.instance
-          .collection('Events')
+          .collection('events')
           .doc(model.id.toString())
           .set(model.toJson());
 

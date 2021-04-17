@@ -1,7 +1,12 @@
+import 'dart:async';
+import 'dart:math';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 import 'package:unasp_ht/app/pages/events/event_module.dart';
+import 'package:unasp_ht/app/pages/events/models/event_model.dart';
+import 'package:unasp_ht/app/shared/components/loading_widget.dart';
 
 class CalendarPage extends StatefulWidget {
   @override
@@ -9,6 +14,8 @@ class CalendarPage extends StatefulWidget {
 }
 
 class _CalendarPageState extends State<CalendarPage> {
+  List<QueryDocumentSnapshot> listEvents;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,78 +32,65 @@ class _CalendarPageState extends State<CalendarPage> {
             )
           ],
         ),
-        body: SfCalendar(
-            view: CalendarView.month,
-            showNavigationArrow: true,
-            dataSource: _getCalendarDataSource(),
-            monthViewSettings: MonthViewSettings(
-                showAgenda: true,
-                appointmentDisplayMode:
-                    MonthAppointmentDisplayMode.appointment),
-            appointmentTextStyle: TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.w500,
-                color: Colors.lime)));
+        body: StreamBuilder<QuerySnapshot>(
+            stream: FirebaseFirestore.instance.collection('events').snapshots(),
+            builder: (context, snapshot) {
+              if (!snapshot.hasData) {
+                return Center(child: LoadingWidget());
+              }
+              return SfCalendar(
+                  view: CalendarView.month,
+                  showNavigationArrow: true,
+                  dataSource: _getCalendarDataSource(snapshot?.data?.docs),
+                  monthViewSettings: MonthViewSettings(
+                      showAgenda: true,
+                      appointmentDisplayMode:
+                          MonthAppointmentDisplayMode.appointment),
+                  appointmentTextStyle: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.lime));
+            }));
   }
 }
 
-_AppointmentDataSource _getCalendarDataSource() {
+_AppointmentDataSource _getCalendarDataSource(List listEvents) {
+  Random random = Random();
   List<Appointment> appointments = <Appointment>[];
+  if (listEvents.isNotEmpty) {
+    for (var data in listEvents) {
+      Appointment events = Appointment(
+        startTime: DateTime.parse(data['startDate'].toString()),
+        endTime: DateTime.parse(data['finalDate'].toString()),
+        subject: data['description'].toString(),
+        color:
+            Color((random.nextDouble() * 0xFF0F8644).toInt()).withOpacity(1.0),
+        startTimeZone: '',
+        endTimeZone: '',
+      );
 
-  appointments.add(Appointment(
-      startTime: DateTime(2021, 03, 8, 23),
-      endTime: DateTime(2021, 03, 8, 00),
-      subject: 'Orientação TCC',
-      color: Colors.blue,
-      recurrenceRule: 'FREQ=DAILY;INTERVAL=7;COUNT=10'));
-
-  appointments.add(Appointment(
-    startTime: DateTime.now().add(Duration(days: 4)),
-    endTime: DateTime.now().add(Duration(minutes: 10)),
-    subject: 'Prova de Matematica',
-    color: Colors.blue,
-    startTimeZone: '',
-    endTimeZone: '',
-  ));
-
-  appointments.add(Appointment(
-    startTime: DateTime.now().add(Duration(days: 4)),
-    endTime: DateTime.now().add(Duration(minutes: 10)),
-    subject: 'Lista de Matematica',
-    color: Colors.green,
-    startTimeZone: '',
-    endTimeZone: '',
-  ));
-
-  appointments.add(Appointment(
-    startTime: DateTime.now().add(Duration(days: 9)),
-    endTime: DateTime.now().add(Duration(days: 5)),
-    subject: 'Lista de Matematica',
-    color: Colors.green,
-    startTimeZone: '',
-    endTimeZone: '',
-  ));
-  appointments.add(Appointment(
-    startTime: DateTime.now().add(Duration(days: 4)),
-    endTime: DateTime.now().add(Duration(minutes: 10)),
-    subject: 'Lista de Matematica',
-    color: Colors.green,
-    startTimeZone: '',
-    endTimeZone: '',
-  ));
-  appointments.add(Appointment(
-    startTime: DateTime.now().add(Duration(days: 2)),
-    endTime: DateTime.now().add(Duration(hours: 1)),
-    subject: 'Atividade de Biologia',
-    color: Colors.pink,
-    startTimeZone: '',
-    endTimeZone: '',
-  ));
+      appointments.add(events);
+    }
+  }
   return _AppointmentDataSource(appointments);
 }
 
 class _AppointmentDataSource extends CalendarDataSource {
   _AppointmentDataSource(List<Appointment> source) {
     appointments = source;
+  }
+}
+
+Future<List<Events>> getEvents() async {
+  try {
+    QuerySnapshot snapshot =
+        await FirebaseFirestore.instance.collection('events').get();
+
+    if (snapshot == null || snapshot.docs == null) {
+      return null;
+    }
+    return snapshot.docs.map((f) => Events.fromJson(f.data())).toList();
+  } catch (e) {
+    return null;
   }
 }

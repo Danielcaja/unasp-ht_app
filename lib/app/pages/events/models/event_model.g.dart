@@ -9,7 +9,7 @@ part of 'event_model.dart';
 Events _$EventFromJson(Map<String, dynamic> json) {
   return Events(
     json['id'] as int,
-    json['userId'] as int,
+    json['userId'] as String,
     json['description'] as String,
     json['ensinoId'] as int,
     json['courseId'] as int,
@@ -33,35 +33,3 @@ Map<String, dynamic> _$EventToJson(Events instance) => <String, dynamic>{
       'startDate': instance.startDate?.toIso8601String(),
       'finalDate': instance.finalDate?.toIso8601String(),
     };
-
-T _$enumDecode<T>(
-  Map<T, dynamic> enumValues,
-  dynamic source, {
-  T unknownValue,
-}) {
-  if (source == null) {
-    throw ArgumentError('A value must be provided. Supported values: '
-        '${enumValues.values.join(', ')}');
-  }
-
-  final value = enumValues.entries
-      .singleWhere((e) => e.value == source, orElse: () => null)
-      ?.key;
-
-  if (value == null && unknownValue == null) {
-    throw ArgumentError('`$source` is not one of the supported values: '
-        '${enumValues.values.join(', ')}');
-  }
-  return value ?? unknownValue;
-}
-
-T _$enumDecodeNullable<T>(
-  Map<T, dynamic> enumValues,
-  dynamic source, {
-  T unknownValue,
-}) {
-  if (source == null) {
-    return null;
-  }
-  return _$enumDecode<T>(enumValues, source, unknownValue: unknownValue);
-}
