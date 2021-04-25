@@ -25,6 +25,7 @@ class _AddEventPageState extends State<AddEventPage> {
   int _course;
   int _semester;
   String curso = 'Ano';
+  String semestre = 'Semestre';
 
   @override
   Widget build(BuildContext context) {
@@ -226,10 +227,12 @@ class _AddEventPageState extends State<AddEventPage> {
                                                 case 2:
                                                 case 3:
                                                   curso = 'Ano';
+                                                  semestre = 'Turma';
                                                   break;
                                                 case 4:
                                                 case 5:
                                                   curso = 'Curso';
+                                                  semestre = 'Semestre';
                                                   break;
                                               }
                                             },
@@ -357,8 +360,7 @@ class _AddEventPageState extends State<AddEventPage> {
                                       Expanded(
                                           flex: 2,
                                           child: Container(
-                                            child:
-                                                Text('Semestre'.toUpperCase()),
+                                            child: Text(semestre),
                                           )),
                                       Expanded(
                                         flex: 5,
