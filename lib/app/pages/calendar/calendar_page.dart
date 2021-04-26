@@ -40,7 +40,14 @@ class _CalendarPageState extends State<CalendarPage> {
               }
               return SfCalendar(
                   view: CalendarView.month,
+                  allowViewNavigation: true,
                   showNavigationArrow: true,
+                  allowedViews: <CalendarView>[
+                    CalendarView.day,
+                    CalendarView.week,
+                    CalendarView.month,
+                    CalendarView.schedule
+                  ],
                   dataSource: _getCalendarDataSource(snapshot?.data?.docs),
                   monthViewSettings: MonthViewSettings(
                       showAgenda: true,
@@ -59,15 +66,29 @@ _AppointmentDataSource _getCalendarDataSource(List listEvents) {
   List<Appointment> appointments = <Appointment>[];
   if (listEvents.isNotEmpty) {
     for (var data in listEvents) {
-      Appointment events = Appointment(
-        startTime: DateTime.parse(data['startDate'].toString()),
-        endTime: DateTime.parse(data['finalDate'].toString()),
-        subject: data['description'].toString(),
-        color:
-            Color((random.nextDouble() * 0xFF0F8644).toInt()).withOpacity(1.0),
-        startTimeZone: '',
-        endTimeZone: '',
-      );
+      Appointment events;
+      if (data['description'].toUpperCase() == 'Semana de Oração') {
+        /// METING
+        events = Appointment(
+          startTime: DateTime.parse(data['startDate'].toString()),
+          endTime: DateTime.parse(data['finalDate'].toString()),
+          subject: data['description'].toString(),
+          color: Color((random.nextDouble() * 0xFF0F8644).toInt())
+              .withOpacity(1.0),
+          startTimeZone: '',
+          endTimeZone: '',
+        );
+      } else {
+        events = Appointment(
+          startTime: DateTime.parse(data['startDate'].toString()),
+          endTime: DateTime.parse(data['finalDate'].toString()),
+          subject: data['description'].toString(),
+          color: Color((random.nextDouble() * 0xFF0F8644).toInt())
+              .withOpacity(1.0),
+          startTimeZone: '',
+          endTimeZone: '',
+        );
+      }
 
       appointments.add(events);
     }
