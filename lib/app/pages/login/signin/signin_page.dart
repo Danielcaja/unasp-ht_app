@@ -1,4 +1,3 @@
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -18,7 +17,6 @@ class SigninPage extends StatefulWidget {
 
 class _SigninPageState extends State<SigninPage>
     with SingleTickerProviderStateMixin {
-  FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
   Animation<double> animTransformEmail;
   Animation<double> animTransformPassword;
   Animation<double> animButtonSigninCircular;
@@ -26,23 +24,12 @@ class _SigninPageState extends State<SigninPage>
   Animation<double> animButtonWidth;
   Animation<double> animOpacityForgetPass;
   final SigninBloc _bloc = LoginModule.to.getBloc();
-  // String title = "Title";
-  // String helper = "helper";
-
+ 
   @override
   void initState() {
     super.initState();
     _bloc.animationController = AnimationController(
         duration: Duration(milliseconds: 1000), vsync: this);
-
-    // _firebaseMessaging.configure(
-    //   onMessage: (message) async{
-    //     setState(() {
-    //       title = message["notification"]["title"];
-    //       helper = "Voce recebeu uma nova notificacao";
-    //     });
-    //   }
-    // );
   }
 
   @override
