@@ -18,7 +18,7 @@ class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
     String genre =
-        bloc.currentUser.value.genre == 'F' ? 'Feminino' : 'Masculino';
+        bloc.currentUser.value.genre == 'f' ? 'Feminino' : 'Masculino';
     return SingleChildScrollView(
       child: Container(
         child: Center(

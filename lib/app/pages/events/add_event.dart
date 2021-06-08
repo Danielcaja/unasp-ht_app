@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:unasp_ht/app/pages/events/add_event_bloc.dart';
 import 'package:unasp_ht/app/pages/events/event_bloc.dart';
 import 'package:unasp_ht/app/pages/events/event_module.dart';
-import 'package:unasp_ht/app/shared/components/text-field.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:unasp_ht/app/pages/departures/components/date_picker.dart';
 import 'package:unasp_ht/app/pages/departures/components/time_picker.dart';
 import 'package:unasp_ht/app/shared/components/button.dart';
+import 'package:unasp_ht/app/shared/components/text-field.dart';
 
 class AddEventPage extends StatefulWidget {
   @override
@@ -24,8 +24,9 @@ class _AddEventPageState extends State<AddEventPage> {
   int _education = 6;
   int _course;
   int _semester;
-  String curso = 'Ano';
-  String semestre = 'Semestre';
+  String _subject;
+  String curso = 'ANO';
+  String semestre = 'TURMA';
 
   @override
   Widget build(BuildContext context) {
@@ -35,8 +36,8 @@ class _AddEventPageState extends State<AddEventPage> {
         appBar: AppBar(
           title: Text('Adicionar evento'),
         ),
-        body: Container(
-            child: SingleChildScrollView(
+        body: SingleChildScrollView(
+            child: Container(
                 child: Padding(
                     padding: EdgeInsets.only(
                         left: appWidth * .1, right: appWidth * .1),
@@ -56,9 +57,14 @@ class _AddEventPageState extends State<AddEventPage> {
                           ),
                           SizedBox(height: 15),
                           CustomTextField(
-                            hintText: 'Evento',
+                            hintText: 'Descrição do evento',
                             icon: FontAwesomeIcons.infoCircle,
+                            inputType: TextInputType.text,
                             controller: _bloc.descriptionController,
+                            enabled:
+                                _bloc.descriptionController.text.length > 10
+                                    ? false
+                                    : true,
                           ),
                           SizedBox(height: 15),
                           Row(
@@ -77,7 +83,7 @@ class _AddEventPageState extends State<AddEventPage> {
                                           firstDate:
                                               today.add(Duration(days: -1)),
                                           lastDate:
-                                              today.add(Duration(hours: 120)),
+                                              today.add(Duration(days: 30)),
                                         ),
                                       ),
                                     ),
@@ -93,7 +99,7 @@ class _AddEventPageState extends State<AddEventPage> {
                                           firstDate:
                                               today.add(Duration(days: -1)),
                                           lastDate:
-                                              today.add(Duration(hours: 120)),
+                                              today.add(Duration(days: 40)),
                                         ),
                                       ),
                                     ),
@@ -163,7 +169,7 @@ class _AddEventPageState extends State<AddEventPage> {
                             ],
                           ),
                           SizedBox(
-                            height: appWidth * .1,
+                            height: 25,
                           ),
                           Text(
                             'Público alvo do evento'.toUpperCase(),
@@ -173,7 +179,7 @@ class _AddEventPageState extends State<AddEventPage> {
                             ),
                           ),
                           SizedBox(
-                            height: 15,
+                            height: 10,
                           ),
                           StreamBuilder<QuerySnapshot>(
                               stream: FirebaseFirestore.instance
@@ -201,7 +207,6 @@ class _AddEventPageState extends State<AddEventPage> {
                                         child: InputDecorator(
                                           decoration: const InputDecoration(
                                             labelText: 'Selecione',
-                                            // hintText: 'Selecione o Ensino',
                                             hintStyle: TextStyle(
                                               color: Colors.grey,
                                               fontSize: 16.0,
@@ -209,47 +214,46 @@ class _AddEventPageState extends State<AddEventPage> {
                                           ),
                                           isEmpty: _education == 0,
                                           child: DropdownButton<int>(
-                                            iconSize: 24,
-                                            elevation: 16,
-                                            // value: _bloc.ensinoIdController
-                                            //     .value.hashCode,
-                                            value: _education,
-                                            isDense: true,
-                                            onChanged: (int newValue) {
-                                              setState(() {
-                                                _education = newValue;
-                                                _bloc.ensinoIdController =
-                                                    newValue;
-                                              });
+                                              iconSize: 24,
+                                              elevation: 12,
+                                              // value: _bloc.ensinoIdController
+                                              //     .value.hashCode,
+                                              value: _education,
+                                              isDense: true,
+                                              onChanged: (int newValue) {
+                                                setState(() {
+                                                  _education = newValue;
+                                                  _bloc.ensinoIdController =
+                                                      newValue;
+                                                });
 
-                                              switch (_education) {
-                                                case 1:
-                                                case 2:
-                                                case 3:
-                                                  curso = 'Ano';
-                                                  semestre = 'Turma';
-                                                  break;
-                                                case 4:
-                                                case 5:
-                                                  curso = 'Curso';
-                                                  semestre = 'Semestre';
-                                                  break;
-                                              }
-                                            },
-                                            items: snapshot.data.docs.map(
-                                                (DocumentSnapshot document) {
-                                              return DropdownMenuItem<int>(
-                                                  value: int.tryParse(document
-                                                      .data()['id']
-                                                      .toString()),
-                                                  child: Container(
-                                                      child: Text(
-                                                    document
-                                                        .data()['name']
-                                                        .toString(),
-                                                  )));
-                                            }).toList(),
-                                          ),
+                                                switch (_education) {
+                                                  case 1:
+                                                  case 2:
+                                                  case 3:
+                                                    curso = 'ANO';
+                                                    semestre = 'TURMA';
+                                                    break;
+                                                  case 4:
+                                                  case 5:
+                                                    curso = 'CURSO';
+                                                    semestre = 'SEMESTRE';
+                                                    break;
+                                                }
+                                              },
+                                              items: snapshot.data.docs.map(
+                                                  (DocumentSnapshot document) {
+                                                return DropdownMenuItem<int>(
+                                                    value: int.tryParse(document
+                                                        .data()['id']
+                                                        .toString()),
+                                                    child: Container(
+                                                        child: Text(
+                                                      document
+                                                          .data()['name']
+                                                          .toString(),
+                                                    )));
+                                              }).toList()),
                                         ),
                                       ),
                                     ],
@@ -257,7 +261,7 @@ class _AddEventPageState extends State<AddEventPage> {
                                 );
                               }),
                           SizedBox(
-                            height: 15,
+                            height: 10,
                           ),
                           StreamBuilder<QuerySnapshot>(
                               stream: _education != 6
@@ -291,7 +295,6 @@ class _AddEventPageState extends State<AddEventPage> {
                                             child: InputDecorator(
                                               decoration: const InputDecoration(
                                                 labelText: 'Selecione',
-                                                // hintText: 'Selecione',
                                                 hintStyle: TextStyle(
                                                   color: Colors.grey,
                                                   fontSize: 16.0,
@@ -300,7 +303,7 @@ class _AddEventPageState extends State<AddEventPage> {
                                               isEmpty: _course == 0,
                                               child: DropdownButton<int>(
                                                   iconSize: 24,
-                                                  elevation: 16,
+                                                  elevation: 12,
                                                   value: _course,
                                                   isDense: true,
                                                   // hint: Text(_course.toString()),
@@ -339,12 +342,13 @@ class _AddEventPageState extends State<AddEventPage> {
                                 }
                               }),
                           SizedBox(
-                            height: 15,
+                            height: 10,
                           ),
                           StreamBuilder<QuerySnapshot>(
                               stream: FirebaseFirestore.instance
                                   .collection('semester')
                                   .snapshots(),
+                              // VERIFICAR DE QUE FORMA FAZER O SEMESTRE
                               builder: (context, snapshot) {
                                 if (!snapshot.hasData) {
                                   return Center(
@@ -367,7 +371,6 @@ class _AddEventPageState extends State<AddEventPage> {
                                         child: InputDecorator(
                                           decoration: const InputDecoration(
                                             labelText: 'Selecione',
-                                            // hintText: 'Selecione',
                                             hintStyle: TextStyle(
                                               color: Colors.grey,
                                               fontSize: 16.0,
@@ -376,7 +379,7 @@ class _AddEventPageState extends State<AddEventPage> {
                                           isEmpty: _semester == null,
                                           child: DropdownButton<int>(
                                             iconSize: 24,
-                                            elevation: 16,
+                                            elevation: 12,
                                             value: _semester,
                                             isDense: true,
                                             // hint: Text(_semester.toString()),
@@ -407,7 +410,81 @@ class _AddEventPageState extends State<AddEventPage> {
                                   ),
                                 );
                               }),
-                          SizedBox(height: 40),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          StreamBuilder<QuerySnapshot>(
+                              stream: _education != 6
+                                  ? FirebaseFirestore.instance
+                                      .collection('subjectSchool')
+                                      .where('courseId', isEqualTo: _course)
+                                      .snapshots()
+                                  : FirebaseFirestore.instance
+                                      .collection('subjectSchool')
+                                      .snapshots(),
+                              builder: (context, snapshot) {
+                                if (!snapshot.hasData) {
+                                  return Center(
+                                    child: Text('Carregando...'),
+                                  );
+                                }
+                                return Container(
+                                  padding: EdgeInsets.only(
+                                    bottom: 16.0,
+                                  ),
+                                  child: Row(
+                                    children: <Widget>[
+                                      Expanded(
+                                          flex: 2,
+                                          child: Container(
+                                            child:
+                                                Text('Matéria'.toUpperCase()),
+                                          )),
+                                      Expanded(
+                                        flex: 5,
+                                        child: InputDecorator(
+                                          decoration: const InputDecoration(
+                                            labelText: 'Selecione',
+                                            hintStyle: TextStyle(
+                                              color: Colors.grey,
+                                              fontSize: 16.0,
+                                            ),
+                                          ),
+                                          isEmpty: _subject == '',
+                                          child: DropdownButton<String>(
+                                            iconSize: 24,
+                                            elevation: 12,
+                                            value: _subject,
+                                            isDense: true,
+                                            // hint: Text(_semester.toString()),
+                                            onChanged: (String newValue) {
+                                              setState(() {
+                                                _subject = newValue;
+                                                _bloc.subjectDescriptionController =
+                                                    newValue;
+                                              });
+                                            },
+                                            items: snapshot.data.docs.map(
+                                                (DocumentSnapshot document) {
+                                              return DropdownMenuItem<String>(
+                                                  value: document
+                                                      .data()['description']
+                                                      .toString(),
+                                                  child: Container(
+                                                      child: Text(
+                                                    document
+                                                        .data()['description']
+                                                        .toString(),
+                                                  )));
+                                            }).toList(),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              }),
+                          SizedBox(height: 20),
                           StreamBuilder<bool>(
                               stream: _bloc.isValidFormController,
                               builder: (c, snapshot) {
@@ -423,7 +500,8 @@ class _AddEventPageState extends State<AddEventPage> {
                                       _bloc.isLoadingController.add(false);
                                       Navigator.of(context).pop();
                                     } else {
-                                      Scaffold.of(context).showSnackBar(
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
                                         SnackBar(
                                           content: Text('Erro ao enviar! :('),
                                           backgroundColor: Colors.red,
@@ -435,7 +513,8 @@ class _AddEventPageState extends State<AddEventPage> {
                                   color: theme.accentColor,
                                   text: 'Salvar',
                                 );
-                              })
+                              }),
+                          SizedBox(height: 20)
                         ]))))));
   }
 }

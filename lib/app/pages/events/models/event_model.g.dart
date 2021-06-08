@@ -14,6 +14,7 @@ Events _$EventFromJson(Map<String, dynamic> json) {
     json['ensinoId'] as int,
     json['courseId'] as int,
     json['semesterId'] as int,
+    json['subjectDescription'] as String,
     json['startDate'] == null
         ? null
         : DateTime.parse(json['startDate'] as String),
@@ -30,6 +31,7 @@ Map<String, dynamic> _$EventToJson(Events instance) => <String, dynamic>{
       'ensinoId': instance.ensinoId,
       'courseId': instance.courseId,
       'semesterId': instance.semesterId,
+      'subjectDescription': instance.subjectDescription,
       'startDate': instance.startDate?.toIso8601String(),
       'finalDate': instance.finalDate?.toIso8601String(),
     };

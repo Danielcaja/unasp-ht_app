@@ -42,6 +42,7 @@ class EventBloc extends BlocBase {
         formBloc.ensinoIdController,
         formBloc.courseIdController,
         formBloc.semestreIdController,
+        formBloc.subjectDescriptionController,
         formBloc.startDateC.value,
         formBloc.finalDateC.value,
       ),

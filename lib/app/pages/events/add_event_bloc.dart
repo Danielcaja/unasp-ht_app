@@ -5,6 +5,7 @@ import 'package:rxdart/rxdart.dart';
 import 'package:unasp_ht/app/pages/events/event_repository.dart';
 
 class EventFormBloc extends BlocBase {
+  // ignore: close_sinks
   final BehaviorSubject<bool> isLoadingController =
       BehaviorSubject<bool>.seeded(false);
 
@@ -17,6 +18,7 @@ class EventFormBloc extends BlocBase {
   int ensinoIdController;
   int courseIdController;
   int semestreIdController;
+  String subjectDescriptionController;
 
   BehaviorSubject<DateTime> startDateC = BehaviorSubject<DateTime>();
   BehaviorSubject<DateTime> finalDateC = BehaviorSubject<DateTime>();

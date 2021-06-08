@@ -10,11 +10,12 @@ class Events {
   final int ensinoId;
   final int courseId;
   final int semesterId;
+  final String subjectDescription;
   final DateTime startDate;
   final DateTime finalDate;
 
   Events(this.id, this.userId, this.description, this.ensinoId, this.courseId,
-      this.semesterId, this.startDate, this.finalDate);
+      this.semesterId, this.subjectDescription, this.startDate, this.finalDate);
 
   factory Events.fromJson(Map<String, dynamic> json) => _$EventFromJson(json);
   Map<String, dynamic> toJson() => _$EventToJson(this);

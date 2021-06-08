@@ -1,4 +1,3 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -9,7 +8,6 @@ import 'package:unasp_ht/app/pages/home/home_bloc.dart';
 import 'package:unasp_ht/app/pages/home/home_module.dart';
 import 'package:unasp_ht/app/pages/home/models/news_model.dart';
 import 'package:unasp_ht/app/pages/menu/menu_page.dart';
-import 'package:unasp_ht/app/pages/news/news_details_page.dart';
 import 'package:unasp_ht/app/pages/news/news_page.dart';
 import 'package:unasp_ht/app/pages/phones/phones_page.dart';
 import 'package:unasp_ht/app/pages/calendar/calendar_page.dart';
@@ -132,86 +130,86 @@ Widget _news(BuildContext context) {
         if (!snapshot.hasData) {
           return LoadingWidget();
         }
-        if (snapshot.data.isNotEmpty) {
-          return CarouselSlider(
-            enableInfiniteScroll: false,
-            height: appWidth * .3,
-            items: snapshot.data.map((i) {
-              return Builder(
-                builder: (BuildContext context) {
-                  return Padding(
-                    padding: EdgeInsets.only(top: 10, bottom: 10),
-                    child: GestureDetector(
-                      onTap: () => Navigator.of(context)
-                          .push<CupertinoPageRoute>(CupertinoPageRoute(
-                              builder: (context) => NewsDetailsPage(
-                                    model: i,
-                                  ))),
-                      child: Container(
-                          width: MediaQuery.of(context).size.width,
-                          margin: EdgeInsets.symmetric(horizontal: 5.0),
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(10),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black12,
-                                  blurRadius:
-                                      5.0, // has the effect of softening the shadow
-                                )
-                              ]),
-                          child: Row(
-                            children: <Widget>[
-                              Hero(
-                                tag: i?.title,
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(8),
-                                    bottomLeft: Radius.circular(8),
-                                  ),
-                                  child: Image.network(
-                                    i?.image ?? '',
-                                    fit: BoxFit.contain,
-                                  ),
-                                ),
-                              ),
-                              Expanded(
-                                child: Container(
-                                  padding: EdgeInsets.all(10),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    children: <Widget>[
-                                      Text(
-                                        i?.title?.toUpperCase() ?? '',
-                                        style: TextStyle(fontSize: 10),
-                                      ),
-                                      Text(
-                                        i?.text ?? '',
-                                        softWrap: true,
-                                        maxLines: 3,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(
-                                            fontSize: 11,
-                                            color: Colors.black45),
-                                      ),
-                                      // )
-                                    ],
-                                  ),
-                                ),
-                              )
-                            ],
-                          )),
-                    ),
-                  );
-                },
-              );
-            }).toList(),
-          );
-        } else {
-          return Text('Não há ultimas noticias');
-        }
+        // if (snapshot.data.isNotEmpty) {
+        //   return CarouselSlider(
+        //     enableInfiniteScroll: false,
+        //     height: appWidth * .3,
+        //     items: snapshot.data.map((i) {
+        //       return Builder(
+        //         builder: (BuildContext context) {
+        //           return Padding(
+        //             padding: EdgeInsets.only(top: 10, bottom: 10),
+        //             child: GestureDetector(
+        //               onTap: () => Navigator.of(context)
+        //                   .push<CupertinoPageRoute>(CupertinoPageRoute(
+        //                       builder: (context) => NewsDetailsPage(
+        //                             model: i,
+        //                           ))),
+        //               child: Container(
+        //                   width: MediaQuery.of(context).size.width,
+        //                   margin: EdgeInsets.symmetric(horizontal: 5.0),
+        //                   decoration: BoxDecoration(
+        //                       color: Colors.white,
+        //                       borderRadius: BorderRadius.circular(10),
+        //                       boxShadow: [
+        //                         BoxShadow(
+        //                           color: Colors.black12,
+        //                           blurRadius:
+        //                               5.0, // has the effect of softening the shadow
+        //                         )
+        //                       ]),
+        //                   child: Row(
+        //                     children: <Widget>[
+        //                       Hero(
+        //                         tag: i?.title,
+        //                         child: ClipRRect(
+        //                           borderRadius: BorderRadius.only(
+        //                             topLeft: Radius.circular(8),
+        //                             bottomLeft: Radius.circular(8),
+        //                           ),
+        //                           child: Image.network(
+        //                             i?.image ?? '',
+        //                             fit: BoxFit.contain,
+        //                           ),
+        //                         ),
+        //                       ),
+        //                       Expanded(
+        //                         child: Container(
+        //                           padding: EdgeInsets.all(10),
+        //                           child: Column(
+        //                             crossAxisAlignment:
+        //                                 CrossAxisAlignment.start,
+        //                             mainAxisAlignment:
+        //                                 MainAxisAlignment.spaceEvenly,
+        //                             children: <Widget>[
+        //                               Text(
+        //                                 i?.title?.toUpperCase() ?? '',
+        //                                 style: TextStyle(fontSize: 10),
+        //                               ),
+        //                               Text(
+        //                                 i?.text ?? '',
+        //                                 softWrap: true,
+        //                                 maxLines: 3,
+        //                                 overflow: TextOverflow.ellipsis,
+        //                                 style: TextStyle(
+        //                                     fontSize: 11,
+        //                                     color: Colors.black45),
+        //                               ),
+        //                               // )
+        //                             ],
+        //                           ),
+        //                         ),
+        //                       )
+        //                     ],
+        //                   )),
+        //             ),
+        //           );
+        //         },
+        //       );
+        //     }).toList(),
+        //   );
+        // } else {
+        return Text('Não há ultimas noticias');
+        // }
       });
 }

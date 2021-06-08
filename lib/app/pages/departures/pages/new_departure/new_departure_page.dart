@@ -62,7 +62,7 @@ class _NewDeparturePageState extends State<NewDeparturePage> {
                                 _bloc.isLoadingController.add(false);
                                 Navigator.of(context).pop();
                               } else {
-                                Scaffold.of(context).showSnackBar(
+                                ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(
                                     content: Text('Erro ao enviar! :('),
                                     backgroundColor: Colors.red,
